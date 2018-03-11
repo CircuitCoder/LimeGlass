@@ -10,13 +10,14 @@ export default Vue.component('Register', async () => {
       email: '',
       school: '',
       name: '',
+      phone: '',
 
       error: null,
     }),
     methods: {
       async register() {
         this.error = 'HANDLING';
-        if(this.email === '' || this.name === '' || this.school === '') {
+        if(this.email === '' || this.name === '' || this.school === '' || this.phone === '') {
           this.error = 'EMPTY';
           return;
         }
@@ -25,6 +26,7 @@ export default Vue.component('Register', async () => {
           email: this.email,
           school: this.school,
           name: this.name,
+          phone: this.phone,
         });
 
         const payload = await resp.json();
@@ -45,6 +47,9 @@ export default Vue.component('Register', async () => {
         this.error = null;
       },
       school() {
+        this.error = null;
+      },
+      phone() {
         this.error = null;
       },
     }

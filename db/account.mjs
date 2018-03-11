@@ -17,6 +17,7 @@ const Account = new mongoose.Schema({
   salt: String, // We're doing properly this time
   name: String,
   school: String,
+  phone: String,
 
   info: Object,
 });

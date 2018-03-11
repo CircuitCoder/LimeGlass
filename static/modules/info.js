@@ -12,7 +12,6 @@ export default Vue.component('Info', async () => {
     data: () => ({
       sex: null,
       ident: null,
-      phone: null,
       wechat: null,
       qq: null,
       contact: null,
@@ -47,7 +46,7 @@ export default Vue.component('Info', async () => {
     created() {
       if(!this.user.info) return;
       console.log(this.user.info);
-      const list = ['sex', 'ident', 'phone', 'wechat', 'qq', 'contact', 'grad', 'group', 'first', 'second', 'know',
+      const list = ['sex', 'ident', 'wechat', 'qq', 'contact', 'grad', 'group', 'first', 'second', 'know',
           'a11', 'a21', 'a22', 'b1', 'b2', 'spec', 'e1', 'e2', 'e3', 'e4', 'e5', 'g1', 'g2',];
       for(const key of list) this[key] = this.user.info[key];
     },
@@ -61,7 +60,7 @@ export default Vue.component('Info', async () => {
       },
 
       validate() {
-        const list = ['sex', 'ident', 'phone', 'qq', 'grad', 'group', 'first', 'second'];
+        const list = ['sex', 'ident', 'qq', 'grad', 'group', 'first', 'second'];
         if(list.some(k => this[k] === null)) return false;
         if(this.extended && !this.know) return false;
         return true;
@@ -72,7 +71,7 @@ export default Vue.component('Info', async () => {
           alert('请检查是否有必填项未填');
           return;
         }
-        const list = ['sex', 'ident', 'phone', 'wechat', 'qq', 'contact', 'grad', 'group', 'first', 'second', 'know',
+        const list = ['sex', 'ident', 'wechat', 'qq', 'contact', 'grad', 'group', 'first', 'second', 'know',
             'a11', 'a21', 'a22', 'b1', 'b2', 'spec', 'e1', 'e2', 'e3', 'e4', 'e5', 'g1', 'g2',];
         const payload = {};
         for(const key of list) payload[key] = this[key];

@@ -10,6 +10,7 @@ router.post('/', async ctx => {
   account.email = ctx.request.body.email;
   account.name = ctx.request.body.name;
   account.school = ctx.request.body.school;
+  account.phone = ctx.request.body.phone;
 
   const pass = await account.randomPass();
   
