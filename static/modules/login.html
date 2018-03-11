@@ -1,0 +1,16 @@
+<div class="view centering">
+  <div class="form">
+    <div class="block opaque">
+      <div class="seal"></div>
+      <div class="form-heading">登录</div>
+      <input v-model="email" placeholder="邮箱" @keydown.enter="login()">
+      <input v-model="pass" placeholder="密码" type="password" @keydown.enter="login()">
+      <div class="button-row">
+        <button @click="login()">登录</button>
+        <button @click="register()">注册</button>
+      </div>
+    </div>
+    <div class="form-error" :class="{ shown: error === 'EMPTY' }">亲爱的，把信息填全啊</div>
+    <div class="form-error" :class="{ shown: error === 'NOUSER' }">喵喵，找不到符合条件的用户</div>
+  </div>
+</div>

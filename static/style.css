@@ -1,0 +1,126 @@
+body {
+  margin: 0;
+  padding: 0;
+  color: rgba(0,0,0,.87);
+}
+
+.view.centering {
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seal {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 15px;
+
+  background: linear-gradient(45deg,
+                  rgba(0,0,0,.2) 0%, rgba(0,0,0,.2) 25%,
+                  rgba(0,0,0,.4) 25%, rgba(0,0,0,.4) 50%,
+                  rgba(0,0,0,.2) 50%, rgba(0,0,0,.2) 75%,
+                  rgba(0,0,0,.4) 75%, rgba(0,0,0,.4) 100%,
+                  rgba(0,0,0,.2) 100%);
+  background-size: 15px;
+}
+
+.block {
+  border: rgba(0,0,0,.12) 1px solid;
+  padding: 30px 40px;
+  padding-left: 50px;
+  position: relative;
+  box-shadow: rgba(0,0,0,.12) 0 2px 6px;
+  border-radius: 6px;
+  overflow: hidden;
+
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.block.opaque {
+  background: white;
+}
+
+.form {
+  position: relative;
+  width: 360px;
+}
+
+.form-heading {
+  font-size: 24px;
+  line-height: 32px;
+  margin-bottom: 12px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  border-bottom: rgba(0,0,0,.12) 1px solid;
+
+  font-size: 16px;
+  line-height: 20px;
+}
+
+button {
+  margin-top: 10px;
+  background: 0;
+  border: 0;
+  padding: 0;
+  outline: 0;
+  cursor: pointer;
+
+  opacity: .5;
+  font-size: 16px;
+
+  transition: opacity .2s ease;
+
+  border-left: rgba(0,0,0,.3) 5px solid;
+  background: rgba(0,0,0,.12);
+  padding: 5px 10px;
+}
+
+button:hover {
+  opacity: 1;
+}
+
+button:focus {
+  opacity: 1;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-error {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  box-sizing: border-box;
+
+  padding: 15px 20px;
+  border: rgba(0,0,0,.12) 1px solid;
+  box-shadow: rgba(0,0,0,.12) 0 2px 6px;
+  border-radius: 0 0 5px 5px;
+
+  transform: translateY(calc(-100% - 10px));
+  transition: transform .2s ease-in;
+}
+
+.form-error.shown {
+  transform: translateY(-1px);
+  transition: transform .2s ease-out;
+}
+
+.form .block {
+  z-index: 1;
+}

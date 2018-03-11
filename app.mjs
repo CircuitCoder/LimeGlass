@@ -1,5 +1,8 @@
 import config from './config';
+import basedir from './utils/basedir';
 import './db'; // Connect
+
+import path from 'path';
 
 import Koa from 'koa';
 import KoaRouter from 'koa-router';
@@ -11,6 +14,7 @@ app.keys = [ config.secret ];
 
 import KoaBodyparser from 'koa-bodyparser';
 import KoaSession from 'koa-session';
+import KoaStatic from 'koa-static';
 
 app.use(KoaBodyparser());
 app.use(KoaSession({
@@ -26,6 +30,7 @@ router.use(
   );
 
 app.use(router.routes(), router.allowedMethods());
+app.use(KoaStatic(path.resolve(basedir, './static')));
 app.listen(config.port);
 
 console.log(`Listening ${config.port}`);
