@@ -14,7 +14,7 @@ router.post('/', async ctx => {
 
   const pass = await account.randomPass();
   
-  account.info = Info.load().get().map(e => null);
+  account.info = null;
   account.ready = false;
 
   try {
