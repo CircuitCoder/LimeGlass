@@ -10,8 +10,10 @@
   </head>
   <body onload="init()">
     <div id="app">
-      <router-view :user="user" @refresh="user = null">
-      </router-view>
+      <transition mode="out-in" name="fade">
+        <router-view :user="user" @refresh="user = null">
+        </router-view>
+      </transition>
     </div>
   </body>
 </html>

@@ -195,3 +195,15 @@ li {
 .primary-action {
   margin-top: 20px;
 }
+
+.fade-enter-active {
+  transition: opacity .5s ease-out;
+}
+
+.fade-leave-active {
+  transition: opacity .5s ease-out;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
