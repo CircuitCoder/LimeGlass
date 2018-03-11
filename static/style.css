@@ -16,6 +16,7 @@ body {
 .view.page {
   margin: 0 auto;
   padding: 40px;
+  padding-left: 50px;
   max-width: 700px;
 }
 
@@ -32,7 +33,7 @@ body {
                   rgba(0,0,0,.2) 50%, rgba(0,0,0,.2) 75%,
                   rgba(0,0,0,.4) 75%, rgba(0,0,0,.4) 100%,
                   rgba(0,0,0,.2) 100%);
-  background-size: 15px;
+  background-size: 30px 30px;
 }
 
 .block {
@@ -68,12 +69,40 @@ input {
   width: 100%;
   border: 0;
   outline: 0;
-  padding: 10px 0;
+  padding: 5px 0;
   margin-bottom: 10px;
   border-bottom: rgba(0,0,0,.12) 1px solid;
 
   font-size: 16px;
   line-height: 20px;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  display: block;
+  border: rgba(0,0,0,.12) 1px solid;
+  outline: 0;
+  padding: 15px;
+  border-radius: 6px;
+  height: 160px;
+  margin-bottom: 10px;
+
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.input-hint {
+  font-size: 12px;
+  line-height: 16px;
+  margin-bottom: 4px;
+  margin-top: 10px;
+
+  color: rgba(0,0,0,.38);
+}
+
+.input-hint + input {
+  padding-top: 0;
 }
 
 button {
@@ -99,6 +128,10 @@ button:hover {
 }
 
 button:focus {
+  opacity: 1;
+}
+
+button.selected {
   opacity: 1;
 }
 
@@ -132,6 +165,33 @@ button:focus {
 }
 
 .title {
-  font-size: 56px;
-  line-height: 6
+  font-size: 40px;
+  line-height: 52px;
+}
+
+.group {
+  margin: 40px 0;
+}
+
+.hint {
+  font-weight: 16px;
+  color: rgba(0,0,0,.38);
+}
+
+.subtitle {
+  font-size: 20px;
+  margin: 80px 0 20px 0;
+}
+
+.select button {
+  display: block;
+  margin-bottom: 10px;
+}
+
+li {
+  margin: 10px 0;
+}
+
+.primary-action {
+  margin-top: 20px;
 }

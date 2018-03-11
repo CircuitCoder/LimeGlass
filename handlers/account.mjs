@@ -12,6 +12,9 @@ router.post('/', async ctx => {
   account.school = ctx.request.body.school;
 
   const pass = await account.randomPass();
+  
+  account.info = Info.load().get().map(e => null);
+  account.ready = false;
 
   try {
     await account.save(); // TODO: duplicate
@@ -49,12 +52,12 @@ router.post('/password', async ctx => {
 });
 
 router.get('/', async ctx => {
-  console.log(ctx.session);
   if(!ctx.session.uid) return ctx.body = { success: false };
   const account = await Account.findById(ctx.session.uid, {
     school: 1,
     email: 1,
     name: 1,
+    info: 1,
   }).lean();
 
   //if(!account) return ctx.body = { success: false };
@@ -64,6 +67,18 @@ router.get('/', async ctx => {
 
 router.delete('/', async ctx => {
   ctx.session.uid = null;
+  return ctx.body = { success: true };
+});
+
+router.post('/info', async ctx => {
+  if(!ctx.session.uid) return ctx.body = { success: false };
+
+  await Account.findByIdAndUpdate(ctx.session.uid, {
+    $set: {
+      info: ctx.request.body,
+    }
+  });
+  
   return ctx.body = { success: true };
 });
 

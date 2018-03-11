@@ -17,6 +17,8 @@ const Account = new mongoose.Schema({
   salt: String, // We're doing properly this time
   name: String,
   school: String,
+
+  info: Object,
 });
 
 Account.methods.updatePass = async function(plain) {

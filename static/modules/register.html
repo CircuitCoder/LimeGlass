@@ -3,9 +3,12 @@
     <div class="block opaque">
       <div class="seal"></div>
       <div class="form-heading">注册</div>
-      <input v-model="email" placeholder="邮箱" @keydown.enter="register()">
-      <input v-model="name" placeholder="姓名" @keydown.enter="register()">
-      <input v-model="school" placeholder="学校" @keydown.enter="register()">
+      <div class="input-hint">邮箱</div>
+      <input v-model="email" @keydown.enter="register()">
+      <div class="input-hint">姓名</div>
+      <input v-model="name" @keydown.enter="register()">
+      <div class="input-hint">学校</div>
+      <input v-model="school" @keydown.enter="register()">
       <div class="button-row">
         <button @click="register()">注册</button>
         <button @click="login()">登录</button>

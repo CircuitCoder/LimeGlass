@@ -1,0 +1,166 @@
+<div class="view page">
+  <div class="seal"></div>
+  <div class="title">完善个人信息</div>
+
+  <div class="group">
+    <div class="input-hint">性别*</div>
+    <div class="select">
+      <button :class="{ selected: sex === '男' }" @click="sex = '男'">男</button>
+      <button :class="{ selected: sex === '女' }" @click="sex = '女'">女</button>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="input-hint">身份证号*</div>
+    <input v-model="ident">
+  </div>
+
+  <div class="group">
+    <div class="input-hint">手机号*</div>
+    <input v-model="phone">
+  </div>
+
+  <div class="group">
+    <div class="input-hint">微信号</div>
+    <input v-model="wechat">
+  </div>
+
+  <div class="group">
+    <div class="input-hint">QQ号*</div>
+    <input v-model="qq">
+  </div>
+
+  <div class="group">
+    <div class="input-hint">其他联系方式</div>
+    <textarea v-model="contact"></textarea>
+  </div>
+
+  <div class="group">
+    <div class="input-hint">毕业年份*</div>
+    <input v-model="grad">
+  </div>
+
+  <div class="group">
+    <div class="input-hint">团体报名*</div>
+    <div class="select">
+      <button :class="{ selected: group === '是' }" @click="group = '是'">是</button>
+      <button :class="{ selected: group === '否' }" @click="group = '否'">否</button>
+    </div>
+  </div>
+
+  <div class="subtitle">
+    会场志愿
+  </div>
+
+  <div class="group">
+    <div class="input-hint">第一志愿*</div>
+    <div class="select">
+      <button :class="{ selected: first === '危机联动体系' }" @click="first = '危机联动体系'">危机联动体系</button>
+      <button :class="{ selected: first === '独立委员会-大清' }" @click="first = '独立委员会-大清'">独立委员会-大清</button>
+      <button :class="{ selected: first === '独立委员会-两德' }" @click="first = '独立委员会-两德'">独立委员会-两德</button>
+      <button :class="{ selected: first === '独立委员会-法学' }" @click="first = '独立委员会-法学'">独立委员会-法学</button>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="input-hint">第二志愿*</div>
+    <div class="select">
+      <button :class="{ selected: second === '危机联动体系' }" @click="second = '危机联动体系'">危机联动体系</button>
+      <button :class="{ selected: second === '独立委员会-大清' }" @click="second = '独立委员会-大清'">独立委员会-大清</button>
+      <button :class="{ selected: second === '独立委员会-两德' }" @click="second = '独立委员会-两德'">独立委员会-两德</button>
+      <button :class="{ selected: second === '独立委员会-法学' }" @click="second = '独立委员会-法学'">独立委员会-法学</button>
+    </div>
+  </div>
+
+  <div class="group" v-if="extended">
+    <div class="input-hint">您是否较为了解自己所擅长的方向或地区局势*</div>
+    <div class="select">
+      <button :class="{ selected: know === '是' }" @click="know = '是'">是</button>
+      <button :class="{ selected: know === '否' }" @click="know = '否'">否</button>
+    </div>
+  </div>
+
+  <div v-if="filling">
+    <div class="subtitle">请从下列地区中选择您最了解的一个地区以及次了解的至多两个地区（可空缺）</div>
+    <ul>
+      <li>A 东亚</li>
+      <li>B 东南亚与南亚</li>
+      <li>C 中亚、中东与北非</li>
+      <li>D 东欧</li>
+      <li>E 西欧（广义）</li>
+      <li>F 非洲大陆</li>
+      <li>G 美国与加拿大</li>
+      <li>F 拉丁美洲</li>
+    </ul>
+
+    <div class="group">
+      <div class="input-hint">最擅长</div>
+      <input v-model="a11">
+    </div>
+
+    <div class="group">
+      <div class="input-hint">次擅长</div>
+      <input v-model="a21">
+    </div>
+
+    <div class="group">
+      <div class="input-hint">次擅长</div>
+      <input v-model="a22">
+    </div>
+
+    <div class="subtitle">请从下列四个方向中选择您最擅长的一个方向与次擅长的一个方向（可空缺）</div>
+    <ul>
+      <li>外交</li>
+      <li>经济</li>
+      <li>军事</li>
+      <li>内政</li>
+      <li>媒体</li>
+    </ul>
+
+    <div class="group">
+      <div class="input-hint">最擅长</div>
+      <input v-model="b1">
+    </div>
+
+    <div class="group">
+      <div class="input-hint">次擅长</div>
+      <input v-model="b2">
+    </div>
+  </div>
+
+  <div class="subtitle">专长</div>
+  <div class="group">
+    <div class="input-hint">请填写你其他较为擅长的方向或专长（如“安理会”“能源”“大宗商品贸易”等 多个方向或专长请以“&amp;&amp;”符号分隔）</div>
+    <input v-model="spec">
+  </div>
+
+  <div class="subtitle">参会经历（请至多填写五条您的标志性参会经历）</div>
+  <div class="group">
+    <div class="input-hint">1</div>
+    <input v-model="e1">
+    <div class="input-hint">2</div>
+    <input v-model="e2">
+    <div class="input-hint">3</div>
+    <input v-model="e3">
+    <div class="input-hint">4</div>
+    <input v-model="e4">
+    <div class="input-hint">5</div>
+    <input v-model="e5">
+  </div>
+
+  <div class="subtitle">模联社团经历、模联组织经历或其他社团经历（请至多填写两条）</div>
+  <div class="group">
+    <div class="input-hint">1</div>
+    <input v-model="g1">
+    <div class="input-hint">2</div>
+    <input v-model="g2">
+  </div>
+
+  <button @click="submit">提交</button>
+
+  <div class="hint">
+    <p>注1：您需要在席位与缴费系统中完成面试、缴费与学测三项后方可获得席位。</p>
+    <p>注2：团队报名代表请主动联络领队按要求填写“团队人员信息表格”。</p>
+    <p>注3：以第一志愿为危机联动且尝试组阁的代表，请组阁候选首代将候选组阁人员名单以及目标内阁发至hello@romun.net（请在邮件标题中标明“某某内阁组阁”）。只有以危机联动为第一志愿的代表可尝试组阁。</p>
+  </div>
+</div>

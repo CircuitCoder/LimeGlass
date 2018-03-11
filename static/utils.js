@@ -13,8 +13,9 @@ export function post(url, data) {
   });
 }
 
-export function get(url) {
+export function get(url, method='get') {
   return fetch(url, {
+    method,
     credentials: "same-origin",
   });
 }

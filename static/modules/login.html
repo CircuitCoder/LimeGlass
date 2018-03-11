@@ -3,8 +3,10 @@
     <div class="block opaque">
       <div class="seal"></div>
       <div class="form-heading">登录</div>
-      <input v-model="email" placeholder="邮箱" @keydown.enter="login()">
-      <input v-model="pass" placeholder="密码" type="password" @keydown.enter="login()">
+      <div class="input-hint">邮箱</div>
+      <input v-model="email" @keydown.enter="login()">
+      <div class="input-hint">密码</div>
+      <input v-model="pass" type="password" @keydown.enter="login()">
       <div class="button-row">
         <button @click="login()">登录</button>
         <button @click="register()">注册</button>
