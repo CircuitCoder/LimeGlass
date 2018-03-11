@@ -41,12 +41,13 @@ router.post('/login', async ctx => {
   return ctx.body = { success: true };
 });
 
-router.post('/password', async ctx => {
+router.post('/pass', async ctx => {
   if(!ctx.session.uid) return ctx.body = { success: false };
   const account = await Account.findById(ctx.session.uid);
   if(!account) return ctx.body = { success: false };
 
-  account.updatePass(ctx.request.body.pass);
+  if(!account.validatePass(ctx.request.body.original)) return ctx.body = { success: false };
+  await account.updatePass(ctx.request.body.pass);
   await account.save();
 
   return ctx.body = { success: true };

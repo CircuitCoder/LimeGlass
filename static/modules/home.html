@@ -6,4 +6,11 @@
     <button @click="$router.push({ name: 'info' })">修改个人信息</button>
     <button @click="logout()">登出</button>
   </div>
+
+  <div class="subtitle">修改密码</div>
+  <div class="input-hint">原密码</div>
+  <input v-model="oldpass" type="password">
+  <div class="input-hint">新密码</div>
+  <input v-model="newpass" type="password">
+  <button @click="updatePass()">修改密码</button>
 </div>
