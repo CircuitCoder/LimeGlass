@@ -13,6 +13,12 @@ body {
   justify-content: center;
 }
 
+.view.page {
+  margin: 0 auto;
+  padding: 40px;
+  max-width: 700px;
+}
+
 .seal {
   position: absolute;
   left: 0;
@@ -123,4 +129,9 @@ button:focus {
 
 .form .block {
   z-index: 1;
+}
+
+.title {
+  font-size: 56px;
+  line-height: 6
 }

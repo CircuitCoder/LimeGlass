@@ -9,6 +9,7 @@ router.post('/', async ctx => {
   const account = new Account();
   account.email = ctx.request.body.email;
   account.name = ctx.request.body.name;
+  account.school = ctx.request.body.school;
 
   const pass = await account.randomPass();
 
@@ -48,6 +49,7 @@ router.post('/password', async ctx => {
 });
 
 router.get('/', async ctx => {
+  console.log(ctx.session);
   if(!ctx.session.uid) return ctx.body = { success: false };
   const account = await Account.findById(ctx.session.uid, {
     school: 1,
@@ -55,7 +57,7 @@ router.get('/', async ctx => {
     name: 1,
   }).lean();
 
-  if(!account) return ctx.body = { success: false };
+  //if(!account) return ctx.body = { success: false };
 
   return ctx.body = { success: true, payload: account };
 });

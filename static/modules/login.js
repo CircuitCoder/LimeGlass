@@ -10,30 +10,39 @@ export default Vue.component('Login', async () => {
       email: '',
       pass: '',
 
-      error: null,
+      innerError: null,
     }),
     methods: {
       async login() {
-        this.error = null;
+        this.innerError = '';
         if(this.email === '' || this.pass === '') {
-          this.error = 'EMPTY';
+          this.innerError = 'EMPTY';
           return;
         }
 
         const resp = await post('/account/login', { email: this.email, pass: this.pass });
         const payload = await resp.json();
 
-        if(!payload.success) this.error = 'NOUSER';
-        else this.$emit('online');
+        if(!payload.success) this.innerError = 'NOUSER';
+        else this.$router.push({ path: this.$route.query.redirect || '/' });
+      },
+      register() {
+        this.$router.push({ name: 'register' });
       },
     },
     watch: {
       email() {
-        this.error = null;
+        this.innerError = '';
       },
       pass() {
-        this.error = null;
+        this.innerError = '';
       }
-    }
+    },
+    computed: {
+      error() {
+        if(this.innerError !== null) return this.innerError;
+        return this.$route.query.error || null;
+      },
+    },
   };
 });
