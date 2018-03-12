@@ -6,6 +6,7 @@ body {
 
 #app {
   position: relative;
+  min-height: 100vh;
 }
 
 .view.centering {
@@ -102,7 +103,7 @@ textarea {
   margin-bottom: 4px;
   margin-top: 10px;
 
-  color: rgba(0,0,0,.38);
+  color: rgba(0,0,0,.54);
 }
 
 .input-hint + input {
@@ -178,7 +179,7 @@ button.selected {
 }
 
 .hint {
-  font-weight: 16px;
+  font-size: 12px;
   color: rgba(0,0,0,.38);
 }
 
