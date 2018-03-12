@@ -42,13 +42,19 @@ export default Vue.component('Info', async () => {
       g2: null,
 
       curThr: null,
+      ready: false,
     }),
     created() {
       if(!this.user.info) return;
-      console.log(this.user.info);
+
+      // Displaying mode
+      this.ready = true;
       const list = ['sex', 'ident', 'wechat', 'qq', 'contact', 'grad', 'group', 'first', 'second', 'know',
           'a11', 'a21', 'a22', 'b1', 'b2', 'spec', 'e1', 'e2', 'e3', 'e4', 'e5', 'g1', 'g2',];
-      for(const key of list) this[key] = this.user.info[key];
+      for(const key of list) {
+        this[key] = this.user.info[key];
+        if(!this[key]) this[key] = '[[ 未填写 ]]';
+      }
     },
     methods: {
       throttle() {
