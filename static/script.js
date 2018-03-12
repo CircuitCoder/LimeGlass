@@ -60,7 +60,7 @@ const desc = {
 };
 
 
-function init() {
+export default function init() {
   instance = new Vue(desc);
   instance.$mount('#app');
 }

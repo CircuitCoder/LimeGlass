@@ -31,11 +31,11 @@ router.use(
   );
 
 app.use(router.routes(), router.allowedMethods());
-app.use(KoaStatic(path.resolve(basedir, './static')));
+app.use(KoaStatic(path.resolve(basedir, './static-dest')));
 
 const fallback = new KoaRouter();
 fallback.get('*', async ctx => {
-  await KoaSend(ctx, 'static/index.html');
+  await KoaSend(ctx, 'static-dest/index.html');
 });
 app.use(fallback.routes(), fallback.allowedMethods());
 

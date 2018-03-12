@@ -1,0 +1,39 @@
+{
+  "name": "limeglass",
+  "version": "1.0.0",
+  "description": "LimeGlass",
+  "main": "app.mjs",
+  "dependencies": {
+    "handlebars": "^4.0.11",
+    "juice": "^4.2.3",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "koa-send": "^4.1.3",
+    "koa-session": "^5.8.1",
+    "koa-static": "^4.0.2",
+    "mongoose": "^5.0.9",
+    "nodemailer": "^4.6.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
+    "babel-preset-env": "^1.6.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --experimental-modules app.mjs",
+    "build": "babel static -d static-dest -D -s",
+    "watch": "babel static -d static-dest -D -s --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CircuitCoder/LimeGlass.git"
+  },
+  "author": "Liu Xiaoyi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CircuitCoder/LimeGlass/issues"
+  },
+  "homepage": "https://github.com/CircuitCoder/LimeGlass#readme"
+}

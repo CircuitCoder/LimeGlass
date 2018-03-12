@@ -3,3 +3,5 @@ node_modules
 .*.sw[a-p]
 
 config.mjs
+
+static-dest
