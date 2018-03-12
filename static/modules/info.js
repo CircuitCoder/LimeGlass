@@ -90,7 +90,7 @@ export default Vue.component('Info', async () => {
         return this.first === '危机联动体系' || this.second === '危机联动体系';
       },
       filling() {
-        return this.extended && this.know;
+        return this.extended && this.know === '是';
       },
     }
   };
