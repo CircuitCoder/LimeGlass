@@ -10,7 +10,7 @@
       <div class="input-hint">手机</div>
       <input v-model="phone" @keydown.enter="register()">
       <div class="input-hint">学校</div>
-      <input v-model="school" @keydown.enter="register()">
+      <input v-model="school" @keydown.enter="register()" placeholder="请填写全称">
       <div class="button-row">
         <button @click="register()">注册</button>
         <button @click="login()">登录</button>
