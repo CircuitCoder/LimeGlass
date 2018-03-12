@@ -135,6 +135,13 @@ button {
   border-left: rgba(0,0,0,.3) 5px solid;
   background: rgba(0,0,0,.12);
   padding: 5px 10px;
+  color: rgba(0,0,0,.87);
+}
+
+button.primary {
+  border-left: rgba(54,127,26,.4) 5px solid;
+  background: rgba(54,127,26,.18);
+  color: rgba(20,48,10,.87);
 }
 
 button:not(:disabled):hover {

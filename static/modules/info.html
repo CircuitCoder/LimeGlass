@@ -4,7 +4,7 @@
 
   <div class="hint" v-if="ready">提交之后的信息无法更改</div>
 
-  <button v-if="ready" @click="$router.push({ name: 'home' })">返回首页</button>
+  <button v-if="ready" @click="$router.push({ name: 'home' })" class="primary">返回首页</button>
 
   <div class="group">
     <div class="input-hint">性别*</div>
@@ -155,8 +155,8 @@
     <input v-model="g2" :disabled="ready">
   </div>
 
-  <button @click="submit" v-if="!ready">提交</button>
-  <button v-if="ready" @click="$router.push({ name: 'home' })">返回首页</button>
+  <button @click="submit" v-if="!ready" class="primary">提交</button>
+  <button v-if="ready" @click="$router.push({ name: 'home' })" class="primary">返回首页</button>
 
   <div class="hint">
     <p>注1：您需要在席位与缴费系统中完成面试、缴费与学测三项后方可获得席位。</p>
