@@ -16,6 +16,11 @@ import KoaBodyparser from 'koa-bodyparser';
 import KoaSession from 'koa-session';
 import KoaStatic from 'koa-static';
 import KoaSend from 'koa-send';
+import KoaEtag from 'koa-etag';
+import KoaConditionalGet from 'koa-conditional-get';
+
+app.use(KoaConditionalGet());
+app.use(KoaEtag());
 
 app.use(KoaBodyparser());
 app.use(KoaSession({
