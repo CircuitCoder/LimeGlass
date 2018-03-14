@@ -1,4 +1,4 @@
-import { tmpl, post } from '../utils.js'
+import { tmpl, get } from '../utils.js'
 
 const THR = 1000;
 
@@ -44,15 +44,22 @@ export default Vue.component('Info', async () => {
       curThr: null,
       ready: false,
     }),
-    created() {
-      if(!this.user.info) return;
+    async created() {
+      let src;
+
+      if(this.$route.query._id !== undefined)
+        src = await (await get(`/admin/info/${this.$route.query._id}`)).json();
+      else {
+        if(!this.user.info) return;
+        src = this.user.info;
+      }
 
       // Displaying mode
       this.ready = true;
       const list = ['sex', 'ident', 'wechat', 'qq', 'contact', 'grad', 'group', 'first', 'second', 'know',
           'a11', 'a21', 'a22', 'b1', 'b2', 'spec', 'e1', 'e2', 'e3', 'e4', 'e5', 'g1', 'g2',];
       for(const key of list) {
-        this[key] = this.user.info[key];
+        this[key] = src[key];
         if(!this[key]) this[key] = '[[ 未填写 ]]';
       }
     },
