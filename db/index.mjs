@@ -22,7 +22,7 @@ async function initAdmin() {
   admin.phone = '00000000';
   const pass = await admin.randomPass();
   admin.isAdmin = true;
-  admin.info = {};
+  admin.info = { admin: true }; // TODO: why doesn't empty ones work?
 
   await admin.save();
 

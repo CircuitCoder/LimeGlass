@@ -25,7 +25,7 @@ const Account = new mongoose.Schema({
   },
 
   info: Object,
-});
+}, { minimize: false });
 
 Account.methods.updatePass = async function(plain) {
   this.salt = (await util.promisify(crypto.randomBytes)(16)).toString('hex');
