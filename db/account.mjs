@@ -19,6 +19,11 @@ const Account = new mongoose.Schema({
   school: String,
   phone: String,
 
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+
   info: Object,
 });
 

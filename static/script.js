@@ -4,6 +4,7 @@ import Login from './modules/login.js';
 import Register from './modules/register.js';
 import Home from './modules/home.js';
 import Info from './modules/info.js';
+import List from './modules/list.js';
 
 let instance;
 
@@ -15,6 +16,8 @@ const routes = [
   { path: '/login', component: Login, name: 'login', meta: { noAuth: true }, },
   { path: '/register', component: Register, name: 'register', meta: { noAuth: true }, },
   { path: '/info', component: Info, name: 'info', },
+
+  { path: '/list', component: List, name: 'list', },
 ];
 
 const router = new VueRouter({

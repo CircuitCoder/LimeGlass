@@ -2,8 +2,9 @@
   <div class="seal"></div>
   <div class="title">欢迎，{{ user.name }}</div>
   <div class="hint">当前没有新消息，请关注邮件通知，了解您的学测、面试状态更新</div>
-  <div class="button-row primary-action">
+  <div class="select primary-action">
     <button @click="$router.push({ name: 'info' })">查看个人信息</button>
+    <button @click="$router.push({ name: 'list' })" v-if="user.isAdmin">注册列表</button>
     <button @click="logout()">登出</button>
   </div>
 

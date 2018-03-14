@@ -28,6 +28,7 @@ app.use(KoaSession({
 }, app));
 
 import Account from './handlers/account';
+import Admin from './handlers/admin';
 
 router.use(
   '/account',
@@ -35,6 +36,11 @@ router.use(
   Account.allowedMethods(),
   );
 
+router.use(
+  '/admin',
+  Admin.routes(),
+  Admin.allowedMethods(),
+  );
 app.use(router.routes(), router.allowedMethods());
 app.use(KoaStatic(path.resolve(basedir, './static-dest')));
 

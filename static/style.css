@@ -165,6 +165,11 @@ button:disabled {
   justify-content: space-between;
 }
 
+.text-link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .form-error {
   position: absolute;
   left: 15px;
@@ -219,6 +224,30 @@ li {
 }
 
 .primary-action {
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-spacing: 0;
+  border: rgba(0,0,0,.12) 1px solid;
+}
+
+td, th {
+  padding: 10px 15px;
+  text-align: left;
+  border-right: rgba(0,0,0,.12) 1px solid;
+}
+
+td:last-child, th:last-child {
+  border-right: none;
+}
+
+tr:nth-child(2n+1) {
+  background: rgba(0,0,0,.08);
+}
+
+.primary-table {
   margin-top: 20px;
 }
 

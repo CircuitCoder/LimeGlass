@@ -1,0 +1,27 @@
+<div class="view page">
+  <div class="seal"></div>
+  <div class="title">管理::注册列表</div>
+  <table class="primary-table">
+    <thead>
+      <th>邮箱</th>
+      <th>名</th>
+      <th>学校</th>
+      <th>手机</th>
+      <th>填写信息?</th>
+    </thead>
+    <tbody>
+      <tr v-for="entry of list" :key="entry._id">
+        <td>{{ entry.email }}</td>
+        <td>{{ entry.name }}</td>
+        <td>{{ entry.school }}</td>
+        <td>{{ entry.phone }}</td>
+        <router-link
+          class="text-link"
+          tag="td"
+          v-if="entry.info"
+          :to="{ name: 'info', query: { _id: entry._id } }">是</router-link>
+        <td v-if="!entry.info">否</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
