@@ -1,23 +1,39 @@
-<div class="view centering">
-  <div class="form">
-    <div class="block opaque">
-      <div class="seal"></div>
-      <div class="form-heading">注册</div>
-      <div class="input-hint">邮箱</div>
-      <input v-model="email" @keydown.enter="register()">
-      <div class="input-hint">姓名</div>
-      <input v-model="name" @keydown.enter="register()">
-      <div class="input-hint">手机</div>
-      <input v-model="phone" @keydown.enter="register()">
-      <div class="input-hint">学校</div>
-      <input v-model="school" @keydown.enter="register()" placeholder="请填写全称">
-      <div class="button-row">
-        <button @click="register()" class="primary">注册</button>
-        <button @click="login()">登录</button>
+<div>
+  <transition name="fade" mode="out-in">
+    <div class="view centering" key="reg" v-if="!fillingInfo">
+      <div class="form">
+        <div class="block opaque">
+          <div class="seal"></div>
+          <div class="form-heading">注册</div>
+          <div class="input-hint">邮箱</div>
+          <input v-model="email" @keydown.enter="gotoInfo()">
+          <div class="input-hint">姓名</div>
+          <input v-model="name" @keydown.enter="gotoInfo()">
+          <div class="input-hint">手机</div>
+          <input v-model="phone" @keydown.enter="gotoInfo()">
+          <div class="input-hint">学校</div>
+          <input v-model="school" @keydown.enter="gotoInfo()" placeholder="请填写全称">
+          <div class="button-row">
+            <button @click="gotoInfo()" class="primary">填写个人信息</button>
+            <button @click="login()">登录</button>
+          </div>
+        </div>
+        <div class="form-error" :class="{ shown: error === 'EMPTY' }">亲爱的，把信息填全啊</div>
+        <div class="form-error" :class="{ shown: error === 'DUP' }">已经有人用这个邮箱注册过啦</div>
+        <div class="form-error" :class="{ shown: error === 'HANDLING' }">处理中...</div>
       </div>
     </div>
-    <div class="form-error" :class="{ shown: error === 'EMPTY' }">亲爱的，把信息填全啊</div>
-    <div class="form-error" :class="{ shown: error === 'DUP' }">已经有人用这个邮箱注册过啦</div>
-    <div class="form-error" :class="{ shown: error === 'HANDLING' }">处理中...</div>
-  </div>
+    <div class="view page" key="page" v-else>
+      <div class="seal"></div>
+      <div class="title">完善个人信息</div>
+      <div class="hint">提交之后的信息无法更改</div>
+      <info v-model="info" ref="info"></info>
+      <button @click="register" class="primary">提交注册</button>
+      <div class="hint">
+        <p>注1：您需要在席位与缴费系统中完成面试、缴费与学测三项后方可获得席位。</p>
+        <p>注2：团队报名代表请主动联络领队按要求填写“团队人员信息表格”。</p>
+        <p>注3：以第一志愿为危机联动且尝试组阁的代表，请组阁候选首代将候选组阁人员名单以及目标内阁发至hello@romun.net（请在邮件标题中标明“某某内阁组阁”）。只有以危机联动为第一志愿的代表可尝试组阁。</p>
+      </div>
+    </div>
+  </transition>
 </div>

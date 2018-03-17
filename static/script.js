@@ -9,10 +9,7 @@ import List from './modules/list.js';
 let instance;
 
 const routes = [
-  { path: '/', component: Home, name: 'home', beforeEnter: (to, from, next) => {
-    if(!instance.user.info) return next({ name: 'info' });
-    else return next();
-  } },
+  { path: '/', component: Home, name: 'home', },
   { path: '/login', component: Login, name: 'login', meta: { noAuth: true }, },
   { path: '/register', component: Register, name: 'register', meta: { noAuth: true }, },
   { path: '/info', component: Info, name: 'info', },
@@ -56,8 +53,6 @@ const desc = {
     registered() {
       this.defaultError = 'REG';
       this.$router.push({ name: 'login' });
-    },
-    online() {
     },
   }
 };

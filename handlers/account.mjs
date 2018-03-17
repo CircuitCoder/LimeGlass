@@ -7,15 +7,14 @@ const router = new KoaRouter();
 
 router.post('/', async ctx => {
   const account = new Account();
+  // TODO: verify incoming request
   account.email = ctx.request.body.email;
   account.name = ctx.request.body.name;
   account.school = ctx.request.body.school;
   account.phone = ctx.request.body.phone;
+  account.info = ctx.request.body.info;
 
   const pass = await account.randomPass();
-  
-  account.info = null;
-  account.ready = false;
 
   try {
     await account.save(); // TODO: duplicate
@@ -73,6 +72,8 @@ router.delete('/', async ctx => {
   return ctx.body = { success: true };
 });
 
+// Disabled for now
+/*
 router.post('/info', async ctx => {
   if(!ctx.session.uid) return ctx.body = { success: false };
 
@@ -84,5 +85,6 @@ router.post('/info', async ctx => {
   
   return ctx.body = { success: true };
 });
+*/
 
 export default router;

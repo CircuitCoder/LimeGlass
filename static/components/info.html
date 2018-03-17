@@ -1,0 +1,150 @@
+<div>
+  <div class="group">
+    <div class="input-hint">性别*</div>
+    <div class="select">
+      <button :class="{ selected: info.sex === '男' }" :disabled="ready" @click="info.sex = '男'">男</button>
+      <button :class="{ selected: info.sex === '女' }" :disabled="ready" @click="info.sex = '女'">女</button>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="input-hint">身份证号*</div>
+    <input v-model="info.ident" :disabled="ready">
+  </div>
+
+  <div class="group">
+    <div class="input-hint">微信号</div>
+    <input v-model="info.wechat" :disabled="ready">
+  </div>
+
+  <div class="group">
+    <div class="input-hint">QQ号*</div>
+    <input v-model="info.qq" :disabled="ready">
+  </div>
+
+  <div class="group">
+    <div class="input-hint">其他联系方式</div>
+    <textarea v-model="info.contact" :disabled="ready"></textarea>
+  </div>
+
+  <div class="group">
+    <div class="input-hint">毕业年份*</div>
+    <input v-model="info.grad" :disabled="ready">
+  </div>
+
+  <div class="group">
+    <div class="input-hint">团体报名*</div>
+    <div class="select">
+      <button :class="{ selected: info.group === '是' }" :disabled="ready" @click="info.group = '是'">是</button>
+      <button :class="{ selected: info.group === '否' }" :disabled="ready" @click="info.group = '否'">否</button>
+    </div>
+  </div>
+
+  <div class="subtitle">
+    会场志愿
+  </div>
+
+  <div class="group">
+    <div class="input-hint">第一志愿*</div>
+    <div class="select">
+      <button :class="{ selected: info.first === '危机联动体系' }" :disabled="ready" @click="info.first = '危机联动体系'">危机联动体系</button>
+      <button :class="{ selected: info.first === '独立委员会-大清' }" :disabled="ready" @click="info.first = '独立委员会-大清'">独立委员会-大清</button>
+      <button :class="{ selected: info.first === '独立委员会-两德' }" :disabled="ready" @click="info.first = '独立委员会-两德'">独立委员会-两德</button>
+      <button :class="{ selected: info.first === '独立委员会-法学' }" :disabled="ready" @click="info.first = '独立委员会-法学'">独立委员会-法学</button>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="input-hint">第二志愿*</div>
+    <div class="select">
+      <button :class="{ selected: info.second === '危机联动体系' }" :disabled="ready" @click="info.second = '危机联动体系'">危机联动体系</button>
+      <button :class="{ selected: info.second === '独立委员会-大清' }" :disabled="ready" @click="info.second = '独立委员会-大清'">独立委员会-大清</button>
+      <button :class="{ selected: info.second === '独立委员会-两德' }" :disabled="ready" @click="info.second = '独立委员会-两德'">独立委员会-两德</button>
+      <button :class="{ selected: info.second === '独立委员会-法学' }" :disabled="ready" @click="info.second = '独立委员会-法学'">独立委员会-法学</button>
+    </div>
+  </div>
+
+  <div class="group" v-if="extended">
+    <div class="input-hint">您是否较为了解自己所擅长的方向或地区局势*</div>
+    <div class="select">
+      <button :class="{ selected: info.know === '是' }" :disabled="ready" @click="info.know = '是'">是</button>
+      <button :class="{ selected: info.know === '否' }" :disabled="ready" @click="info.know = '否'">否</button>
+    </div>
+  </div>
+
+  <div v-if="filling">
+    <div class="subtitle">请从下列地区中选择您最了解的一个地区以及次了解的至多两个地区（可空缺）</div>
+    <ul>
+      <li>A 东亚</li>
+      <li>B 东南亚与南亚</li>
+      <li>C 中亚、中东与北非</li>
+      <li>D 东欧</li>
+      <li>E 西欧（广义）</li>
+      <li>F 非洲大陆</li>
+      <li>G 美国与加拿大</li>
+      <li>F 拉丁美洲</li>
+    </ul>
+
+    <div class="group">
+      <div class="input-hint">最擅长</div>
+      <input v-model="info.a11" :disabled="ready">
+    </div>
+
+    <div class="group">
+      <div class="input-hint">次擅长</div>
+      <input v-model="info.a21" :disabled="ready">
+    </div>
+
+    <div class="group">
+      <div class="input-hint">次擅长</div>
+      <input v-model="info.a22" :disabled="ready">
+    </div>
+
+    <div class="subtitle">请从下列四个方向中选择您最擅长的一个方向与次擅长的一个方向（可空缺）</div>
+    <ul>
+      <li>外交</li>
+      <li>经济</li>
+      <li>军事</li>
+      <li>内政</li>
+      <li>媒体</li>
+    </ul>
+
+    <div class="group">
+      <div class="input-hint">最擅长</div>
+      <input v-model="info.b1" :disabled="ready">
+    </div>
+
+    <div class="group">
+      <div class="input-hint">次擅长</div>
+      <input v-model="info.b2" :disabled="ready">
+    </div>
+
+    <div class="subtitle">专长</div>
+    <div class="group">
+      <div class="input-hint">请填写你其他较为擅长的方向或专长（如“安理会”“能源”“大宗商品贸易”等 多个方向或专长请以“&amp;&amp;”符号分隔）</div>
+      <input v-model="info.spec" :disabled="ready">
+    </div>
+  </div>
+
+  <div class="subtitle">参会经历（请至多填写五条您的标志性参会经历）</div>
+  <div class="group">
+    <div class="input-hint">1</div>
+    <input v-model="info.e1" :disabled="ready">
+    <div class="input-hint">2</div>
+    <input v-model="info.e2" :disabled="ready">
+    <div class="input-hint">3</div>
+    <input v-model="info.e3" :disabled="ready">
+    <div class="input-hint">4</div>
+    <input v-model="info.e4" :disabled="ready">
+    <div class="input-hint">5</div>
+    <input v-model="info.e5" :disabled="ready">
+  </div>
+
+  <div class="subtitle">模联社团经历、模联组织经历或其他社团经历（请至多填写两条）</div>
+  <div class="group">
+    <div class="input-hint">1</div>
+    <input v-model="info.g1" :disabled="ready">
+    <div class="input-hint">2</div>
+    <input v-model="info.g2" :disabled="ready">
+  </div>
+</div>

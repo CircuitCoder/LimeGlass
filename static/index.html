@@ -5,7 +5,7 @@
     <title>LimeGlass</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-beta.3/polyfill.min.js"></script>
-    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
     <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
     <script src="https://cdn.bootcss.com/require.js/2.3.5/require.min.js"></script>
     <script>
@@ -20,7 +20,9 @@
   <body onload="_init()">
     <div id="app">
       <transition mode="out-in" name="fade">
-        <router-view :user="user" @refresh="user = null">
+        <router-view
+          :user="user"
+          @refresh="user = null">
         </router-view>
       </transition>
     </div>
