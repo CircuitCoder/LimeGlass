@@ -37,7 +37,14 @@ router.get('/list', async ctx => {
 router.get('/info/:id', async ctx => {
   const id = mongoose.Types.ObjectId(ctx.params.id);
   const result = await Account.findById(ctx.params.id, { info: 1 });
-  return ctx.body = result.info;
+  if(result.info)
+    return ctx.body = result.info;
+  else return ctx.status = 404;
+});
+
+router.post('/info/:id', async ctx => {
+  await Account.findByIdAndUpdate(ctx.params.id, { $set: { info: ctx.request.body } });
+  return ctx.body = { success: true };
 });
 
 export default router;

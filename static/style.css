@@ -247,6 +247,11 @@ tr:nth-child(2n+1) {
   background: rgba(0,0,0,.08);
 }
 
+small {
+  font-size: 0.6em;
+  color: rgba(0,0,0,.38);
+}
+
 .primary-table {
   margin-top: 20px;
 }

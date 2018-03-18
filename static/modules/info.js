@@ -14,13 +14,18 @@ export default Vue.component('Info', async () => {
     data: () => ({
       info: {},
       edit: false,
+      admin: false,
     }),
     async created() {
       let src;
 
-      if(this.$route.query._id !== undefined)
-        src = await (await get(`/admin/info/${this.$route.query._id}`)).json();
-      else {
+      if(this.$route.query._id !== undefined) {
+        const resp = await get(`/admin/info/${this.$route.query._id}`);
+        if(resp.status === 404)
+          src = null;
+        else
+          src = await resp.json();
+      } else {
         src = this.user.info;
       }
 
@@ -29,19 +34,29 @@ export default Vue.component('Info', async () => {
         if(!src) src={};
       }
 
+      if(this.$route.query.admin) {
+        this.admin = true;
+        if(!src) src={};
+      }
+
       const list = ['sex', 'ident', 'wechat', 'qq', 'contact', 'grad', 'group', 'first', 'second', 'know',
           'a11', 'a21', 'a22', 'b1', 'b2', 'spec', 'e1', 'e2', 'e3', 'e4', 'e5', 'g1', 'g2',];
       for(const key of list) {
         this.info[key] = src[key];
-        if(!this.edit) if(!this.info[key]) this.info[key] = '[[ 未填写 ]]';
+        if(!this.admin && !this.edit) if(!this.info[key]) this.info[key] = '[[ 未填写 ]]';
       }
     },
     methods: {
       async submit() {
         const resp = await post('/account/info', this.info);
         const jresp = await resp.json();
-        console.log(jresp);
+        this.$router.push({ name: 'home' });
       },
+      async adminSubmit() {
+        const resp = await post(`/admin/info/${this.$route.query._id}`, this.info);
+        const jresp = await resp.json();
+        alert('更新成功');
+      }
     },
   };
 });

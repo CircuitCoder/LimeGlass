@@ -1,12 +1,19 @@
 <div class="view page">
   <div class="seal"></div>
-  <div class="title" v-if="!edit">查看个人信息</div>
-  <button @click="$router.push({ name: 'home' })" v-if="!edit" class="primary">返回首页</button>
+  <div class="title" v-if="!admin && !edit">查看个人信息</div>
+  <button @click="$router.push({ name: 'home' })" v-if="!admin && !edit" class="primary">返回首页</button>
   <div class="title" v-if="edit">完善个人信息</div>
   <div class="hint" v-if="edit">提交之后的信息无法更改</div>
-  <info v-model="info" :ready="!edit"></info>
-  <button @click="$router.push({ name: 'home' })" v-if="!edit" class="primary">返回首页</button>
+
+  <div class="title" v-if="admin">查看/修改个人信息 <small>{{ $route.query.name }}</small></div>
+
+  <info v-model="info" :ready="!admin && !edit"></info>
+
+  <button @click="$router.push({ name: 'home' })" v-if="!admin && !edit" class="primary">返回首页</button>
   <button @click="submit()" v-if="edit" class="primary">提交</button>
+
+  <button @click="adminSubmit()" v-if="admin" class="primary">更新</button>
+
   <div class="hint" v-if="edit">
     <p>注1：您需要在席位与缴费系统中完成面试、缴费与学测三项后方可获得席位。</p>
     <p>注2：团队报名代表请主动联络领队按要求填写“团队人员信息表格”。</p>
