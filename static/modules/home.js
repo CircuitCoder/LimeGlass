@@ -35,6 +35,7 @@ export default Vue.component('Home', async () => {
 
       async logout() {
         await get('/account', 'delete');
+        this.$emit('refresh');
         this.$router.push({ name: 'login' });
       }
     },
