@@ -11,7 +11,6 @@
     <script>
     function _init() {
       require(['script.js'], function(init) {
-        console.log(init);
         init.default();
       });
     }
@@ -21,8 +20,7 @@
     <div id="app">
       <transition mode="out-in" name="fade">
         <router-view
-          :user="user"
-          @refresh="user = null">
+          :user="user">
         </router-view>
       </transition>
     </div>

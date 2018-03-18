@@ -1,4 +1,5 @@
 import { get } from './utils.js';
+import bus from '../bus.js';
 
 import Login from './modules/login.js';
 import Register from './modules/register.js';
@@ -28,20 +29,21 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if(instance && instance.user) return next();
   if(to.matched.every(e => e.meta.noAuth)) return next();
-  get('/account')
-    .then(resp => resp.json())
-    .then(payload => {
-      if(payload.success) {
-        instance.user = payload.payload;
+
+  // Wait for one tick
+  setTimeout(() =>
+    instance.refresh().then(result => {
+      if(result) {
         return next();
+      } else {
+        next({
+          name: 'login',
+          query: {
+            redirect: to.path
+          },
+        });
       }
-      else next({
-        name: 'login',
-        query: {
-          redirect: to.path
-        },
-      });
-    });
+    }));
 });
 
 const desc = {
@@ -52,7 +54,21 @@ const desc = {
     user: null,
   },
   router,
+  created() {
+    bus.on('refresh', 'primary', () => this.refresh());
+  },
   methods: {
+    async refresh() {
+      const resp = await get('/account');
+      const jresp = await resp.json();
+      if(jresp.success) {
+        this.user = jresp.payload;
+        return true;
+      } else {
+        this.user = null;
+        return false;
+      }
+    },
     registered() {
       this.defaultError = 'REG';
       this.$router.push({ name: 'login' });

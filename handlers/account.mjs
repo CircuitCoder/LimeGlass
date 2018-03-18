@@ -75,13 +75,15 @@ router.delete('/', async ctx => {
 router.post('/info', async ctx => {
   if(!ctx.session.uid) return ctx.body = { success: false };
 
-  await Account.findByIdAndUpdate(ctx.session.uid, {
-    $set: {
-      info: ctx.request.body,
-    }
-  });
-  
-  return ctx.body = { success: true };
+  const result = await Account.findOneAndUpdate({
+    _id: ctx.session.uid,
+    info: null,
+  }, {
+    $set: { info: ctx.request.body },
+  }, { new: true });
+
+  if(!result) return ctx.body = { success: false };
+  else return ctx.body = { success: true };
 });
 
 export default router;

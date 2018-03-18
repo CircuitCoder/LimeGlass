@@ -1,4 +1,5 @@
 import { tmpl, get, post } from '../utils.js'
+import bus from '../bus.js';
 
 const THR = 1000;
 
@@ -50,8 +51,10 @@ export default Vue.component('Info', async () => {
       async submit() {
         const resp = await post('/account/info', this.info);
         const jresp = await resp.json();
+        await bus.trigger('refresh');
         this.$router.push({ name: 'home' });
       },
+
       async adminSubmit() {
         const resp = await post(`/admin/info/${this.$route.query._id}`, this.info);
         const jresp = await resp.json();

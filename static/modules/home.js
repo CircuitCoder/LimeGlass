@@ -1,4 +1,5 @@
-import { tmpl, get, post } from '../utils.js'
+import { tmpl, get, post } from '../utils.js';
+import bus from '../bus.js';
 
 export default Vue.component('Home', async () => {
   const resp = await tmpl('home');
@@ -34,8 +35,8 @@ export default Vue.component('Home', async () => {
       },
 
       async logout() {
-        await get('/account', 'delete');
-        this.$emit('refresh');
+        const resp = await get('/account', 'delete');
+        await bus.trigger('refresh');
         this.$router.push({ name: 'login' });
       }
     },
