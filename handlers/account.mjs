@@ -72,8 +72,6 @@ router.delete('/', async ctx => {
   return ctx.body = { success: true };
 });
 
-// Disabled for now
-/*
 router.post('/info', async ctx => {
   if(!ctx.session.uid) return ctx.body = { success: false };
 
@@ -85,6 +83,5 @@ router.post('/info', async ctx => {
   
   return ctx.body = { success: true };
 });
-*/
 
 export default router;

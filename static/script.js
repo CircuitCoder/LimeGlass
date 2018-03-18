@@ -9,7 +9,10 @@ import List from './modules/list.js';
 let instance;
 
 const routes = [
-  { path: '/', component: Home, name: 'home', },
+  { path: '/', component: Home, name: 'home', beforeEnter: (to, from, next) => {
+    if(!instance.user.info) return next({ name: 'info', query: { edit: true } });
+    else return next();
+  } },
   { path: '/login', component: Login, name: 'login', meta: { noAuth: true }, },
   { path: '/register', component: Register, name: 'register', meta: { noAuth: true }, },
   { path: '/info', component: Info, name: 'info', },
