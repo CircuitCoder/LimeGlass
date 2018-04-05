@@ -6,9 +6,9 @@ export function comp(name) {
   return fetch(`/components/${name}.html`);
 }
 
-export function post(url, data) {
+export function post(url, data, method = 'POST') {
   return fetch(url, {
-    method: 'POST',
+    method,
     body: JSON.stringify(data),
     credentials: "same-origin",
     headers: new Headers({

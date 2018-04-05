@@ -25,6 +25,11 @@ const Account = new mongoose.Schema({
   },
 
   info: Object,
+
+  questions: [{
+    question: String,
+    answer: String,
+  }],
 }, { minimize: false });
 
 Account.methods.updatePass = async function(plain) {

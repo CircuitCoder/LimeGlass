@@ -6,6 +6,7 @@ import Register from './modules/register.js';
 import Home from './modules/home.js';
 import Info from './modules/info.js';
 import List from './modules/list.js';
+import Questions from './modules/questions.js';
 
 let instance;
 
@@ -19,6 +20,7 @@ const routes = [
   { path: '/info', component: Info, name: 'info', },
 
   { path: '/list', component: List, name: 'list', },
+  { path: '/questions', component: Questions, name: 'questions', },
 ];
 
 const router = new VueRouter({

@@ -47,4 +47,27 @@ router.post('/info/:id', async ctx => {
   return ctx.body = { success: true };
 });
 
+router.get('/questions', async ctx => {
+  const list = await Account.find({
+    isAdmin: { $ne: true },
+  }).select({
+    _id: 1,
+    questions: 1,
+    name: 1,
+    info: 1,
+  });
+
+  for(let i of list) i.info = !!i.info;
+
+  ctx.body = list;
+});
+
+router.post('/questions/:id', async ctx => {
+  await Account.findByIdAndUpdate(ctx.params.id, {
+    $set: { questions: ctx.request.body },
+  });
+
+  return ctx.body = { success: true };
+});
+
 export default router;
