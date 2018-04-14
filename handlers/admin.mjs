@@ -16,7 +16,7 @@ router.use(async (ctx, next) => {
 });
 
 router.get('/list', async ctx => {
-  const rawlist = await Account.find({
+  const list = await Account.find({
     isAdmin: { $ne: true },
   }, {
     name: 1,
@@ -24,11 +24,6 @@ router.get('/list', async ctx => {
     email: 1,
     phone: 1,
     info: 1,
-  });
-
-  const list = rawlist.map(e => {
-    e.info = !!e.info;
-    return e;
   });
 
   ctx.body = list;
