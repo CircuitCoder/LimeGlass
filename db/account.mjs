@@ -19,6 +19,9 @@ const Account = new mongoose.Schema({
   school: String,
   phone: String,
 
+  token: String,
+  tokenExpire: Number, // Timestamp
+
   isAdmin: {
     type: Boolean,
     default: false,

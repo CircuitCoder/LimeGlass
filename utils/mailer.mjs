@@ -12,6 +12,7 @@ import util from 'util';
 
 const tmpls = {
   reg: '{{ config.name }} - 注册确认',
+  recpass: '{{ config.name }} - 忘记密码',
 };
 
 const transport = Nodemailer.createTransport(config.mail.smtp);

@@ -14,5 +14,7 @@ export default {
         pass: '',
       },
     },
+    sig: '',
   },
+  url: '',
 };

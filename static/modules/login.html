@@ -9,11 +9,16 @@
       <input v-model="pass" type="password" @keydown.enter="login()">
       <div class="button-row">
         <button @click="login()" class="primary">登录</button>
+        <button @click="recover()">忘记密码</button>
         <button @click="register()">注册</button>
       </div>
     </div>
     <div class="form-error" :class="{ shown: error === 'EMPTY' }">亲爱的，把信息填全啊</div>
     <div class="form-error" :class="{ shown: error === 'NOUSER' }">喵喵，找不到符合条件的用户</div>
     <div class="form-error" :class="{ shown: error === 'REG' }">注册成功！密码已发往您的邮箱</div>
+    <div class="form-error" :class="{ shown: error === 'TOKEN_FAILED' }">请检查您的链接是否依旧有效</div>
+    <div class="form-error" :class="{ shown: error === 'NO_EMAIL' }">你的邮箱是什么呢？</div>
+    <div class="form-error" :class="{ shown: error === 'RECOVER_FAILED' }">没有找到这个邮箱注册的账户！</div>
+    <div class="form-error" :class="{ shown: error === 'RECOVER' }">请检查您的邮箱！</div>
   </div>
 </div>

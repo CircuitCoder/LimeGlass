@@ -1,7 +1,10 @@
 import Mailer from '../utils/mailer';
 import Account from '../db/account';
+import config from '../config';
 
 import KoaRouter from 'koa-router';
+import crypto from 'crypto';
+import util from 'util';
 
 const router = new KoaRouter();
 
@@ -84,6 +87,48 @@ router.post('/info', async ctx => {
 
   if(!result) return ctx.body = { success: false };
   else return ctx.body = { success: true };
+});
+
+router.post('/recover', async ctx => {
+  const token = (await util.promisify(crypto.randomBytes)(16)).toString('hex');
+  const result = await Account.findOneAndUpdate({ email: ctx.request.body.email }, {
+    token,
+    tokenExpire: Date.now() + 10*60*1000,
+  });
+
+  if(result) {
+    const link = `${config.url}/account/directLogin/${token}/`;
+    await Mailer.send('recpass', result.email, {
+      name: result.name,
+      link,
+      token,
+    });
+  }
+
+  return ctx.body = { success: !!result };
+});
+
+router.get('/directLogin/:token', async ctx => {
+  if(ctx.params.token.length < 1) return ctx.status = 400;
+
+  const account = await Account.findOneAndUpdate({
+    token: ctx.params.token,
+    tokenExpire: { $gt: Date.now() },
+  }, {
+    tokenExpire: 0,
+  }).select({
+    _id: 1,
+  });
+
+  if(account) {
+    ctx.session.uid = account._id;
+    // TODO: in findOneAndUpdate?
+    await account.updatePass(ctx.params.token);
+    await account.save();
+    ctx.redirect('/');
+  } else {
+    ctx.redirect('/login?error=TOKEN_FAILED');
+  }
 });
 
 export default router;

@@ -29,6 +29,18 @@ export default Vue.component('Login', async () => {
       register() {
         this.$router.push({ name: 'register' });
       },
+      async recover() {
+        if(this.email === '') {
+          this.innerError = 'NO_EMAIL';
+          return;
+        }
+
+        const resp = await post('/account/recover', { email: this.email });
+        const payload = await resp.json();
+
+        if(!payload.success) this.innerError = 'RECOVER_FAILED';
+        else this.innerError = 'RECOVER';
+      },
     },
     watch: {
       email() {
