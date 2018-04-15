@@ -5,15 +5,21 @@
       <div class="filter">
         <input class="expand" v-model="filter" placeholder="过滤">
         <i class="material-icons"
-          @click="filterAssigned = !filterAssigned"
-          :style="{ opacity: filterAssigned ? .7 : .38 }">assignment_late</i>
+          @click="filterUrgent = !filterUrgent"
+          :style="{ opacity: filterUrgent ? .7 : .38 }">assignment_late</i>
         <i class="material-icons"
           @click="filterInfo = !filterInfo"
           :style="{ opacity: filterInfo ? .7 : .38 }">edit</i>
       </div>
       <div class="question-person" v-for="l of filtered" @click="select(l)" :class="{ selected: selected === l }" :key="l._id">
         <div class="question-person-name">{{ l.name }}</div>
-        <div class="question-person-count">TODO</div>
+        <div class="question-person-count"
+          v-if="!l.isReviewer && l.rounds && l.rounds.length > 0"
+          :class="{ urgent: isUrgent(l) }">{{ STATUS_MAP[lastStatus(l)] }}</div>
+        <div class="question-person-count urgent"
+           v-if="!l.rounds || l.rounds.length === 0">未分配</div>
+        <div class="question-person-count"
+           v-if="l.isReviewer">面试官</div>
       </div>
     </div>
     <div class="questions-content" v-if="selected">
@@ -28,13 +34,17 @@
         <div v-for="(r, i) of selected.rounds">
           <div class="subtitle narrow-margin"># 第 {{ i + 1 }} 轮</div>
           <div>面试官: <strong>{{ names(r.reviewers) }}</strong></div>
-          <div class="review-status">状态: <strong><i class="material-icons">{{ STATUS_ICON[r.result] }}</i>{{ STATUS_MAP[r.result] }}</strong></div>
+          <button v-for="(t, k) of STATUS_MAP" @click="r.result = k" style="margin-right: 5px;" :class="{ selected: r.result === k }">{{ t }}</button>
+          <br>
+          <button class="primary" @click="updateField(r, i, 'result')">更新</button>
           <div class="input-hint">面试官笔记</div>
           <textarea v-model="r.notes"></textarea>
+          <button @click="updateField(r, i, 'notes')">更新</button>
           <div class="input-hint">题目</div>
           <textarea v-model="r.questions" placeholder="每行一个"></textarea>
+          <button @click="updateField(r, i, 'questions')">更新</button>
           <div class="input-hint">回答</div>
-          <textarea v-model="r.answers" placeholder="每行一个"></textarea>
+          <textarea v-model="r.answers" disabled placeholder="每行一个"></textarea>
         </div>
       </div>
       <transition name="fade">

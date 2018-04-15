@@ -9,7 +9,7 @@ router.use(async (ctx, next) => {
     isReviewer: 1,
     isAdmin: 1,
   });
-  if(!user || !user.isReviewer) {
+  if(!user || !(user.isReviewer || user.isAdmin)) {
     ctx.status = 403;
   } else {
     ctx.user = user;

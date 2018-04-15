@@ -14,7 +14,7 @@ export default Vue.component('Reviewers', async () => {
 
       filter: '',
       filterInfo: false,
-      filterAssigned: false,
+      filterUrgent: false,
 
       addReview: false,
 
@@ -74,13 +74,41 @@ export default Vue.component('Reviewers', async () => {
       names(ids) {
         return this.list.filter(e => ids.includes(e._id)).map(e => e.name).join(', ');
       },
+
+      async updateField(round, iter, field) {
+        const data = {};
+        data[field] = round[field];
+
+        const resp = await post(`/review/${this.selected._id}/${iter}/${field}`, data, 'PUT')
+        const payload = await resp.json();
+
+        if(payload.success) {
+          // TODO: no alert here
+          alert('提交成功');
+        } else
+          alert('提交失败，请稍后再试');
+      },
+
+      lastStatus(e) {
+        console.log(e);
+        return e.rounds[e.rounds.length-1].result;
+      },
+
+      isUrgent(e) {
+        const s = this.lastStatus(e);
+        return s === 'Degraded' || s === 'Promoted';
+      },
     },
 
     computed: {
       filtered() {
         let result = this.list;
         if(this.filterInfo) result = result.filter(e => e.info);
-        if(this.filterAssigned) result = result.filter(e => e.questions.length === 0);
+        if(this.filterUrgent) result = result.filter(e => {
+          return !e.isReviewer && (
+            e.rounds.length === 0 || this.isUrgent(e)
+          );
+        });
         if(this.filter)
           result = result.filter(e => e.name.indexOf(this.filter) !== -1);
         return result;

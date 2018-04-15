@@ -362,6 +362,14 @@ small {
   line-height: 32px;
 }
 
+.question-person-count {
+  color: rgba(0,0,0,.7);
+}
+
+.question-person-count.urgent {
+  color: rgba(255,0,0,.7);
+}
+
 .question-person.selected {
   background: rgba(0,0,0,.06);
 }
