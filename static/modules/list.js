@@ -68,16 +68,24 @@ export default Vue.component('List', async () => {
             e.phone,
           ];
 
-          console.log(e.info);
           for(const c of MAPPER)
-            for(const p in c) row.push(e.info ? e.info[p] : '');
+            for(const p in c) {
+              if(!e.info) row.push('');
+              else {
+                let data = e.info[p];
+                if(!data) row.push('');
+                else {
+                  if(data.indexOf('"') !== -1) data = data.replace(/"/, '""');
+                  if(data.indexOf('\n') !== -1) data = '"' + data + '"';
+                  row.push(data);
+                }
+              }
+            }
 
           data.push(row);
         }
 
-        data.sort((a,b) => {
-          a - b;
-        });
+        data.sort((a,b) => a[0].localeCompare(b[0]));
 
         const content = headers.join(',') + '\n' + data.map(d => d.join(',')).join('\n');
 
