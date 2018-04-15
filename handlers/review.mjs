@@ -1,4 +1,5 @@
 import Account from '../db/account';
+import Mailer from '../utils/mailer';
 
 import KoaRouter from 'koa-router';
 
@@ -74,7 +75,18 @@ router.put('/:id/:iter(\\d+)/:field(questions|notes|result)', async ctx => {
     criteria[key] = ctx.session.uid;
   }
 
-  const result = await Account.findOneAndUpdate(criteria, { $set: payload });
+  const result = await Account.findOneAndUpdate(criteria, { $set: payload }).select({
+    name: 1,
+    email: 1,
+  });
+
+  if(ctx.params.field === 'questions') {
+    await Mailer.send('review', result.email, {
+      name: result.name,
+      content: `第 ${parseInt(ctx.params.iter, 10)+1} 次面试，学测题目更新。`
+    });
+  }
+
   ctx.body = { success: !!result };
 });
 

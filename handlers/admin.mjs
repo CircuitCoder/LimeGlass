@@ -1,4 +1,5 @@
 import Account from '../db/account';
+import Mailer from '../utils/mailer';
 
 import mongoose from 'mongoose';
 
@@ -73,8 +74,13 @@ router.post('/review/:id/round', async ctx => {
     result: 'Pending',
   };
 
-  const list = await Account.findByIdAndUpdate(ctx.params.id, {
+  const result = await Account.findByIdAndUpdate(ctx.params.id, {
     $push: { rounds: newRound },
+  }).select({ name: 1, email: 1 });
+
+  await Mailer.send('review', result.email, {
+    name: result.name,
+    content: `您的一场新面试已经创建好了，请尽快与面试官联系。`
   });
 
   return ctx.body = {

@@ -4,13 +4,8 @@
     <div class="title">{{ meta.title }}</div>
     <div class="body">
       <p>您好，{{ name }}！</p>
-      <p>您收到了一个新通知！请点击查看详情</p>
-      <a href="{{ link }}">
-        <div class="notif">
-          <div class="header">{{ header }}</div>
-          <div class="brief">{{ brief }}</div>
-        </div>
-      </a>
+      <p>您的面试状态有更新，请前往报名网站查看详情:</p>
+      <p>{{ content }}</p>
     </div>
 
     <div class="footer">{{ config.mail.sig }}</div>
@@ -73,12 +68,6 @@
 a {
   text-decoration: none;
   color: black;
-}
-
-.notif {
-  padding: 20px;
-  border-radius: 4px;
-  border: rgba(0,0,0,.12) 1px solid;
 }
 
 .header {
