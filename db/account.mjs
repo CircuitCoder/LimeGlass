@@ -27,12 +27,29 @@ const Account = new mongoose.Schema({
     default: false,
   },
 
+  isReviewer: {
+    type: Boolean,
+    default: false,
+  },
+
   info: Object,
 
-  questions: [{
-    question: String,
-    answer: String,
+  paid: {
+    type: Boolean,
+    default: false,
+  }, // TODO: migrate me
+
+  rounds: [{
+    reviewers: [mongoose.Schema.Types.ObjectId], // TODO: index
+    notes: String,
+    result: {
+      type: String,
+      enum: ['Pending', 'Accepted', 'Promoted', 'Degraded'],
+    },
+    questions: String,
+    answers: String,
   }],
+
 }, { minimize: false });
 
 Account.methods.updatePass = async function(plain) {

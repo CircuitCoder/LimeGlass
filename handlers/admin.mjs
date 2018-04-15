@@ -42,6 +42,49 @@ router.post('/info/:id', async ctx => {
   return ctx.body = { success: true };
 });
 
+router.get('/review', async ctx => {
+  const list = await Account.find({
+    isAdmin: { $ne: true },
+  }).select({
+    _id: 1,
+    name: 1,
+    rounds: 1,
+    isReviewer: 1,
+    info: 1,
+  });
+
+  for(let i of list) i.info = !!i.info;
+
+  ctx.body = list;
+});
+
+router.put('/review/:id/isReviewer', async ctx => {
+  const list = await Account.findByIdAndUpdate(ctx.params.id, {
+    $set: { isReviewer: ctx.request.body.isReviewer },
+  });
+
+  return ctx.body = { success: true };
+});
+
+router.post('/review/:id/round', async ctx => {
+  const newRound = {
+    reviewers: ctx.request.body.reviewers,
+    notes: '',
+    questions: '',
+    answers: '',
+    result: 'Pending',
+  };
+
+  const list = await Account.findByIdAndUpdate(ctx.params.id, {
+    $push: { rounds: newRound },
+  });
+
+  return ctx.body = {
+    success: true,
+    round: newRound,
+  };
+});
+
 router.get('/questions', async ctx => {
   const list = await Account.find({
     isAdmin: { $ne: true },

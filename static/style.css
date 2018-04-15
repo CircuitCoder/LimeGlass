@@ -69,6 +69,11 @@ body {
   margin-bottom: 12px;
 }
 
+input, textarea {
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
 input {
   display: block;
   width: 100%;
@@ -158,6 +163,10 @@ button.selected {
 
 button:disabled {
   cursor: default;
+}
+
+button.selector {
+  transition-property: opacity, background-color, color, border-color;
 }
 
 .button-row {
@@ -375,8 +384,10 @@ small {
 }
 
 .questions-content {
-  padding: 20px;
+  padding: 20px 40px;
   flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .question-option {
@@ -419,6 +430,21 @@ small {
 
 .question-answer.unanswered {
   text-decoration: line-through;
+}
+
+hr {
+  border-color: rgba(0,0,0,.12);
+  border-top: none;
+}
+
+.review-status strong {
+  display: inline-flex;
+  align-items: center;
+}
+
+.review-status strong .material-icons {
+  font-size: 16px;
+  color: rgba(0,0,0,.54);
 }
 
 .fade-enter-active {
