@@ -1,5 +1,5 @@
 import { get } from './utils.js';
-import bus from '../bus.js';
+import bus from '/bus.js';
 
 import Login from './modules/login.js';
 import Register from './modules/register.js';
@@ -7,6 +7,7 @@ import Home from './modules/home.js';
 import Info from './modules/info.js';
 import List from './modules/list.js';
 import Reviewers from './modules/reviewers.js';
+import Review from './modules/review.js';
 
 let instance;
 
@@ -21,6 +22,7 @@ const routes = [
 
   { path: '/list', component: List, name: 'list', },
   { path: '/reviewers', component: Reviewers, name: 'reviewers', },
+  { path: '/reviewing/:id', component: Review, name: 'review', },
 ];
 
 const router = new VueRouter({

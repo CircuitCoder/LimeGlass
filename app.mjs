@@ -30,6 +30,7 @@ app.use(KoaSession({
 import Account from './handlers/account';
 import Admin from './handlers/admin';
 import Meta from './handlers/meta';
+import Review from './handlers/review';
 
 router.use(
   '/account',
@@ -47,6 +48,12 @@ router.use(
   '/meta',
   Meta.routes(),
   Meta.allowedMethods(),
+  );
+
+router.use(
+  '/review',
+  Review.routes(),
+  Review.allowedMethods(),
   );
 
 app.use(router.routes(), router.allowedMethods());

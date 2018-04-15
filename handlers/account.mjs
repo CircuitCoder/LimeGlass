@@ -63,6 +63,7 @@ router.get('/', async ctx => {
     name: 1,
     info: 1,
     isAdmin: 1,
+    isReviewer: 1,
   }).lean();
 
   //if(!account) return ctx.body = { success: false };

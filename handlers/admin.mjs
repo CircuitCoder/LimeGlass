@@ -16,9 +16,7 @@ router.use(async (ctx, next) => {
 });
 
 router.get('/list', async ctx => {
-  const list = await Account.find({
-    isAdmin: { $ne: true },
-  }, {
+  const list = await Account.find({}, {
     name: 1,
     school: 1,
     email: 1,

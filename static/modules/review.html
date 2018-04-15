@@ -1,0 +1,29 @@
+<div class="view page" v-if="data">
+  <div class="seal"></div>
+  <div class="title">面试详情 <small>{{ data.name }}</small>
+    <div class="hint">{{ data.school }}</div>
+    <div class="hint">{{ data.email }}</div>
+    <div class="hint">{{ data.phone }}</div>
+  </div>
+
+  <button v-for="r of data.rounds.length" @click="roundPtr = r-1" style="margin-right: 5px;" :class="{ selected: roundPtr === r-1 }">第 {{ r }} 轮</button>
+  <br><br>
+
+  <button v-for="(r, k) of STATUS_MAP" :disabled="!privileged" @click="round.result = k" style="margin-right: 5px;" :class="{ selected: round.result === k }">{{ r }}</button>
+  <br>
+  <button class="primary" :disabled="!privileged" @click="updateField('result')">更新</button>
+
+  <div class="input-hint">面试官笔记</div>
+  <textarea v-model="round.notes" :disabled="!privileged"></textarea>
+  <button @click="updateField('notes')" :disabled="!privileged">更新</button>
+
+  <div class="input-hint">学测题目</div>
+  <textarea v-model="round.questions" :disabled="!privileged" placeholder="每行一个"></textarea>
+  <button @click="updateField('questions')" :disabled="!privileged">更新</button>
+
+  <div class="input-hint">回答</div>
+  <textarea v-model="round.answers" :disabled="true"></textarea>
+
+  <div class="subtitle">个人信息</div>
+  <info v-model="data.info" :ready="true"></info>
+</div>
