@@ -49,16 +49,22 @@ export default Vue.component('Home', async () => {
       },
 
       async updateReviews() {
-        const resp = await get('/review');
-        const data = await resp.json();
+        if(!this.user) {
+          this.reviews = null;
+          return;
+        }
 
-        this.reviews = data;
+        if(this.user.isReviewer) {
+          const resp = await get('/review');
+          const data = await resp.json();
+
+          this.reviews = data;
+        } else this.reviews = null;
       },
     },
     watch: {
       user() {
-        if(!this.user || !this.user.isReviewer) this.reviews = [];
-        else this.updateReviews();
+        this.updateReviews();
       },
     }
   };

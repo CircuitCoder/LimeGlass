@@ -17,7 +17,7 @@
           v-if="!l.isReviewer && l.rounds && l.rounds.length > 0"
           :class="{ urgent: isUrgent(l) }">{{ STATUS_MAP[lastStatus(l)] }}</div>
         <div class="question-person-count urgent"
-           v-if="!l.rounds || l.rounds.length === 0">未分配</div>
+           v-if="!l.isReviewer && (!l.rounds || l.rounds.length === 0)">未分配</div>
         <div class="question-person-count"
            v-if="l.isReviewer">面试官</div>
       </div>

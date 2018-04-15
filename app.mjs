@@ -31,29 +31,31 @@ import Account from './handlers/account';
 import Admin from './handlers/admin';
 import Meta from './handlers/meta';
 import Review from './handlers/review';
+import Answer from './handlers/answer';
 
 router.use(
   '/account',
   Account.routes(),
-  Account.allowedMethods(),
   );
 
 router.use(
   '/admin',
   Admin.routes(),
-  Admin.allowedMethods(),
   );
 
 router.use(
   '/meta',
   Meta.routes(),
-  Meta.allowedMethods(),
   );
 
 router.use(
   '/review',
   Review.routes(),
-  Review.allowedMethods(),
+  );
+
+router.use(
+  '/answer',
+  Answer.routes(),
   );
 
 app.use(router.routes(), router.allowedMethods());

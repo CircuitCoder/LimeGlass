@@ -1,0 +1,20 @@
+<div class="view page" v-if="round">
+  <div class="seal"></div>
+  <div class="title">第 {{ parseInt($route.params.iter, 10) + 1 }} 轮面试</div>
+  <div class="hint">{{ STATUS_MAP[round.result] }}</div>
+  <div class="subtitle narrow-margin">面试官</div>
+  <div v-for="r of round.reviewers" class="reviewer-row">
+    {{ r.name }}
+    <div class="contact">{{ r.email }}</div>
+    <div class="contact">{{ r.phone }}</div>
+  </div>
+
+  <div class="subtitle narrow-margin">学测题目</div>
+  <div class="hint" v-if="questionLines.length === 0">题目尚在准备中...请联系您的面试官</div>
+  <div v-for="(q, i) of questionLines" v-else>
+    <div class="question">#{{ i+1 }}. {{ q }}</div>
+    <textarea :disabled="ready" v-model="answerLines[i]"></textarea>
+  </div>
+  <div class="hint">您只有一次提交机会，请谨慎提交</div>
+  <button class="primary" @click="submit" :disabled="ready">提交</button>
+</div>

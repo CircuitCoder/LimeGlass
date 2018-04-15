@@ -8,6 +8,7 @@ import Info from './modules/info.js';
 import List from './modules/list.js';
 import Reviewers from './modules/reviewers.js';
 import Review from './modules/review.js';
+import Answer from './modules/answer.js';
 
 let instance;
 
@@ -23,6 +24,7 @@ const routes = [
   { path: '/list', component: List, name: 'list', },
   { path: '/reviewers', component: Reviewers, name: 'reviewers', },
   { path: '/reviewing/:id', component: Review, name: 'review', },
+  { path: '/answer/:iter(\\d+)', component: Answer, name: 'answer', },
 ];
 
 const router = new VueRouter({

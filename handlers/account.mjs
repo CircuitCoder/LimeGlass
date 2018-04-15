@@ -64,7 +64,16 @@ router.get('/', async ctx => {
     info: 1,
     isAdmin: 1,
     isReviewer: 1,
-  }).lean();
+    rounds: 1,
+  });
+
+  for(const r of account.rounds) r.notes = null;
+
+  await account.populate({
+    path: 'rounds.reviewers',
+    select: 'name email phone',
+    model: 'Account',
+  }).execPopulate();
 
   //if(!account) return ctx.body = { success: false };
 

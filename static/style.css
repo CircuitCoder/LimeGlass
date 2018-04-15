@@ -464,6 +464,7 @@ hr {
   border-radius: 4px;
   box-shadow: rgba(0,0,0,.12) 0 2px 6px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .review-entry .name {
@@ -475,6 +476,20 @@ hr {
   font-size: 16px;
   line-height: 20px;
   color: rgba(0,0,0,.54);
+}
+
+.reviewer-row {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.reviewer-row .contact {
+  font-size: 14px;
+  color: rgba(0,0,0,.54);
+}
+
+.question + textarea {
+  margin-bottom: 40px;
 }
 
 .fade-enter-active {
