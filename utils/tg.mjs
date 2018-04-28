@@ -22,7 +22,7 @@ function broadcast(content) {
 const ANSWER_TMPL = Handlebars.compile(`
 *New answer*
 From user *{{ name }}*
-[Manage](${CONFIG.url}/reviewers?_id:{{ id }})
+[Manage](${CONFIG.url}/reviewers?_id={{ id }})
 `);
 
 export async function answer(user) {

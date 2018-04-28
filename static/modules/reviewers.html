@@ -62,7 +62,6 @@
               <div class="block opaque">
                 <div class="seal"></div>
                 <div class="form-heading">请从以下面试官中选择</div>
-                <div class="hint">您可以从这一页面设置用户的身份</div>
                 <div class="hint" v-if="selectedReviewers.length === 0">请选择至少一个面试官</div>
                 <div class="hint" v-if="selectedReviewers.length > 0">已选择: {{ reviewerNames }}</div>
                 <button @click="addRound" class="primary" :disabled="selectedReviewers.length === 0">提交</button>
