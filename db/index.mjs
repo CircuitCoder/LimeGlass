@@ -50,7 +50,10 @@ async function initAdmin() {
   console.log('ATTENTION: This will only show up once.');
 }
 
-initAdmin();
+async function init() {
+  await upgradeDB();
+  await initAdmin();
+}
 
 export default {
   Account,
