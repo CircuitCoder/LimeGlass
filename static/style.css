@@ -493,11 +493,11 @@ hr {
 }
 
 .fade-enter-active {
-  transition: opacity .5s ease-out;
+  transition: opacity .2s ease-out;
 }
 
 .fade-leave-active {
-  transition: opacity .5s ease-in;
+  transition: opacity .2s ease-in;
 }
 
 .fade-enter, .fade-leave-to {
