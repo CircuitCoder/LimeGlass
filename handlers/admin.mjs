@@ -23,6 +23,7 @@ router.get('/list', async ctx => {
     email: 1,
     phone: 1,
     info: 1,
+    isReviewer: 1,
   });
 
   ctx.body = list;

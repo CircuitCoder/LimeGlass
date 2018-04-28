@@ -18,8 +18,8 @@ async function upgradeDB() {
       console.log(u._id, u.rounds);
       u.rounds = [];
     } else for(const r of u.rounds) {
-      if(!Array.isArray(r.questions)) r.questions = r.questions.split('\n');
-      if(!Array.isArray(r.answers)) r.answers = r.answers.split('\n');
+      if(!Array.isArray(r.questions)) r.questions = r.questions ? r.questions.split('\n') : [];
+      if(!Array.isArray(r.answers)) r.answers = r.answers ? r.answers.split('\n') : [];
     }
 
     if(!u.ciEmail)

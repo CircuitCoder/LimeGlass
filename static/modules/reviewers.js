@@ -34,17 +34,6 @@ export default Vue.component('Reviewers', async () => {
         this.$router.replace({ name: 'reviewers', query: { _id: p._id }});
       },
 
-      async setReviewerRole(id, isReviewer) {
-        const resp = await post(`/admin/review/${id}/isReviewer`, { isReviewer }, 'PUT');
-        const payload = await resp.json();
-
-        if(payload.success) {
-          this.selected.isReviewer = isReviewer;
-          this.addReview = false;
-        } else
-          alert('更新失败');
-      },
-
       showAddReview() {
         this.reviewerSet = {};
         this.addReview = true;
@@ -107,15 +96,10 @@ export default Vue.component('Reviewers', async () => {
 
     computed: {
       filtered() {
-        let result = this.list;
+        let result = this.list.filter(e => !e.isReviewer);
         if(this.filterInfo) result = result.filter(e => e.info);
-        if(this.filterUrgent) result = result.filter(e => {
-          return !e.isReviewer && (
-            e.rounds.length === 0 || this.isUrgent(e)
-          );
-        });
-        if(this.filter)
-          result = result.filter(e => e.name.indexOf(this.filter) !== -1);
+        if(this.filterUrgent) result = result.filter(e => e.rounds.length === 0 || this.isUrgent(e));
+        if(this.filter) result = result.filter(e => e.name.indexOf(this.filter) !== -1);
         return result;
       },
 

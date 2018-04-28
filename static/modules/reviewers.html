@@ -25,7 +25,6 @@
     <div class="questions-content" v-if="selected">
       <div class="title">管理面试 <small>{{ selected.name }}</small></div>
       <button @click="$router.push({ name: 'info', query: { admin: true, _id: selected._id, name: selected.name } })">查看个人信息</button>
-      <button @click="setReviewerRole(selected._id, !selected.isReviewer)">{{ selected.isReviewer ? '身份设为代表' : '身份设为面试官' }}</button>
       <div v-if="!selected.isReviewer">
         <p>
           <div class="hint">共 {{ selected.rounds ? selected.rounds.length : 0 }} 轮</div>

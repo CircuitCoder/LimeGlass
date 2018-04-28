@@ -1,4 +1,4 @@
-import { tmpl, get } from '../utils.js'
+import { tmpl, get, post } from '../utils.js'
 import FileSaver from 'https://cdn.bootcss.com/FileSaver.js/2014-11-29/FileSaver.min.js';
 import moment from 'https://cdn.bootcss.com/moment.js/2.22.0/moment.min.js';
 
@@ -92,6 +92,16 @@ export default Vue.component('List', async () => {
         const fn = `LimeGlass-${moment().format('MM-DD')}.csv`;
         const file = new File([content], fn, { type: 'text/csv;charset=utf-8' });
         FileSaver(file, fn);
+      },
+
+      async setReviewerRole(entry, isReviewer) {
+        const resp = await post(`/admin/review/${entry._id}/isReviewer`, { isReviewer }, 'PUT');
+        const payload = await resp.json();
+
+        if(payload.success) {
+          entry.isReviewer = isReviewer;
+        } else
+          alert('更新失败');
       },
     },
   };
