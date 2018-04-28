@@ -20,7 +20,7 @@ async function upgradeDB() {
     }
 
     if(!u.ciEmail)
-      u.ciEmail = email.toLowerCase();
+      u.ciEmail = u.email.toLowerCase();
     await u.save();
   }
 }
