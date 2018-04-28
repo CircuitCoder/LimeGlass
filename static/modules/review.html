@@ -15,14 +15,23 @@
 
   <div class="input-hint">面试官笔记</div>
   <textarea v-model="round.notes" :disabled="!privileged"></textarea>
-  <button @click="updateField('notes')" :disabled="!privileged">更新</button>
+  <button @click="updateField('notes')" v-if="privileged">更新</button>
 
-  <div class="input-hint">学测题目</div>
-  <textarea v-model="round.questions" :disabled="!privileged" placeholder="每行一个"></textarea>
-  <button @click="updateField('questions')" :disabled="!privileged">更新</button>
+  <div class="subtitle narrow-margin">学测题目</div>
+  <div v-for="(q, id) in round.questions">
+    <div class="input-hint">{{ id+1 }}</div>
+    <button @click="round.questions.splice(id, 1)">删除</button><br><br>
+    <textarea v-model="round.questions[id]" :disabled="!privileged"></textarea>
+  </div>
+  <button @click="addQuestion()" v-if="privileged">添加</button>
+  <button @click="updateField('questions')" v-if="privileged">更新</button>
 
-  <div class="input-hint">回答</div>
-  <textarea v-model="round.answers" :disabled="true"></textarea>
+  <div class="subtitle narrow-margin">回答</div>
+  <div v-if="round.answers === null">尚未作答</div>
+  <div v-for="(a, id) in round.answers" v-else>
+    <div class="input-hint">{{ id + 1 }}</div>
+    <p class="answer">{{ a }}</p>
+  </div>
 
   <div class="subtitle">个人信息</div>
   <info v-model="data.info" :ready="true"></info>

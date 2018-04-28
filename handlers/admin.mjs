@@ -69,8 +69,8 @@ router.post('/review/:id/round', async ctx => {
   const newRound = {
     reviewers: ctx.request.body.reviewers,
     notes: '',
-    questions: '',
-    answers: '',
+    questions: null,
+    answers: null,
     result: 'Pending',
   };
 

@@ -14,6 +14,10 @@ router.use(async (ctx, next) => {
 
 router.put('/:iter(\\d+)/answers', async ctx => {
   // TODO filter
+  const criteria = {
+    _id: ctx.session.uid,
+  };
+  criteria[`rounds.${ctx.params.iter}.answers`] = null;
 
   const payload = {};
   payload[`rounds.${ctx.params.iter}.answers`] = ctx.request.body.answers;

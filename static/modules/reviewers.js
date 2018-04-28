@@ -31,7 +31,7 @@ export default Vue.component('Reviewers', async () => {
 
     methods: {
       select(p) {
-        this.$router.push({ name: 'reviewers', query: { _id: p._id }});
+        this.$router.replace({ name: 'reviewers', query: { _id: p._id }});
       },
 
       async setReviewerRole(id, isReviewer) {
@@ -97,6 +97,11 @@ export default Vue.component('Reviewers', async () => {
       isUrgent(e) {
         const s = this.lastStatus(e);
         return s === 'Degraded' || s === 'Promoted';
+      },
+
+      addQuestion(r) {
+        if(r.questions === null) r.questions = [''];
+        else r.questions.push('');
       },
     },
 

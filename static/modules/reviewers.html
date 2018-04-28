@@ -40,11 +40,20 @@
           <div class="input-hint">面试官笔记</div>
           <textarea v-model="r.notes"></textarea>
           <button @click="updateField(r, i, 'notes')">更新</button>
-          <div class="input-hint">题目</div>
-          <textarea v-model="r.questions" placeholder="每行一个"></textarea>
+          <div class="subtitle narrow-margin">题目</div>
+          <div v-for="(q, id) in r.questions">
+            <div class="input-hint">{{ id + 1 }}</div>
+            <button @click="r.questions.splice(id, 1)">删除</button><br><br>
+            <textarea v-model="r.questions[id]"></textarea>
+          </div>
+          <button @click="addQuestion(r)">添加</button>
           <button @click="updateField(r, i, 'questions')">更新</button>
-          <div class="input-hint">回答</div>
-          <textarea v-model="r.answers" disabled placeholder="每行一个"></textarea>
+          <div class="subtitle narrow-margin">回答</div>
+          <div v-if="r.answers === null">尚未作答</div>
+          <div v-for="(a, id) in r.answers" v-else>
+            <div class="input-hint">{{ id + 1 }}</div>
+            <p class="answer">{{ a }}</p>
+          </div>
         </div>
       </div>
       <transition name="fade">

@@ -15,7 +15,11 @@
       <div class="name">{{ e.name }}</div>
       <div v-for="(r, i) of e.rounds">
         <div class="hint" style="margin-top: 5px" v-if="e.rounds.length > 1"># {{ i+1 }}</div>
-        <div class="status">{{ STATUS_MAP[r.result] }}</div>
+
+        <div class="status" v-if="!r.questions">学测题目准备中...</div>
+        <div class="status" v-if="r.questions && !r.answers">学测题目未作答</div>
+        <div class="status" v-if="r.answers">学测题目已完成, {{ STATUS_MAP[r.result] }}</div>
+
         <div class="hint" style="margin-top: 5px">{{ r.notes }}</div>
       </div>
     </router-link>
@@ -27,9 +31,9 @@
     <router-link tag="div" :to="{ name: 'answer', params: { iter: user.rounds.length - i - 1 } }" class="review-entry" v-for="(e, i) of user.rounds.slice().reverse()">
       <div class="name">第 {{ user.rounds.length - i }} 轮</div>
 
-      <div class="status" v-if="e.questions === ''">学测题目准备中...</div>
-      <div class="status" v-if="e.questions !== '' && e.answers === ''">学测题目未作答</div>
-      <div class="status" v-if="e.answers !== ''">学测题目已完成, {{ STATUS_MAP[e.result] }}</div>
+      <div class="status" v-if="!e.questions">学测题目准备中...</div>
+      <div class="status" v-if="e.questions && !e.answers">学测题目未作答</div>
+      <div class="status" v-if="e.answers">学测题目已完成, {{ STATUS_MAP[e.result] }}</div>
 
       <br><div class="hint">面试官</div>
       <div class="reviewer" v-for="r of e.reviewers" @click.stop style="cursor: default">

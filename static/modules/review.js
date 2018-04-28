@@ -50,7 +50,12 @@ export default Vue.component('Review', async () => {
           alert('提交成功');
         } else
           alert('提交失败，请稍后再试');
-      }
+      },
+
+      addQuestion() {
+        if(this.round.questions === null) this.round.questions = [''];
+        else this.round.questions.push('');
+      },
     },
 
     computed: {

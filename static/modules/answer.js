@@ -15,7 +15,6 @@ export default Vue.component('Answer', async () => {
     },
     data: () => ({
       data: null,
-      answerLines: [],
       ready: false,
 
       STATUS_MAP,
@@ -26,23 +25,19 @@ export default Vue.component('Answer', async () => {
 
     methods: {
       update() {
-        if(this.round.answers !== '') {
-          this.answerLines = 
-            this.round.answers.split('\n\n');
+        if(this.round.answers) {
           this.ready = true;
         } else {
-          this.answerLines = this.questionLines.map(e => '');
+          this.round.answers = this.round.questions.map(e => '');
         }
       },
 
       async submit() {
-        console.log(this.answerLines);
-        if(this.answerLines.includes(''))
+        if(this.round.answers.includes(''))
           if(!confirm('您有未作答的题目，是否继续?')) return;
-        const data = this.answerLines.map(e => e.replace('\n\n', '\n')).join('\n\n');
         const resp = await post(
           `/answer/${this.$route.params.iter}/answers`,
-          { answers: data },
+          { answers: this.round.answers },
           'PUT'
         );
 
@@ -60,9 +55,6 @@ export default Vue.component('Answer', async () => {
       round() {
         if(!this.user) return null;
         return this.user.rounds[parseInt(this.$route.params.iter, 10)];
-      },
-      questionLines() {
-        return this.round.questions.split('\n').filter(e => !e.match(/^ *$/));
       },
     },
 

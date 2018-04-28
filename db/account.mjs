@@ -47,8 +47,8 @@ const Account = new mongoose.Schema({
       type: String,
       enum: ['Pending', 'Accepted', 'Promoted', 'Degraded'],
     },
-    questions: String,
-    answers: String,
+    questions: [String],
+    answers: [String],
   }],
 
 }, { minimize: false });

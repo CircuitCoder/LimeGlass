@@ -12,7 +12,7 @@ router.post('/', async ctx => {
   const account = new Account();
   // TODO: verify incoming request
 
-  if(!account.email.match(/^\S+@\S+\.\S+/)) return ctx.status = 400;
+  if(!ctx.request.body.email.match(/^\S+@\S+\.\S+/)) return ctx.status = 400;
 
   account.email = ctx.request.body.email;
   account.ciEmail = ctx.request.body.email.toLowerCase();
