@@ -7,6 +7,7 @@ export default Vue.component('Register', async () => {
 
   return {
     template,
+    props: ['user'],
     data: () => ({
       email: '',
       school: '',
@@ -61,6 +62,15 @@ export default Vue.component('Register', async () => {
 
       login() {
         this.$router.push({ name: 'login' });
+      },
+
+      dummyEmail() {
+        const array = new Uint8Array(8);
+        crypto.getRandomValues(array);
+        // From: https://stackoverflow.com/questions/40031688/javascript-arraybuffer-to-hex
+        const hex = Array.prototype.map.call(array, x => ('00' + x.toString(16)).slice(-2)).join('');
+
+        this.email = `${hex}@limeglass`;
       },
     },
     watch: {

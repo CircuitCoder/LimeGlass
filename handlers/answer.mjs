@@ -1,4 +1,5 @@
 import Account from '../db/account';
+import TG from '../utils/tg';
 
 import KoaRouter from 'koa-router';
 
@@ -22,10 +23,10 @@ router.put('/:iter(\\d+)/answers', async ctx => {
   const payload = {};
   payload[`rounds.${ctx.params.iter}.answers`] = ctx.request.body.answers;
 
-  console.log(payload);
-  console.log(criteria);
-
   const result = await Account.findOneAndUpdate(criteria, { $set: payload });
+  if(result)
+    TG.answer(result); // Defered
+
   ctx.body = { success: !!result };
 });
 

@@ -179,6 +179,10 @@ button.selector {
   cursor: pointer;
 }
 
+button.text-link {
+  text-decoration: none;
+}
+
 .form-error {
   position: absolute;
   left: 15px;

@@ -17,4 +17,7 @@ export default {
     sig: '',
   },
   url: '',
+  tgBase: '',
+  tgBot: '',
+  tgUpdate: [],
 };

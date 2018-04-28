@@ -33,12 +33,14 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if(instance && instance.user) return next();
-  if(to.matched.every(e => e.meta.noAuth)) return next();
-
   // Wait for one tick
-  setTimeout(() =>
-    instance.refresh().then(result => {
+  setTimeout(() => {
+    if(instance && instance.user) return next();
+
+    const refresher = instance.refresh();
+    if(to.matched.every(e => e.meta.noAuth)) return next();
+
+    refresher.then(result => {
       if(result) {
         return next();
       } else {
@@ -49,7 +51,8 @@ router.beforeEach((to, from, next) => {
           },
         });
       }
-    }));
+    });
+  });
 });
 
 const desc = {

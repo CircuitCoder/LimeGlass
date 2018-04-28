@@ -5,8 +5,10 @@
         <div class="block opaque">
           <div class="seal"></div>
           <div class="form-heading">注册</div>
+          <button @click="$router.back()" v-if="user">返回</button><br><br>
           <div class="input-hint">邮箱</div>
           <input v-model="email" @keydown.enter="gotoInfo()">
+          <button v-if="user && user.isAdmin" @click="dummyEmail()">填入随机无效地址</button><br><br>
           <div class="input-hint">姓名</div>
           <input v-model="name" @keydown.enter="gotoInfo()">
           <div class="input-hint">手机</div>

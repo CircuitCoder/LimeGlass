@@ -2,6 +2,10 @@
   <div class="seal"></div>
   <div class="title">管理::注册列表</div>
   <button @click="genCSV()">导出</button>
+  <router-link
+    class="text-link"
+    tag="button"
+    :to="{ name: 'register' }">新建用户</router-link>
   <table class="primary-table">
     <thead>
       <th>名</th>

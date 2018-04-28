@@ -12,7 +12,10 @@ router.post('/', async ctx => {
   const account = new Account();
   // TODO: verify incoming request
 
-  if(!ctx.request.body.email.match(/^\S+@\S+\.\S+/)) return ctx.status = 400;
+  if(ctx.request.body.email.match(/@limeglass$/)) {
+    const user = await Account.findById(ctx.session.uid);
+    if(!user || !user.isAdmin) return ctx.status = 401;
+  } else if(!ctx.request.body.email.match(/^\S+@\S+\.\S+/)) return ctx.status = 400;
 
   account.email = ctx.request.body.email;
   account.ciEmail = ctx.request.body.email.toLowerCase();
@@ -70,6 +73,11 @@ router.get('/', async ctx => {
     isReviewer: 1,
     rounds: 1,
   });
+
+  if(!account) {
+    ctx.session.uid = null;
+    return ctx.body = { success: false };
+  }
 
   for(const r of account.rounds) r.notes = null;
 

@@ -19,6 +19,8 @@ const tmpls = {
 const transport = Nodemailer.createTransport(config.mail.smtp);
 
 async function send(tmpl, to, args) {
+  if(to.match(/@limeglass$/)) return;
+
   const data = Object.assign(args, { config });
 
   // TODO: stash them
