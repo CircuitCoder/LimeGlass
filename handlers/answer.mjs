@@ -18,7 +18,7 @@ router.put('/:iter(\\d+)/answers', async ctx => {
   const criteria = {
     _id: ctx.session.uid,
   };
-  criteria[`rounds.${ctx.params.iter}.answers`] = null;
+  criteria[`rounds.${ctx.params.iter}.answers`] = { $type: "null" };
 
   const payload = {};
   payload[`rounds.${ctx.params.iter}.answers`] = ctx.request.body.answers;

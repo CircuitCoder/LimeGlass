@@ -27,7 +27,7 @@ export default Vue.component('Answer', async () => {
       update() {
         if(this.round.answers) {
           this.ready = true;
-        } else {
+        } else if(this.round.questions) {
           this.round.answers = this.round.questions.map(e => '');
         }
       },

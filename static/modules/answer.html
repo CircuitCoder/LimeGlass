@@ -16,7 +16,9 @@
       <div class="question">{{ i+1 }}. {{ q }}</div>
       <textarea :disabled="ready" v-model="round.answers[i]"></textarea>
     </div>
+    <div v-if="!ready">
       <div class="hint">您只有一次提交机会，请谨慎提交</div>
       <button class="primary" @click="submit">提交</button>
+    </div>
   </div>
 </div>
