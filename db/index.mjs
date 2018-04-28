@@ -14,7 +14,10 @@ async function upgradeDB() {
   // Set case insensitive email
   const users = await Account.find();
   for(const u in users) {
-    for(const r of u.rounds) {
+    if(!Array.isArray(u.rounds)) {
+      console.log(u._id, u.rounds);
+      u.rounds = [];
+    } else for(const r of u.rounds) {
       if(!Array.isArray(u.questions)) u.questions = u.questions.split('\n');
       if(!Array.isArray(u.answers)) u.answers = u.answers.split('\n');
     }
