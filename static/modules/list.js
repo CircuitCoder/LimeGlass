@@ -103,6 +103,38 @@ export default Vue.component('List', async () => {
         } else
           alert('更新失败');
       },
+
+      async deleteUser(id, index) {
+        async function doDelete() {
+          const resp = await get(`/admin/user/${id}`, 'DELETE');
+          const payload = await resp.json();
+          if(!payload.success) alert('删除失败');
+        }
+
+        const perm = await Notification.requestPermission();
+
+        if(perm !== 'granted') {
+          const result = confirm('确认?');
+          if(!result) return;
+          await doDelete();
+          this.list.splice(index, 1);
+          return;
+        }
+
+        const user = this.list.splice(index, 1)[0];
+        const notif = new Notification('取消删除', { body: user.name })
+        const timeout = setTimeout(() => {
+          notif.close();
+          doDelete();
+        }, 5000);
+
+        notif.addEventListener('click', () => {
+          clearTimeout(timeout);
+          this.list.splice(index, 0, user);
+          notif.close();
+        });
+
+      },
     },
   };
 });

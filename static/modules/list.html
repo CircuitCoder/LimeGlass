@@ -11,7 +11,7 @@
       <th>操作</th>
     </thead>
     <tbody>
-      <tr v-for="entry of list" :key="entry._id">
+      <tr v-for="(entry, index) of list" :key="entry._id">
         <td>{{ entry.name }}</td>
         <td>{{ entry.school }}</td>
         <td>{{ entry.phone }}</td>
@@ -20,6 +20,7 @@
           tag="td"
           :to="{ name: 'info', query: { _id: entry._id, admin: true, name: entry.name } }">{{ entry.info ? '查看/编辑' : '未填写/添加' }}</router-link>
         <td>
+          <button @click="deleteUser(entry._id, index)">删除</button>
           <button @click="setReviewerRole(entry, !entry.isReviewer)">{{ entry.isReviewer ? '设为代表' : '设为面试官' }}</button>
         </td>
       </tr>

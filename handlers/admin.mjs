@@ -113,4 +113,13 @@ router.post('/questions/:id', async ctx => {
   return ctx.body = { success: true };
 });
 
+router.delete('/user/:id', async ctx => {
+  const deleted = await Account.findByIdAndRemove(ctx.params.id);
+  if(!deleted) return ctx.body = { success: false };
+  console.log('DELETED: ');
+  console.log(JSON.stringify(deleted));
+
+  return ctx.body = { success: true };
+});
+
 export default router;
