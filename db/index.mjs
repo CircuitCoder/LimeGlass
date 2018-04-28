@@ -55,6 +55,8 @@ async function init() {
   await initAdmin();
 }
 
+init().catch(e => console.error(e));
+
 export default {
   Account,
 };
