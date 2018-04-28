@@ -11,7 +11,11 @@ const router = new KoaRouter();
 router.post('/', async ctx => {
   const account = new Account();
   // TODO: verify incoming request
+
+  if(!account.email.match(/^\S+@\S+\.\S+/)) return ctx.status = 400;
+
   account.email = ctx.request.body.email;
+  account.ciEmail = ctx.request.body.email.toLowerCase();
   account.name = ctx.request.body.name;
   account.school = ctx.request.body.school;
   account.phone = ctx.request.body.phone;
@@ -34,7 +38,7 @@ router.post('/', async ctx => {
 });
 
 router.post('/login', async ctx => {
-  const account = await Account.findOne({ email: ctx.request.body.email });
+  const account = await Account.findOne({ ciEmail: ctx.request.body.email.toLowerCase() });
   if(!account) return ctx.body = { success: false };
   if(!account.validatePass(ctx.request.body.pass)) return ctx.body = { success: false };
 
@@ -101,7 +105,7 @@ router.post('/info', async ctx => {
 
 router.post('/recover', async ctx => {
   const token = (await util.promisify(crypto.randomBytes)(16)).toString('hex');
-  const result = await Account.findOneAndUpdate({ email: ctx.request.body.email }, {
+  const result = await Account.findOneAndUpdate({ ciEmail: ctx.request.body.email.toLowerCase() }, {
     token,
     tokenExpire: Date.now() + 10*60*1000,
   });

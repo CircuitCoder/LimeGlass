@@ -8,6 +8,18 @@ mongoose.connect(config.db);
 
 import Account from './account';
 
+async function upgradeDB() {
+  // TODO: use versioning
+  
+  // Set case insensitive email
+  const users = await Account.find();
+  for(u in users) {
+    if(u.ciEmail) continue;
+    u.ciEmail = email.toLowerCase();
+    await u.save();
+  }
+}
+
 // Insert default admin
 
 async function initAdmin() {
@@ -17,6 +29,7 @@ async function initAdmin() {
   const admin = new Account();
   const randomName = (await util.promisify(crypto.randomBytes)(6)).toString('base64');
   admin.email = `${randomName}@limeglass`;
+  admin.ciEmail = `${randomName}@limeglass`.toLowerCase();
   admin.name = 'Admin';
   admin.school = 'LimeGlass';
   admin.phone = '00000000';

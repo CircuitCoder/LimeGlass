@@ -13,6 +13,7 @@ const Account = new mongoose.Schema({
     index: true,
     unique: true,
   },
+  ciEmail: String, // Case insenstive email
   pass: String,
   salt: String, // We're doing properly this time
   name: String,
@@ -71,4 +72,14 @@ Account.methods.randomPass = async function() {
   return pass;
 }
 
-export default mongoose.model('Account', Account);
+const model = mongoose.model('Account', Account);
+
+model.collection.createIndex({
+  ciEmail: 'hashed',
+}, {
+  partialFilterExpression: { ciEmail: { $type: 'string' }},
+}, (err, result) => {
+  if(err) console.error(err);
+});
+
+export default model;
