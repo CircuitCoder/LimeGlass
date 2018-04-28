@@ -134,6 +134,9 @@ export default Vue.component('List', async () => {
           notif.close();
         });
 
+        notif.addEventListener('close', () => {
+          doDelete();
+        });
       },
     },
   };
