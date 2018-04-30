@@ -114,8 +114,10 @@ router.post('/info', async ctx => {
 router.post('/recover', async ctx => {
   const token = (await util.promisify(crypto.randomBytes)(16)).toString('hex');
   const result = await Account.findOneAndUpdate({ ciEmail: ctx.request.body.email.toLowerCase() }, {
-    token,
-    tokenExpire: Date.now() + 10*60*1000,
+    $set: {
+      token,
+      tokenExpire: Date.now() + 10*60*1000,
+    }
   });
 
   if(result) {
