@@ -72,10 +72,8 @@
       <button :class="{ selected: info.know === '是' }" :disabled="ready" @click="info.know = '是'">是</button>
       <button :class="{ selected: info.know === '否' }" :disabled="ready" @click="info.know = '否'">否</button>
     </div>
-  </div>
 
-  <div v-if="filling">
-    <div class="subtitle">请从下列地区中选择您最了解的一个地区以及次了解的至多两个地区（可空缺）</div>
+    <div class="subtitle">请从下列地区中选择您最了解的一个地区以及次了解的至多两个地区*</div>
     <ul>
       <li>A 东亚</li>
       <li>B 东南亚与南亚</li>
@@ -88,21 +86,21 @@
     </ul>
 
     <div class="group">
-      <div class="input-hint">最擅长</div>
+      <div class="input-hint">最擅长*</div>
       <input v-model="info.a11" :disabled="ready">
     </div>
 
     <div class="group">
-      <div class="input-hint">次擅长</div>
+      <div class="input-hint">次擅长*</div>
       <input v-model="info.a21" :disabled="ready">
     </div>
 
     <div class="group">
-      <div class="input-hint">次擅长</div>
+      <div class="input-hint">次擅长*</div>
       <input v-model="info.a22" :disabled="ready">
     </div>
 
-    <div class="subtitle">请从下列四个方向中选择您最擅长的一个方向与次擅长的一个方向（可空缺）</div>
+    <div class="subtitle">请从下列四个方向中选择您最擅长的一个方向与次擅长的一个方向*</div>
     <ul>
       <li>外交</li>
       <li>经济</li>
@@ -112,18 +110,18 @@
     </ul>
 
     <div class="group">
-      <div class="input-hint">最擅长</div>
+      <div class="input-hint">最擅长*</div>
       <input v-model="info.b1" :disabled="ready">
     </div>
 
     <div class="group">
-      <div class="input-hint">次擅长</div>
+      <div class="input-hint">次擅长*</div>
       <input v-model="info.b2" :disabled="ready">
     </div>
 
     <div class="subtitle">专长</div>
     <div class="group">
-      <div class="input-hint">请填写你其他较为擅长的方向或专长（如“安理会”“能源”“大宗商品贸易”等 多个方向或专长请以“&amp;&amp;”符号分隔）</div>
+      <div class="input-hint">请填写你其他较为擅长的方向或专长（如“安理会”“能源”“大宗商品贸易”等 多个方向或专长请以“&amp;&amp;”符号分隔）*</div>
       <input v-model="info.spec" :disabled="ready">
     </div>
   </div>

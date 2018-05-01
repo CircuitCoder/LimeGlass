@@ -16,8 +16,9 @@ export default Vue.component('info', async () => {
     methods: {
       validate() {
         const list = ['sex', 'ident', 'qq', 'grad', 'group', 'first', 'second'];
-        if(list.some(k => this.info[k] === null)) return false;
-        if(this.extended && !this.info.know) return false;
+        const exlist = ['know', 'a11', 'a21', 'a22', 'b1', 'b2', 'spec'];
+        if(list.some(k => this.info[k] === null || this.info[k] === '')) return false;
+        if(this.extended && exlist.some(k => this.info[k] === null || this.info[k] === '')) return false;
         return true;
       },
     },
@@ -39,9 +40,6 @@ export default Vue.component('info', async () => {
     computed: {
       extended() {
         return this.info.first === '危机联动体系' || this.info.second === '危机联动体系';
-      },
-      filling() {
-        return this.extended && this.info.know === '是';
       },
     }
   };

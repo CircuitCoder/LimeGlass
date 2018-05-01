@@ -22,6 +22,11 @@ export default Vue.component('Info', async () => {
     },
     methods: {
       async submit() {
+        if(!this.$refs.info.validate()) {
+          alert('请检查信息是否填写完整');
+          return;
+        }
+
         const resp = await post('/account/info', this.info);
         const jresp = await resp.json();
         await bus.trigger('refresh');
@@ -29,6 +34,11 @@ export default Vue.component('Info', async () => {
       },
 
       async adminSubmit() {
+        if(!this.$refs.info.validate()) {
+          alert('请检查信息是否填写完整');
+          return;
+        }
+
         const resp = await post(`/admin/info/${this.$route.query._id}`, this.info);
         const jresp = await resp.json();
         alert('更新成功');

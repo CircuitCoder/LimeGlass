@@ -7,7 +7,7 @@
 
   <div class="title" v-if="admin">查看/修改个人信息 <small>{{ $route.query.name }}</small></div>
 
-  <info v-model="info" :ready="!admin && !edit"></info>
+  <info v-model="info" :ready="!admin && !edit" ref="info"></info>
 
   <button @click="$router.push({ name: 'home' })" v-if="!admin && !edit" class="primary">返回首页</button>
   <button @click="submit()" v-if="edit" class="primary">提交</button>
