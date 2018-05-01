@@ -3,6 +3,7 @@ export const STATUS_MAP = {
   Accepted: '通过',
   Degraded: '等待转接',
   Promoted: '等待进阶',
+  Halted: '停止',
 };
 
 export const STATUS_ICON = {
@@ -10,4 +11,5 @@ export const STATUS_ICON = {
   Accepted: 'done',
   Degraded: 'keyboard_arrow_down',
   Promoted: 'keyboard_arrow_up',
+  Halted: 'stop',
 };
