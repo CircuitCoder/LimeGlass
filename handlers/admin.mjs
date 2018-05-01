@@ -90,6 +90,18 @@ router.post('/review/:id/round', async ctx => {
   };
 });
 
+router.delete('/review/:id/round/:iter(\\d+)', async ctx => {
+  // Assumes a low frequency operation
+  const account = await Account.findById(ctx.params.id);
+  if(!account) return ctx.status = 404;
+
+  const round = parseInt(ctx.params.iter, 10);
+
+  account.rounds.splice(round, 1);
+  await account.save();
+  ctx.body = account.rounds;
+});
+
 router.get('/questions', async ctx => {
   const list = await Account.find({
     isAdmin: { $ne: true },

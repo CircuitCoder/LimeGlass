@@ -78,6 +78,14 @@ export default Vue.component('Reviewers', async () => {
           alert('提交失败，请稍后再试');
       },
 
+      async deleteRound(iter) {
+        if(!confirm('此删除操作无法恢复')) return;
+        
+        const resp = await get(`/admin/review/${this.selected._id}/round/${iter}`, 'DELETE');
+        const payload = await resp.json();
+        if(payload) this.selected.rounds = payload;
+      },
+
       lastStatus(e) {
         console.log(e);
         return e.rounds[e.rounds.length-1].result;

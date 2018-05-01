@@ -36,6 +36,7 @@
           <button v-for="(t, k) of STATUS_MAP" @click="r.result = k" style="margin-right: 5px;" :class="{ selected: r.result === k }">{{ t }}</button>
           <br>
           <button class="primary" @click="updateField(r, i, 'result')">更新</button>
+          <button @click="deleteRound(i)">删除</button>
           <div class="input-hint">面试官笔记</div>
           <textarea v-model="r.notes"></textarea>
           <button @click="updateField(r, i, 'notes')">更新</button>
