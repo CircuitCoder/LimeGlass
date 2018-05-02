@@ -6,7 +6,21 @@
     class="text-link"
     tag="button"
     :to="{ name: 'register' }">新建用户</router-link>
-  <table class="primary-table">
+
+  <div v-for="(entry, index) of list" class="list-card">
+    <div class="list-name">{{ entry.name }} <small>{{ entrySubtitle(entry) }}</small></div>
+    <div class="list-contact"><i class="material-icons">email</i> {{ entry.email }}</div>
+    <div class="list-contact" v-if="entry.phone"><i class="material-icons">phone</i> {{ entry.phone }}</div>
+    <div class="list-contact"><i class="material-icons">school</i> {{ entry.school }}</div>
+    <router-link
+      tag="button"
+      class="primary"
+      :to="{ name: 'info', query: { _id: entry._id, admin: true, name: entry.name } }">个人信息</router-link>
+    <button @click="deleteUser(entry._id, index)">删除</button>
+    <button @click="setReviewerRole(entry, !entry.isReviewer)">{{ entry.isReviewer ? '设为代表' : '设为面试官' }}</button>
+  </div>
+
+  <table class="primary-table" style="display: none">
     <thead>
       <th>名</th>
       <th>学校</th>
@@ -19,13 +33,7 @@
         <td>{{ entry.name }}</td>
         <td>{{ entry.school }}</td>
         <td>{{ entry.phone }}</td>
-        <router-link
-          class="text-link"
-          tag="td"
-          :to="{ name: 'info', query: { _id: entry._id, admin: true, name: entry.name } }">{{ entry.info ? '查看/编辑' : '未填写/添加' }}</router-link>
         <td>
-          <button @click="deleteUser(entry._id, index)">删除</button>
-          <button @click="setReviewerRole(entry, !entry.isReviewer)">{{ entry.isReviewer ? '设为代表' : '设为面试官' }}</button>
         </td>
       </tr>
     </tbody>

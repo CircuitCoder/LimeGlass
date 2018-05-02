@@ -138,6 +138,13 @@ export default Vue.component('List', async () => {
           doDelete();
         });
       },
+
+      entrySubtitle(e) {
+        let contents = [];
+        if(e.isReviewer) contents.push('面试官');
+        if(!e.info) contents.push('未报名');
+        return contents.join(' ');
+      },
     },
   };
 });
