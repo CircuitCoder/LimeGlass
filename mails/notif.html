@@ -1,0 +1,86 @@
+<div class="mail">
+  <div class="seal"></div>
+  <div class="content">
+    <div class="title">{{ meta.title }}</div>
+    <div class="body">
+      <p>您好，{{ name }}！</p>
+      <p>您收到一个新通知，标题为:</p>
+      <p><strong>{{ title }}</strong></p>
+      <p>请登录查看详情</p>
+    </div>
+
+    <div class="footer">{{ config.mail.sig }}</div>
+  </div>
+</div>
+
+<style>
+.mail {
+  display: flex;
+  background: rgba(0,0,0,.03);
+  color: rgba(0,0,0,.87);
+  margin: 20px auto;
+  width: 500px;
+
+  border: rgba(0,0,0,.12) 1px solid;
+  border-radius: 6px;
+  box-shadow: rgba(0,0,0,.12) 0 2px 6px;
+
+  line-height: 20px;
+  overflow: hidden;
+
+  font-size: 0;
+}
+
+.content {
+  display: inline-block;
+  padding: 30px 40px;
+  padding-left: 25px;
+  flex: 1;
+  font-size: 16px;
+}
+
+.title {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.link {
+  font-family: monospace;
+  color: rgba(0,0,0,.7);
+  font-size: 10px；
+}
+
+.seal {
+  display: inline-block;
+  width: 15px;
+  float: left;
+
+  background: linear-gradient(45deg,
+                  rgba(0,0,0,.2) 0%, rgba(0,0,0,.2) 25%,
+                  rgba(0,0,0,.4) 25%, rgba(0,0,0,.4) 50%,
+                  rgba(0,0,0,.2) 50%, rgba(0,0,0,.2) 75%,
+                  rgba(0,0,0,.4) 75%, rgba(0,0,0,.4) 100%,
+                  rgba(0,0,0,.2) 100%);
+
+  background-size: 15px;
+  background-repeat: infinite;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.header {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.footer {
+  margin-top: 16px;
+  font-size: 10px;
+  color: rgba(0,0,0,.38);
+}
+</style>

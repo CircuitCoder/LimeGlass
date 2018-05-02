@@ -150,14 +150,14 @@ button.primary {
 }
 
 button:not(:disabled):hover {
-  opacity: 1;
+  opacity: .7;
 }
 
 button:not(:disabled):focus {
-  opacity: 1;
+  opacity: .7;
 }
 
-button.selected {
+button.selected, button.selected:hover, button.selected:focus {
   opacity: 1;
 }
 
@@ -520,6 +520,26 @@ hr {
 
 .question + textarea {
   margin-bottom: 40px;
+}
+
+.notif {
+  margin-top: 10px;
+  border-radius: 4px;
+  box-shadow: rgba(0,0,0,.12) 0 2px 6px;
+  padding: 20px;
+  box-sizing: border-box;
+  padding-bottom: 5px;
+}
+
+.notif-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.notif-content {
+  margin-top: 4px;
+  font-size: 16px;
+  color: rgba(0,0,0,.87);
 }
 
 .fade-enter-active {

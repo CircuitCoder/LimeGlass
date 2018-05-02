@@ -32,6 +32,7 @@ import Admin from './handlers/admin';
 import Meta from './handlers/meta';
 import Review from './handlers/review';
 import Answer from './handlers/answer';
+import Notif from './handlers/notif';
 
 router.use(
   '/account',
@@ -56,6 +57,11 @@ router.use(
 router.use(
   '/answer',
   Answer.routes(),
+  );
+
+router.use(
+  '/notif',
+  Notif.routes(),
   );
 
 app.use(router.routes(), router.allowedMethods());

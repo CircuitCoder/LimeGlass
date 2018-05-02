@@ -5,8 +5,16 @@
     <button @click="$router.push({ name: 'info' })">查看个人信息</button>
     <button @click="$router.push({ name: 'list' })" v-if="user && user.isAdmin">注册列表</button>
     <button @click="$router.push({ name: 'reviewers' })" v-if="user && user.isAdmin">管理面试 &amp; 学测</button>
+    <button @click="$router.push({ name: 'send' })" v-if="user && user.isAdmin">发送通知</button>
     <button @click="logout()">登出</button>
   </div>
+
+  <div class="subtitle">通知</div>
+  <div class="notif" v-for="notif of notifs">
+    <div class="notif-title">{{ notif.title }}</div>
+    <div class="notif-content" v-html="md(notif.content)"></div>
+  </div>
+  <div class="hint" v-if="notifs.length === 0">暂无</div>
 
   <div v-if="user && user.isReviewer">
     <div class="subtitle">面试列表</div>

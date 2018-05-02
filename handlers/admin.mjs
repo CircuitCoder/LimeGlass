@@ -134,4 +134,48 @@ router.delete('/user/:id', async ctx => {
   return ctx.body = { success: true };
 });
 
+router.post('/notif', async ctx => {
+  const criteria = { isAdmin: false };
+  if(ctx.request.body.isReviewer !== null) {
+    if(ctx.request.body.isReviewer) criteria.isReviewer = { $eq: true };
+    else criteria.isReviewer = { $ne: true };
+  }
+
+  if(ctx.request.body.filled)
+    criteria.info = { $ne: null }
+
+  if(ctx.request.body.unpaid)
+    criteria.paid = { $ne: true }
+
+  const content = ctx.request.body.content;
+  const title = ctx.request.body.title;
+  const accounts = await Account.find(criteria, {
+    _id: 1,
+    email: 1,
+    name: 1,
+  }).lean();
+
+  const ids = accounts.map(e => e._id);
+
+  const resp = await Account.updateMany({ _id: { $in: ids }}, {
+    $push: {
+      notifs: {
+        _id: mongoose.Types.ObjectId(),
+        title,
+        content,
+        read: false,
+      }
+    }
+  });
+
+  // Defers all
+  for(const a of accounts)
+    Mailer.send('notif', a.email, {
+      title,
+      name: a.name,
+    });
+
+  return ctx.body = { count: resp.nModified };
+});
+
 export default router;

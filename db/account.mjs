@@ -51,6 +51,19 @@ const Account = new mongoose.Schema({
     answers: [String],
   }],
 
+  notifs: {
+    type: [{
+      _id: mongoose.Schema.Types.ObjectId,
+      title: String,
+      content: String,
+      read: {
+        type: Boolean,
+        default: false,
+      },
+    }],
+    default: [],
+  },
+
 }, { minimize: false });
 
 Account.methods.updatePass = async function(plain) {
