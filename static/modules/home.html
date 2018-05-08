@@ -1,13 +1,20 @@
 <div class="view page">
   <div class="seal"></div>
   <div class="title">欢迎，{{ user.name }}</div>
-  <div class="hint">当前没有新消息，请关注邮件通知，了解您的学测、面试状态更新</div>
   <div class="select primary-action">
     <button @click="$router.push({ name: 'info' })">查看个人信息</button>
     <button @click="$router.push({ name: 'list' })" v-if="user && user.isAdmin">注册列表</button>
     <button @click="$router.push({ name: 'reviewers' })" v-if="user && user.isAdmin">管理面试 &amp; 学测</button>
+    <button @click="$router.push({ name: 'send' })" v-if="user && user.isAdmin">发送通知</button>
     <button @click="logout()">登出</button>
   </div>
+
+  <div class="subtitle">通知</div>
+  <div class="notif" v-for="notif of notifs">
+    <div class="notif-title">{{ notif.title }}</div>
+    <div class="notif-content" v-html="md(notif.content)"></div>
+  </div>
+  <div class="hint" v-if="notifs.length === 0">暂无</div>
 
   <div v-if="user && user.isReviewer">
     <div class="subtitle">面试列表</div>
@@ -40,6 +47,7 @@
         {{ r.name }} <small>{{ r.email }}</small> <small>{{ r.phone }}</small>
       </div>
     </router-link>
+    <div class="hint" v-if="user.rounds.length === 0">暂无</div>
   </div>
 
   <div class="subtitle">修改密码</div>

@@ -18,12 +18,14 @@ export default Vue.component('Home', async () => {
       oldpass: null,
       newpass: null,
       reviews: [],
+      notifs: [],
 
       STATUS_MAP,
       STATUS_ICON,
     }),
     created() {
       this.updateReviews();
+      this.updateNotifs();
     },
     methods: {
       async updatePass() {
@@ -60,6 +62,21 @@ export default Vue.component('Home', async () => {
 
           this.reviews = data;
         } else this.reviews = null;
+      },
+
+      async updateNotifs() {
+        if(!this.user) {
+          this.notifs = null;
+          return;
+        }
+
+        const resp = await get('/notif/unread');
+        this.notifs = await resp.json();
+        this.notifs.reverse();
+      },
+
+      md(src) {
+        return window.markdownit().render(src);
       },
     },
     watch: {

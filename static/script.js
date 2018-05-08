@@ -6,6 +6,7 @@ import Register from './modules/register.js';
 import Home from './modules/home.js';
 import Info from './modules/info.js';
 import List from './modules/list.js';
+import Send from './modules/send.js';
 import Reviewers from './modules/reviewers.js';
 import Review from './modules/review.js';
 import Answer from './modules/answer.js';
@@ -22,6 +23,7 @@ const routes = [
   { path: '/info', component: Info, name: 'info', },
 
   { path: '/list', component: List, name: 'list', },
+  { path: '/send', component: Send, name: 'send', },
   { path: '/reviewers', component: Reviewers, name: 'reviewers', },
   { path: '/reviewing/:id', component: Review, name: 'review', },
   { path: '/answer/:iter(\\d+)', component: Answer, name: 'answer', },

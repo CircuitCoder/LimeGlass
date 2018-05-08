@@ -1,0 +1,21 @@
+<div class="view page">
+  <div class="seal"></div>
+  <div class="title">管理::群发通知</div>
+
+  <div class="input-hint">标题</div>
+  <input v-model="title">
+  <div class="input-hint">Markdown</div>
+  <textarea v-model="content"></textarea>
+
+  <div class="input-hint">身份</div>
+  <button @click="isReviewer = null" :class="{ selected: isReviewer === null}">所有人</button>
+  <button @click="isReviewer = true" :class="{ selected: isReviewer === true}">面试官</button>
+  <button @click="isReviewer = false" :class="{ selected: isReviewer === false}">代表</button>
+  <div class="input-hint">个人信息</div>
+  <button @click="filled = !filled" :class="{ selected: filled }">只发往已填写</button>
+  <div class="input-hint">缴费</div>
+  <button @click="unpaid = !unpaid" :class="{ selected: unpaid }">未消费</button>
+
+  <br><br>
+  <button class="primary" @click="send()">发送</button>
+</div>
