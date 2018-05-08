@@ -17,25 +17,7 @@
       class="primary"
       :to="{ name: 'info', query: { _id: entry._id, admin: true, name: entry.name } }">个人信息</router-link>
     <button @click="deleteUser(entry._id, index)">删除</button>
-    <button @click="setReviewerRole(entry, !entry.isReviewer)">{{ entry.isReviewer ? '设为代表' : '设为面试官' }}</button>
+    <button v-if="!entry.isAdmin" @click="setReviewerRole(entry, !entry.isReviewer)">{{ entry.isReviewer ? '设为代表' : '设为面试官' }}</button>
+    <button v-if="!entry.isReviewer && !(entry.isAdmin && !entry.partialAdmin)" @click="setAdminRole(entry, !entry.isAdmin)">{{ entry.isAdmin ? '取消协调员' : '设为协调员' }}</button>
   </div>
-
-  <table class="primary-table" style="display: none">
-    <thead>
-      <th>名</th>
-      <th>学校</th>
-      <th>手机</th>
-      <th>个人信息</th>
-      <th>操作</th>
-    </thead>
-    <tbody>
-      <tr v-for="(entry, index) of list" :key="entry._id">
-        <td>{{ entry.name }}</td>
-        <td>{{ entry.school }}</td>
-        <td>{{ entry.phone }}</td>
-        <td>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>

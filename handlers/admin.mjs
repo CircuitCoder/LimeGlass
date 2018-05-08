@@ -12,6 +12,7 @@ router.use(async (ctx, next) => {
   if(!user || !user.isAdmin) {
     ctx.status = 403;
   } else {
+    ctx.user = user;
     await next();
   }
 });
@@ -23,6 +24,8 @@ router.get('/list', async ctx => {
     email: 1,
     phone: 1,
     info: 1,
+    partialAdmin: 1,
+    isAdmin: 1,
     isReviewer: 1,
   });
 
@@ -38,6 +41,7 @@ router.get('/info/:id', async ctx => {
 });
 
 router.post('/info/:id', async ctx => {
+  if(ctx.user.partialAdmin) return ctx.status = 403;
   await Account.findByIdAndUpdate(ctx.params.id, { $set: { info: ctx.request.body } });
   return ctx.body = { success: true };
 });
@@ -176,6 +180,18 @@ router.post('/notif', async ctx => {
     });
 
   return ctx.body = { count: resp.nModified };
+});
+
+router.put('/admin/:id', async ctx => {
+  if(ctx.user.partialAdmin) return ctx.status = 403;
+  await Account.findByIdAndUpdate(ctx.params.id, {
+    $set: {
+      isAdmin: ctx.request.body.isAdmin,
+      partialAdmin: true,
+    },
+  });
+
+  return ctx.body = { success: true };
 });
 
 export default router;

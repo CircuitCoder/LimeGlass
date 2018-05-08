@@ -62,7 +62,7 @@ export default Vue.component('Info', async () => {
           if(!src) src={};
         }
 
-        if(this.$route.query.admin) {
+        if(this.$route.query.admin && this.user.isAdmin && !this.user.partialAdmin) {
           this.admin = true;
           if(!src) src={};
         }

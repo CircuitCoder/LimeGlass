@@ -28,6 +28,11 @@ const Account = new mongoose.Schema({
     default: false,
   },
 
+  partialAdmin: {
+    type: Boolean,
+    default: false,
+  },
+
   isReviewer: {
     type: Boolean,
     default: false,
@@ -45,7 +50,7 @@ const Account = new mongoose.Schema({
     notes: String,
     result: {
       type: String,
-      enum: ['Pending', 'Accepted', 'Promoted', 'Degraded'],
+      enum: ['Pending', 'Accepted', 'Promoted', 'Degraded', 'Halted'],
     },
     questions: [String],
     answers: [String],

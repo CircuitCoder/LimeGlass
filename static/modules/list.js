@@ -104,6 +104,16 @@ export default Vue.component('List', async () => {
           alert('更新失败');
       },
 
+      async setAdminRole(entry, isAdmin) {
+        const resp = await post(`/admin/admin/${entry._id}`, { isAdmin }, 'PUT');
+        const payload = await resp.json();
+
+        if(payload.success) {
+          entry.isAdmin = isAdmin;
+        } else
+          alert('更新失败');
+      },
+
       async deleteUser(id, index) {
         async function doDelete() {
           const resp = await get(`/admin/user/${id}`, 'DELETE');
@@ -142,6 +152,8 @@ export default Vue.component('List', async () => {
       entrySubtitle(e) {
         let contents = [];
         if(e.isReviewer) contents.push('面试官');
+        else if(e.isAdmin && e.partialAdmin) contents.push('协调官');
+        else if(e.isAdmin) contents.push('管理员');
         if(!e.info) contents.push('未报名');
         return contents.join(' ');
       },

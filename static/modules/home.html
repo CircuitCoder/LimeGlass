@@ -3,7 +3,7 @@
   <div class="title">欢迎，{{ user.name }}</div>
   <div class="select primary-action">
     <button @click="$router.push({ name: 'info' })">查看个人信息</button>
-    <button @click="$router.push({ name: 'list' })" v-if="user && user.isAdmin">注册列表</button>
+    <button @click="$router.push({ name: 'list' })" v-if="user && user.isAdmin && !user.partialAdmin">注册列表</button>
     <button @click="$router.push({ name: 'reviewers' })" v-if="user && user.isAdmin">管理面试 &amp; 学测</button>
     <button @click="$router.push({ name: 'send' })" v-if="user && user.isAdmin">发送通知</button>
     <button @click="logout()">登出</button>
