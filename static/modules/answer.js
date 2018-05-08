@@ -33,8 +33,12 @@ export default Vue.component('Answer', async () => {
       },
 
       async submit() {
-        if(this.round.answers.includes(''))
+        if(this.round.answers.includes('')) {
           if(!confirm('您有未作答的题目，是否继续?')) return;
+        } else {
+          if(!confirm('是否确认提交?')) return;
+        }
+
         const resp = await post(
           `/answer/${this.$route.params.iter}/answers`,
           { answers: this.round.answers },
