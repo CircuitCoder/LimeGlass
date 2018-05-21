@@ -2,7 +2,7 @@
   <div class="form">
     <div class="block opaque">
       <div class="seal"></div>
-      <div class="form-heading">登录</div>
+      <div class="form-heading">登录 <small class="heading-link" @click="register()">注册</small></div>
       <div class="input-hint">邮箱</div>
       <input v-model="email" @keydown.enter="login()">
       <div class="input-hint">密码</div>
@@ -10,7 +10,6 @@
       <div class="button-row">
         <button @click="login()" class="primary">登录</button>
         <button @click="recover()">忘记密码</button>
-        <button @click="register()">注册</button>
       </div>
     </div>
     <div class="form-error" :class="{ shown: error === 'EMPTY' }">亲爱的，把信息填全啊</div>

@@ -24,7 +24,7 @@ const routes = [
 
   { path: '/list', component: List, name: 'list', },
   { path: '/send', component: Send, name: 'send', },
-  { path: '/reviewers', component: Reviewers, name: 'reviewers', },
+  { path: '/reviewers', component: Reviewers, name: 'reviewers', meta: { fullscreen: true }, },
   { path: '/reviewing/:id', component: Review, name: 'review', },
   { path: '/answer/:iter(\\d+)', component: Answer, name: 'answer', },
 ];
@@ -63,6 +63,7 @@ const desc = {
     online: false,
 
     user: null,
+    floatingNav: false,
   },
   router,
   created() {
@@ -84,6 +85,14 @@ const desc = {
       this.defaultError = 'REG';
       this.$router.push({ name: 'login' });
     },
+    async logout() {
+      const resp = await get('/account', 'delete');
+      await bus.trigger('refresh');
+      this.$router.push({ name: 'login' });
+    },
+    checkScroll() {
+      this.floatingNav = window.scrollY !== 0;
+    },
   }
 };
 
@@ -91,6 +100,15 @@ const desc = {
 export default function init() {
   instance = new Vue(desc);
   instance.$mount('#app');
+
+  window.addEventListener('scroll', () => {
+    console.log("WTF");
+    instance && instance.checkScroll();
+  });
+
+  document.body.addEventListener('resize', () => {
+    instance && instance.checkScroll();
+  });
 }
 
 window.init = init;

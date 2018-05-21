@@ -44,12 +44,6 @@ export default Vue.component('Home', async () => {
         }
       },
 
-      async logout() {
-        const resp = await get('/account', 'delete');
-        await bus.trigger('refresh');
-        this.$router.push({ name: 'login' });
-      },
-
       async updateReviews() {
         if(!this.user) {
           this.reviews = null;

@@ -7,6 +7,8 @@ body {
 #app {
   position: relative;
   min-height: 100vh;
+  padding-top: 80px;
+  box-sizing: border-box;
 }
 
 .view.centering {
@@ -69,6 +71,16 @@ body {
   margin-bottom: 12px;
 }
 
+.heading-link {
+  cursor: pointer;
+  color: rgba(0,0,0,.3);
+  transition: color .2s ease;
+}
+
+.heading-link:hover {
+  color: rgba(0,0,0,.87);
+}
+
 input, textarea {
   font-family: sans-serif;
   box-sizing: border-box;
@@ -85,6 +97,17 @@ input {
 
   font-size: 16px;
   line-height: 20px;
+  position: relative;
+}
+
+.input::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  height: 2px;
+  left: 0;
+  right: 0;
+  background: red;
 }
 
 textarea {
@@ -125,48 +148,46 @@ input::placeholder, textarea::placeholder {
 }
 
 button {
-  margin-top: 10px;
-  background: 0;
   border: 0;
-  padding: 0;
-  outline: 0;
+  padding: 10px 15px;
   cursor: pointer;
-
-  opacity: .5;
+  outline: 0;
+  
+  margin: 10px;
   font-size: 16px;
 
-  transition: opacity .2s ease;
-
-  border-left: rgba(0,0,0,.3) 5px solid;
-  background: rgba(0,0,0,.12);
-  padding: 5px 10px;
+  transition: box-shadow .2s ease, border-left .2s ease, padding .2s ease;
+  box-shadow: rgba(0,0,0,.3) 0 2px 6px;
   color: rgba(0,0,0,.87);
+
+  background: #F5F5F5;
+  border-left: #BDBDBD 8px solid;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 button.primary {
-  border-left: rgba(54,127,26,.4) 5px solid;
+  border-left: rgba(54,127,26,.4) 8px solid;
   background: rgba(54,127,26,.18);
   color: rgba(20,48,10,.87);
 }
 
 button:not(:disabled):hover {
-  opacity: .7;
+  box-shadow: rgba(0,0,0,.3) 0 4px 12px;
 }
 
 button:not(:disabled):focus {
-  opacity: .7;
+  box-shadow: rgba(0,0,0,.3) 0 4px 12px;
 }
 
 button.selected, button.selected:hover, button.selected:focus {
-  opacity: 1;
+  border-left-width: 16px;
+  padding-left: 11px;
+  padding-right: 11px;
 }
 
 button:disabled {
   cursor: default;
-}
-
-button.selector {
-  transition-property: opacity, background-color, color, border-color;
 }
 
 .button-row {
@@ -280,6 +301,7 @@ small {
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 200;
 
   display: flex;
 
@@ -365,9 +387,13 @@ small {
   margin-right: 2px;
 }
 
+.questions-view {
+  margin-top: -20px;
+}
+
 .questions {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 60px);
   box-sizing: border-box;
   padding-left: 15px;
 }
@@ -540,6 +566,65 @@ hr {
   margin-top: 4px;
   font-size: 16px;
   color: rgba(0,0,0,.87);
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+
+  transition: height .2s ease, box-shadow .2s ease, transform .2s ease, background-color .2s ease;
+  transform: translateY(-90px);
+  padding: 0 20px 0 50PX;
+
+  z-index: 100;
+}
+
+.navbar.shown {
+  transform: none;
+}
+
+.navbar.floating {
+  box-shadow: rgba(0,0,0,.3) 0 4px 12px;
+  background: rgba(255,255,255,0.9);
+  height: 60px;
+}
+
+.nav {
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 16px;
+  height: 100%;
+  border-bottom: rgba(0,0,0,.12) 4px solid;
+  border-top: rgba(0,0,0,0) 4px solid;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  transition: border-bottom-color .2s ease;
+}
+
+.nav:hover {
+  border-bottom-color: rgba(0,0,0,.3);
+}
+
+.nav.router-link-active {
+  border-bottom-color: rgba(54,127,26,.4);
+}
+
+.mini-logo {
+  flex: 1;
+  height: 32px;
+  cursor: pointer;
+}
+
+.mini-logo img {
+  width: 32px;
+  height: 32px;
 }
 
 .fade-enter-active {

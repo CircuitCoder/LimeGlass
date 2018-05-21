@@ -20,6 +20,17 @@
   </head>
   <body onload="_init()">
     <div id="app">
+      <div class="navbar" :class="{ shown: !!user, floating: floatingNav || $route.meta.fullscreen }">
+        <div class="mini-logo">
+          <router-link :to="{ name: 'home' }" tag="img" src="/lime.png"></router-link>
+        </div>
+        <router-link tag="div" class="nav" :to="{ name: 'info' }">查看个人信息</router-link>
+        <router-link tag="div" class="nav" :to="{ name: 'list' }" v-if="user && user.isAdmin && !user.partialAdmin">注册列表</router-link>
+        <router-link tag="div" class="nav" :to="{ name: 'reviewers' }" v-if="user && user.isAdmin">管理面试 &amp; 学测</router-link>
+        <router-link tag="div" class="nav" :to="{ name: 'send' }" v-if="user && user.isAdmin">发送通知</router-link>
+        <router-link tag="div" class="nav" @click="logout()" :to="{}">登出</router-link>
+      </div>
+
       <transition mode="out-in" name="fade">
         <router-view
           :user="user">

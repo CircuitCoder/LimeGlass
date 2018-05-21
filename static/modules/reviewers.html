@@ -1,4 +1,4 @@
-<div class="view">
+<div class="view questions-view">
   <div class="seal"></div>
   <div class="questions">
     <div class="questions-list">
@@ -67,9 +67,7 @@
                 <div class="hint" v-if="selectedReviewers.length > 0">已选择: {{ reviewerNames }}</div>
                 <button @click="addRound" class="primary" :disabled="selectedReviewers.length === 0">提交</button>
                 <hr>
-                <div v-for="p of reviewers">
-                  <button @click="toggleReviewer(p)" class="selector" :class="{ primary: reviewerSet[p._id], selected: reviewerSet[p._id] }">{{ p.name }}</button>
-                </div>
+                <button v-for="p of reviewers" @click="toggleReviewer(p)" class="selector" :class="{ selected: reviewerSet[p._id] }">{{ p.name }}</button>
               </div>
             </div>
           </div>
