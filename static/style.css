@@ -14,6 +14,7 @@ body {
 .view.centering {
   height: 100vh;
   width: 100vw;
+  margin-top: -80px;
 
   display: flex;
   align-items: center;
