@@ -1,0 +1,43 @@
+<div class="view page seats-page">
+  <div class="seal"></div>
+  <div class="title">管理::席位 <small class="heading-link" @click="startUpdate()">更新</small></div>
+
+  <transition name="fade" mode="out-in">
+    <div class="seats" key="seats" v-if="perspective === 'seats'">
+      <div class="seat-box" v-for="r of filtered">
+        <div class="seat">
+          <div class="seat-info">
+            <div class="seat-title" v-if="r.name">{{ r.title }}</div>
+            <div class="seat-name">{{ r.name ? r.name : r.title }}</div>
+            <div class="seat-tags">
+              <div class="seat-tag" v-for="t of r.tags" @click="insertTag(t)">{{ t }}</div>
+            </div>
+          </div>
+          <div class="seat-status">
+            <div class="seat-vacant">尚未分配</div>
+            <div class="seat-occupied"><i class="material-icons">person_outline</i> 刘晓义</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div key="assignments" v-if="perspective === 'assign'">
+      <div class="row">
+      </div>
+    </div>
+  </transition>
+
+  <div class="seats-actions">
+    <i class="material-icons seats-action" @click="showTags = true">label</i>
+    <i class="material-icons">search</i>
+    <input class="seats-search" v-model="searchStr">
+    <div class="seats-perspective-selector">
+      <i class="material-icons" @click="perspective = 'seats'" :class="{ active: perspective === 'seats' }">event_seat</i>
+      <i class="material-icons" @click="perspective = 'assign'" :class="{ active: perspective === 'assign' }">people</i>
+    </div>
+  </div>
+
+  <transition name="ease">
+    <div class="seats-tags-backdrop" v-if="showTags" @click="showTags = false"></div>
+  </transition>
+</div>

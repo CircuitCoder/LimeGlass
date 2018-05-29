@@ -52,3 +52,27 @@ export function deepEq(a, b) {
 
   return a === b;
 }
+
+export function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const head = document.getElementsByTagName('head')[0];
+    const el = document.createElement('script');
+    el.src = src;
+
+    let ready = false;
+    const cb = () => {
+      if(ready) return;
+      ready = true;
+
+      resolve();
+    };
+
+    el.onreadystatechange = () => {
+      if(el.readyState === 'complete') cb();
+    };
+
+    el.onload = cb;
+
+    head.appendChild(el);
+  });
+}

@@ -69,6 +69,12 @@ const Account = new mongoose.Schema({
     default: [],
   },
 
+  invoice: Object,
+  invoicePaid: {
+    type: Boolean,
+    default: false,
+  },
+
 }, { minimize: false });
 
 Account.methods.updatePass = async function(plain) {

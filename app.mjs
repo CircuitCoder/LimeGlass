@@ -33,6 +33,7 @@ import Meta from './handlers/meta';
 import Review from './handlers/review';
 import Answer from './handlers/answer';
 import Notif from './handlers/notif';
+import Invoice from './handlers/invoice';
 
 router.use(
   '/account',
@@ -62,6 +63,11 @@ router.use(
 router.use(
   '/notif',
   Notif.routes(),
+  );
+
+router.use(
+  '/invoice',
+  Invoice.routes(),
   );
 
 app.use(router.routes(), router.allowedMethods());

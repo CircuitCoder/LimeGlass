@@ -10,6 +10,7 @@ import Send from './modules/send.js';
 import Reviewers from './modules/reviewers.js';
 import Review from './modules/review.js';
 import Answer from './modules/answer.js';
+import Seats from './modules/seats.js';
 
 let instance;
 
@@ -27,6 +28,7 @@ const routes = [
   { path: '/reviewers', component: Reviewers, name: 'reviewers', meta: { fullscreen: true }, },
   { path: '/reviewing/:id', component: Review, name: 'review', },
   { path: '/answer/:iter(\\d+)', component: Answer, name: 'answer', },
+  { path: '/seats', component: Seats, name: 'seats', },
 ];
 
 const router = new VueRouter({
@@ -102,7 +104,6 @@ export default function init() {
   instance.$mount('#app');
 
   window.addEventListener('scroll', () => {
-    console.log("WTF");
     instance && instance.checkScroll();
   });
 

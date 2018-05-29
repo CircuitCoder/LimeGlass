@@ -1,5 +1,7 @@
 import Account from '../db/account';
+import Seat from '../db/seat';
 import Mailer from '../utils/mailer';
+import { bulkUpsert } from '../utils/db';
 
 import mongoose from 'mongoose';
 
@@ -191,6 +193,18 @@ router.put('/admin/:id', async ctx => {
     },
   });
 
+  return ctx.body = { success: true };
+});
+
+// Seats
+router.get('/seats', async ctx => {
+  if(ctx.user.partialAdmin) return ctx.status = 403;
+  return ctx.body = await Seat.find().sort({ _id: 1 });
+});
+
+router.put('/seats', async ctx => {
+  if(ctx.user.partialAdmin) return ctx.status = 403;
+  await bulkUpsert(Seat, ctx.request.body);
   return ctx.body = { success: true };
 });
 

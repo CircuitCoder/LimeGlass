@@ -24,11 +24,13 @@
         <div class="mini-logo">
           <router-link :to="{ name: 'home' }" tag="img" src="/lime.png"></router-link>
         </div>
-        <router-link tag="div" class="nav" :to="{ name: 'info' }">查看个人信息</router-link>
-        <router-link tag="div" class="nav" :to="{ name: 'list' }" v-if="user && user.isAdmin && !user.partialAdmin">注册列表</router-link>
-        <router-link tag="div" class="nav" :to="{ name: 'reviewers' }" v-if="user && user.isAdmin">管理面试 &amp; 学测</router-link>
-        <router-link tag="div" class="nav" :to="{ name: 'send' }" v-if="user && user.isAdmin">发送通知</router-link>
-        <div class="nav" @click="logout()">登出</div>
+        <router-link tag="div" class="nav" :to="{ name: 'list' }" v-if="user && user.isAdmin && !user.partialAdmin"><i class="material-icons">people</i></router-link>
+        <router-link tag="div" class="nav" :to="{ name: 'reviewers' }" v-if="user && user.isAdmin"><i class="material-icons">assignment_turned_in</i></router-link>
+        <router-link tag="div" class="nav" :to="{ name: 'seats' }" v-if="user && user.isAdmin"><i class="material-icons">event_seat</i></router-link>
+        <router-link tag="div" class="nav" :to="{ name: 'send' }" v-if="user && user.isAdmin"><i class="material-icons">sms</i></router-link>
+        <div class="nav-separator" v-if="user && user.isAdmin"></div>
+        <router-link tag="div" class="nav" :to="{ name: 'info' }"><i class="material-icons">account_circle</i></router-link>
+        <div class="nav" @click="logout()"><i class="material-icons">power_settings_new</i></div>
       </div>
 
       <transition mode="out-in" name="fade">
