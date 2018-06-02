@@ -5,6 +5,8 @@ import { bulkUpsert } from '../utils/db';
 
 import mongoose from 'mongoose';
 
+import moment from 'moment';
+
 import KoaRouter from 'koa-router';
 
 const router = new KoaRouter();
@@ -79,7 +81,7 @@ router.post('/review/:id/round', async ctx => {
     questions: null,
     answers: null,
     result: 'Pending',
-    deadline: (new Date(Date.now() + 14 * 24 * 3600 * 1000)).toISOString(),
+    deadline: moment().add(14, 'days').format('YYYY-MM-DDTHH:mm'),
   };
 
   const result = await Account.findByIdAndUpdate(ctx.params.id, {
