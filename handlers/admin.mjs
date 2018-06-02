@@ -79,7 +79,7 @@ router.post('/review/:id/round', async ctx => {
     questions: null,
     answers: null,
     result: 'Pending',
-    deadline: (new Date()).toISOString(),
+    deadline: (new Date(Date.now() + 14 * 24 * 3600 * 1000)).toISOString(),
   };
 
   const result = await Account.findByIdAndUpdate(ctx.params.id, {
