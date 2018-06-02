@@ -1,43 +1,93 @@
 <div class="view page seats-page">
   <div class="seal"></div>
-  <div class="title">管理::席位 <small class="heading-link" @click="startUpdate()">更新</small></div>
+  <div class="title">管理::席位 <small class="heading-link" @click="startUpdate()">更新列表</small></div>
 
   <transition name="fade" mode="out-in">
-    <div class="seats" key="seats" v-if="perspective === 'seats'">
+    <div class="seats" key="seats" v-if="perspective === 'seats' || assigning" :class="{ assigning: assigning }">
       <div class="seat-box" v-for="r of filtered">
-        <div class="seat">
+        <div class="seat" @click="assigning && assign(r)">
           <div class="seat-info">
             <div class="seat-title" v-if="r.name">{{ r.title }}</div>
             <div class="seat-name">{{ r.name ? r.name : r.title }}</div>
             <div class="seat-tags">
-              <div class="seat-tag" v-for="t of r.tags" @click="insertTag(t)">{{ t }}</div>
+              <div class="seat-tag" v-for="t of r.tags" @click="assigning || insertTag(t)">{{ t }}</div>
             </div>
           </div>
           <div class="seat-status">
-            <div class="seat-vacant">尚未分配</div>
-            <div class="seat-occupied"><i class="material-icons">person_outline</i> 刘晓义</div>
+            <div class="seat-vacant" v-if="!r.assigned">尚未分配</div>
+            <div class="seat-occupied" v-else>
+              <div class="seat-occupier">
+                <i class="material-icons">person_outline</i> {{ r.assigned in users ? users[r.assigned].name : 'Loading...' }}
+              </div>
+              <div class="seat-occupier-action" v-if="!assigning">
+                <i class="material-icons" @click="gotoUser(users[r.assigned])">arrow_forward</i>
+                <i class="material-icons" @click="releaseSeat(r)">delete</i>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div key="assignments" v-if="perspective === 'assign'">
-      <div class="row">
+    <div key="assignments" v-else class="assignments-view">
+      <div class="assignment-subtitle">未分配</div>
+      <div class="assignments" v-if="filteredVacant.length > 0">
+        <div class="assignment" v-for="u of filteredVacant" @click="assigning = u">
+          <div class="assignment-name">{{ u.name }}</div>
+        </div>
+      </div>
+      <div class="assignments-empty" v-else>
+        空
+      </div>
+
+      <div class="assignment-subtitle">已分配</div>
+      <div class="assignments" v-if="filteredAssigned.length > 0">
+        <div class="assignment" v-for="u of filteredAssigned" @click="assigning = u">
+          <div class="assignment-name">{{ u.name }}</div>
+          <div class="assignment-seat">{{ assignedStatus[u._id].title || assignedStatus[u._id].name }}</div>
+          <i class="material-icons" @click.stop="gotoSeat(assignedStatus[u._id])">arrow_forward</i>
+        </div>
+      </div>
+      <div class="assignments-empty" v-else>
+        空
       </div>
     </div>
   </transition>
 
   <div class="seats-actions">
-    <i class="material-icons seats-action" @click="showTags = true">label</i>
+    <i class="material-icons seats-action" @click="showTags = !showTags">label</i>
     <i class="material-icons">search</i>
-    <input class="seats-search" v-model="searchStr">
-    <div class="seats-perspective-selector">
-      <i class="material-icons" @click="perspective = 'seats'" :class="{ active: perspective === 'seats' }">event_seat</i>
-      <i class="material-icons" @click="perspective = 'assign'" :class="{ active: perspective === 'assign' }">people</i>
-    </div>
+    <input class="seats-search" v-model="searchStr" v-if="perspective === 'seats' || assigning">
+    <input class="seats-search" v-model="userStr" v-else>
+    <transition name="fade" mode="out-in">
+      <div class="assigning-indicator" key="assigning" v-if="assigning">
+        <i class="material-icons" @click="assigning = null">close</i>
+        <div class="assigning-name">{{ assigning.name }}</div>
+      </div>
+      <div class="seats-perspective-selector" key="selector" v-else>
+        <i class="material-icons" @click="perspective = 'seats'" :class="{ active: perspective === 'seats' }">event_seat</i>
+        <i class="material-icons" @click="perspective = 'assign'" :class="{ active: perspective === 'assign' }">people</i>
+      </div>
+    </transition>
   </div>
 
-  <transition name="ease">
+  <transition name="fade">
     <div class="seats-tags-backdrop" v-if="showTags" @click="showTags = false"></div>
+  </transition>
+
+  <transition name="slide-up">
+    <div class="seats-tags" v-if="showTags">
+      <div class="seats-tag-option" v-for="t of tags" @click="toggleTag(t.name)" :class="{ selected: selectedTags.includes(t.name) }">
+        <div class="seats-tag-name">{{ t.name }}</div>
+        <div class="seats-tag-stat">
+          <div>{{ t.occupied }}</div>
+          <div>{{ t.total }}</div>
+        </div>
+      </div>
+    </div>
+  </transition>
+
+  <transition name="fade">
+    <div class="backdrop" v-if="importing"><div class="backdrop-notif">Working...</div></div>
   </transition>
 </div>

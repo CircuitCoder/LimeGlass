@@ -208,4 +208,16 @@ router.put('/seats', async ctx => {
   return ctx.body = { success: true };
 });
 
+router.put('/seat/:id(\\d+)', async ctx => {
+  if(ctx.user.partialAdmin) return ctx.status = 403;
+  await Seat.update({ _id: parseInt(ctx.params.id, 10) }, { $set: { assigned: ctx.request.body.user }});
+  return ctx.body = { success: true };
+});
+
+router.delete('/seat/:id', async ctx => {
+  if(ctx.user.partialAdmin) return ctx.status = 403;
+  await Seat.update({ _id: parseInt(ctx.params.id, 10) }, { $unset: { assigned: 1 }});
+  return ctx.body = { success: true };
+});
+
 export default router;

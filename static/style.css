@@ -337,6 +337,17 @@ small {
   margin: 0 auto;
 }
 
+.backdrop-notif {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: rgba(255,255,255,.7);
+  font-size: 36px;
+}
+
 .form.larger {
   width: 500px;
 }
@@ -653,6 +664,11 @@ hr {
   height: 32px;
 }
 
+.bottom-sheet-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
 .fade-enter-active {
   transition: opacity .2s ease-out;
 }
@@ -667,4 +683,16 @@ hr {
 
 .fade-enter-to, .fade-leave {
   opacity: 1;
+}
+
+.slide-up-enter-active {
+  transition: transform .2s ease-out;
+}
+
+.slide-up-leave-active {
+  transition: transform .2s ease-in;
+}
+
+.slide-up-enter, .slide-up-leave-to {
+  transform: translateY(100%);
 }
