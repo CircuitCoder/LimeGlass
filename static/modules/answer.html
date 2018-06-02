@@ -2,6 +2,7 @@
   <div class="seal"></div>
   <div class="title">第 {{ parseInt($route.params.iter, 10) + 1 }} 轮面试</div>
   <div class="hint">{{ STATUS_MAP[round.result] }}</div>
+  <div class="deadline-hint" v-if="round.deadline && !round.answers">请于 <strong>{{ formatDeadline(round.deadline) }}</strong> 前提交学测，否则可能会对您的分配产生影响</div>
   <div class="subtitle narrow-margin">面试官</div>
   <div v-for="r of round.reviewers" class="reviewer-row">
     {{ r.name }}
@@ -14,7 +15,7 @@
   <div v-else>
     <div v-for="(q, i) of round.questions">
       <div class="question">{{ i+1 }}. {{ q }}</div>
-      <textarea :disabled="ready" v-model="round.answers[i]"></textarea>
+      <textarea :disabled="ready" v-model="answers[i]"></textarea>
     </div>
     <div v-if="!ready">
       <div class="hint">您只有一次提交机会，请谨慎提交</div>

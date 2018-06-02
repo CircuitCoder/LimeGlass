@@ -54,6 +54,7 @@ const Account = new mongoose.Schema({
     },
     questions: [String],
     answers: [String],
+    deadline: String, // Timestamp
   }],
 
   notifs: {

@@ -28,8 +28,16 @@
   <div v-if="user && !user.isReviewer && user.rounds">
     <div class="subtitle">面试列表</div>
     <router-link tag="div" :to="{ name: 'answer', params: { iter: user.rounds.length - i - 1 } }" class="review-entry" v-for="(e, i) of user.rounds.slice().reverse()">
-      <div class="name">第 {{ user.rounds.length - i }} 轮</div>
+      <div v-if="e.questions && !e.answers && e.deadline" class="deadline">
+        <div class="deadline-relative">
+          <i class="material-icons">timer</i> {{ relativeDate(e.deadline) }}
+        </div>
+        <div class="deadline-absolute">
+          {{ formatDate(e.deadline) }}
+        </div>
+      </div>
 
+      <div class="name">第 {{ user.rounds.length - i }} 轮</div>
       <div class="status" v-if="!e.questions">学测题目准备中...</div>
       <div class="status" v-if="e.questions && !e.answers">学测题目未作答</div>
       <div class="status" v-if="e.answers">学测题目已完成, {{ STATUS_MAP[e.result] }}</div>

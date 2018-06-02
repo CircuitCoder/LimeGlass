@@ -48,6 +48,11 @@
           </div>
           <button @click="addQuestion(r)">添加</button>
           <button @click="updateField(r, i, 'questions')">更新</button>
+
+          <div class="subtitle narrow-margin">截止日期</div>
+          <input v-model="r.deadline" type="datetime-local">
+          <button @click="updateField(r, i, 'deadline')">更新</button>
+
           <div class="subtitle narrow-margin">回答</div>
           <div v-if="r.answers === null">尚未作答</div>
           <div v-for="(a, id) in r.answers" v-else>

@@ -63,7 +63,7 @@ router.get('/:id', async ctx => {
   return ctx.body = result;
 });
 
-router.put('/:id/:iter(\\d+)/:field(questions|notes|result)', async ctx => {
+router.put('/:id/:iter(\\d+)/:field(questions|notes|result|deadline)', async ctx => {
   // TODO filter
 
   const payload = {};
@@ -84,6 +84,11 @@ router.put('/:id/:iter(\\d+)/:field(questions|notes|result)', async ctx => {
     await Mailer.send('review', result.email, {
       name: result.name,
       content: `第 ${parseInt(ctx.params.iter, 10)+1} 次面试，学测题目更新。`
+    });
+  } else if(ctx.params.field === 'deadline') {
+    await Mailer.send('review', result.email, {
+      name: result.name,
+      content: `第 ${parseInt(ctx.params.iter, 10)+1} 次面试，学测推荐提交时限更新。`
     });
   }
 

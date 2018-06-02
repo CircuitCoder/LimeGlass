@@ -2,6 +2,28 @@ import { tmpl, get, post } from '../utils.js';
 import { STATUS_MAP, STATUS_ICON } from '../consts.js';
 import bus from '../bus.js';
 
+moment.locale('en');
+moment.updateLocale('en', {
+  relativeTime: {
+    future: 'in %s',
+    past: '%s ago',
+    s: '~s',
+    ss: '%ds',
+    m: '1m',
+    mm: '%dm',
+    h: '1h',
+    hh: '%dh',
+    d: '1d',
+    dd: '%dd',
+    M: '1M',
+    MM: '%dM',
+    y: '1y',
+    yy: '%dy',
+  },
+});
+
+moment.relativeTimeThreshold('ss', 0);
+
 export default Vue.component('Home', async () => {
   const resp = await tmpl('home');
   const template = await resp.text();
@@ -71,6 +93,14 @@ export default Vue.component('Home', async () => {
 
       md(src) {
         return window.markdownit().render(src);
+      },
+
+      formatDate(d) {
+        return moment(d).format('MM-DD hh:mm');
+      },
+
+      relativeDate(d) {
+        return moment(d).fromNow(true)
       },
     },
     watch: {

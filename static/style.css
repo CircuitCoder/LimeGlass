@@ -670,6 +670,33 @@ hr {
   margin-bottom: 10px;
 }
 
+.deadline {
+  float: right;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.deadline-relative {
+  font-size: 30px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.deadline-relative .material-icons {
+  margin-right: 5px;
+}
+
+.deadline-absolute {
+  font-size: 12px;
+}
+
+.deadline-hint {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
 .fade-enter-active {
   transition: opacity .2s ease-out;
 }

@@ -26,6 +26,10 @@
   <button @click="addQuestion()" v-if="privileged">添加</button>
   <button @click="updateField('questions')" v-if="privileged">更新</button>
 
+  <div class="subtitle narrow-margin">截止日期</div>
+  <input v-model="round.deadline" :disabled="!privileged" type="datetime-local">
+  <button @click="updateField('deadline')" v-if="privileged">更新</button>
+
   <div class="subtitle narrow-margin">回答</div>
   <div v-if="round.answers === null">尚未作答</div>
   <div v-for="(a, id) in round.answers" v-else>
