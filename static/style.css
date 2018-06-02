@@ -697,6 +697,35 @@ hr {
   font-size: 16px;
 }
 
+.seat-card {
+  padding: 15px 20px;
+  border-radius: 4px;
+  box-shadow: rgba(0,0,0,.12) 0 2px 6px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  padding-top: 0;
+}
+
+.seat-card-name {
+  font-size: 22px;
+  line-height: 30px;
+  margin-top: 10px;
+}
+
+.seat-card-title {
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 5px;
+}
+
+.hint.seat-card-hint {
+  margin-left: -20px;
+  margin-right: -20px;
+  padding: 10px 20px;
+  background: rgba(0,0,0,.06);
+}
+
 .fade-enter-active {
   transition: opacity .2s ease-out;
 }

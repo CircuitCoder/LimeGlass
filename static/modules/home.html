@@ -1,6 +1,15 @@
 <div class="view page">
   <div class="seal"></div>
   <div class="title">欢迎，{{ user.name }}</div>
+
+  <div v-if="seat">
+    <div class="seat-card">
+      <div class="seat-card-hint hint">您已被分配了如下席位:</div>
+      <div class="seat-card-name">{{ seat.name || seat.title }}</div>
+      <div class="seat-card-title" v-if="seat.name && seat.title">{{ seat.title }}</div>
+    </div>
+  </div>
+
   <div class="subtitle">通知</div>
   <div class="notif" v-for="notif of notifs">
     <div class="notif-title">{{ notif.title }}</div>

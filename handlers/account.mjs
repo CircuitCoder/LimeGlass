@@ -1,5 +1,6 @@
 import Mailer from '../utils/mailer';
 import Account from '../db/account';
+import Seat from '../db/seat';
 import config from '../config';
 
 import KoaRouter from 'koa-router';
@@ -154,6 +155,13 @@ router.get('/directLogin/:token', async ctx => {
   } else {
     ctx.redirect('/login?error=TOKEN_FAILED');
   }
+});
+
+router.get('/seat', async ctx => {
+  if(!ctx.session.uid) return ctx.status = 404;
+  const seat = await Seat.findOne({ assigned: ctx.session.uid }, { title: 1, name: 1, _id: 0 }).lean();
+  if(!seat) return ctx.status = 404;
+  else return ctx.body = seat;
 });
 
 export default router;
