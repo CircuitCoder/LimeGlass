@@ -210,13 +210,43 @@ router.put('/seats', async ctx => {
 
 router.put('/seat/:id(\\d+)', async ctx => {
   if(ctx.user.partialAdmin) return ctx.status = 403;
-  await Seat.update({ _id: parseInt(ctx.params.id, 10) }, { $set: { assigned: ctx.request.body.user }});
+  const original = await Seat.findByIdAndUpdate(
+    parseInt(ctx.params.id, 10),
+    { $set: { assigned: ctx.request.body.user }},
+    { multi: false, new: false },
+  );
+
+  if(original.assigned) {
+    const user = await Account.findById(original.assigned);
+    Mailer.send('seat', user.email, {
+      name: user.name,
+    });
+  }
+
+  const user = await Account.findById(ctx.request.body.user);
+  Mailer.send('seat', user.email, {
+    name: user.name,
+  });
+
   return ctx.body = { success: true };
 });
 
 router.delete('/seat/:id', async ctx => {
   if(ctx.user.partialAdmin) return ctx.status = 403;
-  await Seat.update({ _id: parseInt(ctx.params.id, 10) }, { $unset: { assigned: 1 }});
+
+  const original = await Seat.findByIdAndUpdate(
+    parseInt(ctx.params.id, 10),
+    { $unset: { assigned: 1 }},
+    { multi: false, new: false }
+  );
+
+  if(original.assigned) {
+    const user = await Account.findById(original.assigned);
+    Mailer.send('seat', user.email, {
+      name: user.name,
+    });
+  }
+
   return ctx.body = { success: true };
 });
 

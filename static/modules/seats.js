@@ -137,8 +137,8 @@ export default Vue.component('Seats', async () => {
 
       async assign(s) {
         const target = this.assigning;
-        if(this.assignedStatus[s._id])
-          await get(`/admin/seat/${this.assignedStatus[s._id]._id}`, 'DELETE');
+        if(this.assignedStatus[this.assigning._id])
+          await get(`/admin/seat/${this.assignedStatus[this.assigning._id]._id}`, 'DELETE');
 
         await post(`/admin/seat/${s._id}`, {
           user: this.assigning._id

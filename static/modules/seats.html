@@ -17,7 +17,7 @@
             <div class="seat-vacant" v-if="!r.assigned">尚未分配</div>
             <div class="seat-occupied" v-else>
               <div class="seat-occupier">
-                <i class="material-icons">person_outline</i> {{ r.assigned in users ? users[r.assigned].name : r.assigned }}
+                <i class="material-icons">person_outline</i> {{ r.assigned in users ? users[r.assigned].name : 'Loading...' }}
               </div>
               <div class="seat-occupier-action" v-if="!assigning">
                 <i class="material-icons" @click="gotoUser(users[r.assigned])">arrow_forward</i>
@@ -44,7 +44,7 @@
       <div class="assignments" v-if="filteredAssigned.length > 0">
         <div class="assignment" v-for="u of filteredAssigned" @click="startAssignment(u)">
           <div class="assignment-name">{{ u.name }}</div>
-          <div class="assignment-seat">{{ assignedStatus[u._id].title || assignedStatus[u._id].name }}</div>
+          <div class="assignment-seat">{{ assignedStatus[u._id].name || assignedStatus[u._id].title }}</div>
           <i class="material-icons" @click.stop="gotoSeat(assignedStatus[u._id])">arrow_forward</i>
         </div>
       </div>

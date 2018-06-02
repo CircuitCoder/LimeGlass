@@ -14,6 +14,7 @@ const tmpls = {
   reg: '{{ config.name }} - 注册确认',
   recpass: '{{ config.name }} - 忘记密码',
   review: '{{ config.name }} - 面试状态更新',
+  seat: '{{ config.name }} - 席位状态更新',
   notif: '{{ config.name }} - 新通知',
 };
 
