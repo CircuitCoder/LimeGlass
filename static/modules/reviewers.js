@@ -13,6 +13,7 @@ export default Vue.component('Reviewers', async () => {
       ready: false,
 
       filter: '',
+      filterQuestions: false,
       filterInfo: false,
       filterUrgent: false,
 
@@ -105,6 +106,7 @@ export default Vue.component('Reviewers', async () => {
     computed: {
       filtered() {
         let result = this.list.filter(e => !e.isReviewer);
+        if(this.filterQuestions) result = result.filter(e => e.rounds.some(r => !r.questions));
         if(this.filterInfo) result = result.filter(e => e.info);
         if(this.filterUrgent) result = result.filter(e => e.rounds.length === 0 || this.isUrgent(e));
         if(this.filter) result = result.filter(e => e.name.indexOf(this.filter) !== -1);

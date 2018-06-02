@@ -5,6 +5,9 @@
       <div class="filter">
         <input class="expand" v-model="filter" placeholder="过滤">
         <i class="material-icons"
+          @click="filterQuestions = !filterQuestions"
+          :style="{ opacity: filterQuestions ? .7 : .38 }">help_outline</i>
+        <i class="material-icons"
           @click="filterUrgent = !filterUrgent"
           :style="{ opacity: filterUrgent ? .7 : .38 }">assignment_late</i>
         <i class="material-icons"
