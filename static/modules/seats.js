@@ -29,11 +29,11 @@ export default Vue.component('Seats', async () => {
     methods: {
       async fetchUsers() {
         this.userList = await (await get('/admin/list')).json();
+        this.userList = this.userList.filter(e => !e.isAdmin && !e.isReviewer);
         this.users = {};
 
         for(const u of this.userList)
-          if(!u.isAdmin && !u.isReviewer)
-            this.users[u._id] = u;
+          this.users[u._id] = u;
       },
       async update() {
         this.data = await (await get('/admin/seats')).json();
