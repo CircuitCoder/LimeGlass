@@ -117,11 +117,11 @@ export default Vue.component('Seats', async () => {
 
       insertTag(t) {
         const splited = this.searchStr.split(' ').filter(e => e.length > 0);
-        if(splited.includes(`@${t}`)) return;
+        if(splited.includes(`#${t}`)) return;
 
-        let pos = splited.findIndex(e => e[0] !== '@');
+        let pos = splited.findIndex(e => e[0] !== '#');
         if(pos === -1) pos = splited.length;
-        splited.splice(pos, 0, `@${t}`);
+        splited.splice(pos, 0, `#${t}`);
         this.searchStr = splited.join(' ');
       },
 
@@ -130,7 +130,7 @@ export default Vue.component('Seats', async () => {
           return this.insertTag(t);
 
         const splited = this.searchStr.split(' ').filter(e => e.length > 0);
-        let pos = splited.findIndex(e => e === `@${t}`);
+        let pos = splited.findIndex(e => e === `#${t}`);
         splited.splice(pos, 1);
         this.searchStr = splited.join(' ');
       },
@@ -162,6 +162,15 @@ export default Vue.component('Seats', async () => {
         await get(`/admin/seat/${s._id}`, 'DELETE');
         await this.update();
       },
+
+      startAssignment(u) {
+        this.assigning = u;
+
+        setTimeout(() => {
+          this.$refs.search.focus();
+          this.$refs.search.select();
+        }, 0);
+      },
     },
 
     computed: {
@@ -170,7 +179,7 @@ export default Vue.component('Seats', async () => {
         let result = this.data;
 
         for(const s of segs) {
-          if(s[0] === '@') {
+          if(s[0] === '#') {
             const f = s.substr(1);
             result = result.filter(e => e.tags.includes(f));
           } else result = result.filter(e => (e.title && e.title.indexOf(s) !== -1)
@@ -207,7 +216,7 @@ export default Vue.component('Seats', async () => {
       },
 
       selectedTags() {
-        return this.searchStr.split(' ').filter(e => e[0] === '@').map(e => e.substr(1));
+        return this.searchStr.split(' ').filter(e => e[0] === '#').map(e => e.substr(1));
       },
 
       filteredUsers() {

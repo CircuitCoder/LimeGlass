@@ -2,7 +2,7 @@
   <div class="seal"></div>
   <div class="title">管理::席位 <small class="heading-link" @click="startUpdate()">更新列表</small></div>
 
-  <transition name="fade" mode="out-in">
+  <transition name="fastfade" mode="out-in">
     <div class="seats" key="seats" v-if="perspective === 'seats' || assigning" :class="{ assigning: assigning }">
       <div class="seat-box" v-for="r of filtered">
         <div class="seat" @click="assigning && assign(r)">
@@ -17,7 +17,7 @@
             <div class="seat-vacant" v-if="!r.assigned">尚未分配</div>
             <div class="seat-occupied" v-else>
               <div class="seat-occupier">
-                <i class="material-icons">person_outline</i> {{ r.assigned in users ? users[r.assigned].name : 'Loading...' }}
+                <i class="material-icons">person_outline</i> {{ r.assigned in users ? users[r.assigned].name : r.assigned }}
               </div>
               <div class="seat-occupier-action" v-if="!assigning">
                 <i class="material-icons" @click="gotoUser(users[r.assigned])">arrow_forward</i>
@@ -32,7 +32,7 @@
     <div key="assignments" v-else class="assignments-view">
       <div class="assignment-subtitle">未分配</div>
       <div class="assignments" v-if="filteredVacant.length > 0">
-        <div class="assignment" v-for="u of filteredVacant" @click="assigning = u">
+        <div class="assignment" v-for="u of filteredVacant" @click="startAssignment(u)">
           <div class="assignment-name">{{ u.name }}</div>
         </div>
       </div>
@@ -42,7 +42,7 @@
 
       <div class="assignment-subtitle">已分配</div>
       <div class="assignments" v-if="filteredAssigned.length > 0">
-        <div class="assignment" v-for="u of filteredAssigned" @click="assigning = u">
+        <div class="assignment" v-for="u of filteredAssigned" @click="startAssignment(u)">
           <div class="assignment-name">{{ u.name }}</div>
           <div class="assignment-seat">{{ assignedStatus[u._id].title || assignedStatus[u._id].name }}</div>
           <i class="material-icons" @click.stop="gotoSeat(assignedStatus[u._id])">arrow_forward</i>
@@ -57,8 +57,8 @@
   <div class="seats-actions">
     <i class="material-icons seats-action" @click="showTags = !showTags">label</i>
     <i class="material-icons">search</i>
-    <input class="seats-search" v-model="searchStr" v-if="perspective === 'seats' || assigning">
-    <input class="seats-search" v-model="userStr" v-else>
+    <input class="seats-search" v-model="searchStr" v-show="perspective === 'seats' || assigning" ref="search">
+    <input class="seats-search" v-model="userStr" v-show="perspective !== 'seats' && !assigning">
     <transition name="fade" mode="out-in">
       <div class="assigning-indicator" key="assigning" v-if="assigning">
         <i class="material-icons" @click="assigning = null">close</i>
