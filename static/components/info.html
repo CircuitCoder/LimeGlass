@@ -51,7 +51,7 @@
       <button :class="{ selected: info.first === '独立委员会-大清' }" :disabled="ready" @click="info.first = '独立委员会-大清'">独立委员会-大清</button>
       <button :class="{ selected: info.first === '独立委员会-两德' }" :disabled="ready" @click="info.first = '独立委员会-两德'">独立委员会-两德</button>
       <button :class="{ selected: info.first === '独立委员会-法学' }" :disabled="ready" @click="info.first = '独立委员会-法学'">独立委员会-法学</button>
-      <button :class="{ selected: info.first === '独立委员会-ECOSOC' }" :disabled="ready" @click="info.first = '独立委员会-ECOSOC'">独立委员会-ECOSOC</button>
+      <button :class="{ selected: info.first === '独立委员会-ECOSOC' }" v-if="info.first === '独立委员会-ECOSOC'" :disabled="ready" @click="info.first = '独立委员会-ECOSOC'">独立委员会-ECOSOC</button>
     </div>
   </div>
 
@@ -62,7 +62,7 @@
       <button :class="{ selected: info.second === '独立委员会-大清' }" :disabled="ready" @click="info.second = '独立委员会-大清'">独立委员会-大清</button>
       <button :class="{ selected: info.second === '独立委员会-两德' }" :disabled="ready" @click="info.second = '独立委员会-两德'">独立委员会-两德</button>
       <button :class="{ selected: info.second === '独立委员会-法学' }" :disabled="ready" @click="info.second = '独立委员会-法学'">独立委员会-法学</button>
-      <button :class="{ selected: info.second === '独立委员会-ECOSOC' }" :disabled="ready" @click="info.second = '独立委员会-ECOSOC'">独立委员会-ECOSOC</button>
+      <button :class="{ selected: info.second === '独立委员会-ECOSOC' }" v-if="info.second === '独立委员会-ECOSOC'" :disabled="ready" @click="info.second = '独立委员会-ECOSOC'">独立委员会-ECOSOC</button>
     </div>
   </div>
 
