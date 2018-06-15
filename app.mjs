@@ -15,6 +15,7 @@ app.keys = [ config.secret ];
 import KoaBodyparser from 'koa-bodyparser';
 import KoaSession from 'koa-session';
 import KoaStatic from 'koa-static';
+import KoaMount from 'koa-mount';
 import KoaSend from 'koa-send';
 import KoaEtag from 'koa-etag';
 import KoaConditionalGet from 'koa-conditional-get';
@@ -72,6 +73,11 @@ router.use(
 
 app.use(router.routes(), router.allowedMethods());
 app.use(KoaStatic(path.resolve(basedir, './static-dest')));
+app.use(
+  KoaMount('/icons',
+    KoaStatic(path.resolve(basedir, './node_modules/material-design-icons/iconfont'))
+  )
+);
 
 const fallback = new KoaRouter();
 fallback.get('*', async ctx => {
