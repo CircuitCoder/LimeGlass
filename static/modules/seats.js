@@ -193,7 +193,11 @@ export default Vue.component('Seats', async () => {
         const mapper = new Map();
 
         for(const d of this.filtered) {
+          const added = new Set();
           for(const t of d.tags) {
+            if(added.has(t)) continue;
+            added.insert(t);
+
             if(!mapper.has(t)) mapper.set(t, {
               name: t,
               occupied: 0,
