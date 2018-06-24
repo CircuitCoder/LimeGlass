@@ -196,7 +196,7 @@ export default Vue.component('Seats', async () => {
           const added = new Set();
           for(const t of d.tags) {
             if(added.has(t)) continue;
-            added.insert(t);
+            added.add(t);
 
             if(!mapper.has(t)) mapper.set(t, {
               name: t,
