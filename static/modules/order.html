@@ -77,7 +77,7 @@
       </div>
 
       <div v-if="!extended[id] && status[id] === 'vacant'" class="item-vacant">
-        <div class="item-hint" v-if="$route.name === 'order'">您还未下单</div>
+        <div class="item-hint" v-if="$route.name === 'order'">您还未创建订单</div>
         <div class="item-hint" v-if="$route.name === 'orderAdmin'">订单不存在</div>
         
         <div v-if="i.notes && order[id] && order[id].notes && order[id].notes.some(e => !!e)" class="display-notes">

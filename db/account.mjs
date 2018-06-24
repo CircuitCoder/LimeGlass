@@ -70,7 +70,10 @@ const Account = new mongoose.Schema({
     default: [],
   },
 
-  order: Object,
+  order: {
+    type: Object,
+    default: {},
+  },
 
 }, { minimize: false });
 

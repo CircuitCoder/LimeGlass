@@ -28,12 +28,8 @@ router.post('/order/:id(\\d+)', async ctx => {
   update[`order.${ctx.params.id}.pending`] = ctx.request.body.pending;
   update[`order.${ctx.params.id}.notes`] = ctx.request.body.notes;
 
-  await Account.aggregate([
-    { $match: { _id: ObjId(ctx.session.uid) } },
-    { $addFields: { order: { $ifNull: [ '$order', {} ] } } },
-    { $addFields: update },
-    { $out: 'accounts' },
-  ]);
+  await Account.findByIdAndUpdate(ctx.session.uid, { $set: update });
+
   ctx.body = { success: true };
 });
 

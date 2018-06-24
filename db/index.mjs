@@ -35,6 +35,9 @@ async function upgradeDB() {
 
     if(!u.ciEmail)
       u.ciEmail = u.email.toLowerCase();
+
+    if(!u.order) u.order = {};
+
     await u.save();
   }
 }

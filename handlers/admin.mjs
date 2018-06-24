@@ -265,15 +265,14 @@ router.put('/purchase/:uid/:item(\\d+)/confirm', async ctx => {
   if(ctx.user.partialAdmin) return ctx.status = 403;
 
   const target = await Account.findById(ctx.params.uid).select('order');
-  const itemId = parseInt(ctx.params.item, 10);
-  const updateToken = {};
-  updateToken[`order.${itemId}.confirmed`] = `$order.${itemId}.pending`;
 
-  await Account.aggregate([
-    { $match: { _id: ObjId(ctx.params.uid) }},
-    { $addFields: updateToken },
-    { $out: 'accounts' },
-  ]);
+  const updateToken = {};
+  const itemId = parseInt(ctx.params.item, 10);
+  updateToken[`order.${itemId}.confirmed`] = target.order[itemId].pending;
+
+  await Account.findByIdAndUpdate(ctx.params.uid, {
+    $set: updateToken,
+  });
 
   return ctx.body = { success: true };
 });
