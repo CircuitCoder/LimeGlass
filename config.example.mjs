@@ -20,4 +20,19 @@ export default {
   tgBase: '',
   tgBot: '',
   tgUpdate: [],
+
+  items: [
+    {
+      title: 'Title',
+      choices: [
+        { name: 'Somename', price: 100 }, // In CNY
+      ],
+      slots: [ // Optional
+        'Day1', 'Day2'
+      ],
+      notes: [ // Optional
+        'Note1',
+      ],
+    },
+  ],
 };

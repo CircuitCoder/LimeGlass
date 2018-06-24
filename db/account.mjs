@@ -70,11 +70,7 @@ const Account = new mongoose.Schema({
     default: [],
   },
 
-  invoice: Object,
-  invoicePaid: {
-    type: Boolean,
-    default: false,
-  },
+  order: Object,
 
 }, { minimize: false });
 

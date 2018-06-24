@@ -1,7 +1,7 @@
 import Account from '../db/account';
 import Seat from '../db/seat';
 import Mailer from '../utils/mailer';
-import { bulkUpsert } from '../utils/db';
+import { ObjId, bulkUpsert } from '../utils/db';
 
 import mongoose from 'mongoose';
 
@@ -249,6 +249,31 @@ router.delete('/seat/:id', async ctx => {
       name: user.name,
     });
   }
+
+  return ctx.body = { success: true };
+});
+
+router.get('/purchase/:uid', async ctx => {
+  if(ctx.user.partialAdmin) return ctx.status = 403;
+
+  const account = await Account.findById(ctx.params.uid).select('order');
+  if(!account.order) return ctx.body = {};
+  return ctx.body = account.order;
+});
+
+router.put('/purchase/:uid/:item(\\d+)/confirm', async ctx => {
+  if(ctx.user.partialAdmin) return ctx.status = 403;
+
+  const target = await Account.findById(ctx.params.uid).select('order');
+  const itemId = parseInt(ctx.params.item, 10);
+  const updateToken = {};
+  updateToken[`order.${itemId}.confirmed`] = `$order.${itemId}.pending`;
+
+  await Account.aggregate([
+    { $match: { _id: ObjId(ctx.params.uid) }},
+    { $addFields: updateToken },
+    { $out: 'accounts' },
+  ]);
 
   return ctx.body = { success: true };
 });

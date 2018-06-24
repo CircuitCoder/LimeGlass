@@ -16,6 +16,10 @@
       tag="button"
       class="primary"
       :to="{ name: 'info', query: { _id: entry._id, admin: true, name: entry.name } }">个人信息</router-link>
+
+    <router-link
+      tag="button"
+      :to="{ name: 'orderAdmin', params: { id: entry._id }, query: { name: entry.name } }">订单</router-link>
     <button @click="deleteUser(entry._id, index)">删除</button>
     <button v-if="!entry.isAdmin" @click="setReviewerRole(entry, !entry.isReviewer)">{{ entry.isReviewer ? '设为代表' : '设为面试官' }}</button>
     <button v-if="!entry.isReviewer && !(entry.isAdmin && !entry.partialAdmin)" @click="setAdminRole(entry, !entry.isAdmin)">{{ entry.isAdmin ? '取消协调员' : '设为协调员' }}</button>

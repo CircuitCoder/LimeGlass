@@ -53,6 +53,18 @@ export function deepEq(a, b) {
   return a === b;
 }
 
+export function deepClone(a) {
+  if(a === undefined) return a;
+  if(a === null) return a;
+  if(Array.isArray(a)) return a.map(e => deepClone(e));
+  if(typeof a === 'object') return Object.keys(a).reduce((acc, key) => {
+    acc[key] = deepClone(a[key])
+    return acc;
+  }, {});
+
+  return a;
+}
+
 export function loadScript(src) {
   return new Promise((resolve, reject) => {
     const head = document.getElementsByTagName('head')[0];

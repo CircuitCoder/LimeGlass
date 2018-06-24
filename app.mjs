@@ -34,7 +34,7 @@ import Meta from './handlers/meta';
 import Review from './handlers/review';
 import Answer from './handlers/answer';
 import Notif from './handlers/notif';
-import Invoice from './handlers/invoice';
+import Purchase from './handlers/purchase';
 
 router.use(
   '/account',
@@ -67,8 +67,8 @@ router.use(
   );
 
 router.use(
-  '/invoice',
-  Invoice.routes(),
+  '/purchase',
+  Purchase.routes(),
   );
 
 app.use(router.routes(), router.allowedMethods());

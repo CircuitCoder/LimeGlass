@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 export function bulkUpsert(Model, values) {
   return new Promise((resolve, reject) => {
     const bulk = Model.collection.initializeUnorderedBulkOp();
@@ -8,4 +10,8 @@ export function bulkUpsert(Model, values) {
       else return resolve(res);
     });
   });
+}
+
+export function ObjId(str) {
+  return mongoose.Types.ObjectId(str);
 }

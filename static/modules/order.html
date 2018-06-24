@@ -1,0 +1,128 @@
+<div class="view page">
+  <div class="seal"></div>
+  <div class="title" v-if="$route.name === 'order'">订单</div>
+  <div class="title" v-if="$route.name === 'orderAdmin'">确认订单 <small>{{ $route.query.name }}</small></div>
+
+  <div class="item-confirm-all item-actions" v-if="$route.name === 'orderAdmin'">
+    <div class="item-action" @click.stop="confirmAll()"><i class="material-icons">done_all</i><div class="item-action-hint">全部确认</div></div>
+  </div>
+
+  <div v-for="(i, id) of items" class="items">
+    <div class="item" @click="extend(id)" :style="{ cursor: extended[id] || $route.name !== 'order' ? 'default' : 'pointer' }">
+      <div class="item-name">
+        <div class="item-status">
+          <i class="material-icons vacant" v-if="status[id] === 'vacant'">info_outline</i>
+          <i class="material-icons waiting" v-if="status[id] === 'waiting'">timelapse</i>
+          <i class="material-icons ready" v-if="status[id] === 'ready'">done</i>
+        </div>
+
+        <div class="item-title">
+          {{ i.title }}
+        </div>
+
+        <div class="item-actions" v-if="$route.name === 'orderAdmin' && status[id] === 'waiting'">
+          <div class="item-action" @click.stop="confirm(id)"><i class="material-icons">done</i><div class="item-action-hint">确认</div></div>
+        </div>
+
+        <div class="item-actions" v-if="extended[id]">
+          <div class="item-action" @click.stop="cancel(id)"><i class="material-icons">close</i></div>
+          <div class="item-action" @click.stop="submit(id)"><i class="material-icons">done</i></div>
+        </div>
+
+        <div class="item-sum" v-if="extended[id]">
+          <span>￥{{ sums[id].original.sum }}</span><i class="material-icons">keyboard_arrow_right</i><span>￥{{ sums[id].edit.sum }}</span>
+        </div>
+
+        <div class="item-sum" v-if="!extended[id] && status[id] === 'ready'">
+          ￥{{ sums[id].original.sum }}
+        </div>
+
+        <div class="item-sum" v-if="!extended[id] && status[id] === 'waiting'">
+          <span>￥{{ sums[id].original.sum }}</span><i class="material-icons">keyboard_arrow_right</i><span>￥{{ sums[id].pending.sum }}</span>
+        </div>
+      </div>
+
+      <div v-if="extended[id]" class="item-edit" @click.stop>
+        <div class="slots">
+          <div class="slot" v-for="(s, sid) of i.slots" @click.stop="slot[id] = sid" :class="{ selected: slot[id] === sid }">
+            {{ s }}
+            <div class="slot-sum">￥{{ sums[id].edit.slots[sid] }}</div>
+          </div>
+        </div>
+
+        <div v-if="extended[id] && i.hint" class="item-hint modifying-hint">
+          {{ i.hint }}
+        </div>
+
+        <div class="choices">
+          <div class="choice" v-for="(c, ci) of i.choices">
+            <div class="choice-count">
+              <div class="choice-modifier" @click="dec(id, ci)">-</div>
+              <input v-model="pendingOrder[id][slot[id]][ci]" type="number">
+              <div class="choice-modifier" @click="inc(id, ci)">+</div>
+            </div>
+            <i class="material-icons choice-multiply">close</i>
+            <div class="choice-name">{{ c.name }}</div>
+            <div class="choice-price">￥{{ c.price }}</div>
+            <div class="choice-tot" v-if="pendingOrder[id][slot[id]][ci] !== 0">= ￥{{ c.price * pendingOrder[id][slot[id]][ci] }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="extended[id] && i.notes && i.notes.length > 0" class="item-notes">
+        <div class="item-note" v-for="(n, nid) of i.notes">
+          <div class="input-hint">{{ n }}</div>
+          <input v-model="pendingNotes[id][nid]">
+        </div>
+      </div>
+
+      <div v-if="!extended[id] && status[id] === 'vacant'" class="item-vacant">
+        <div class="item-hint" v-if="$route.name === 'order'">您还未下单</div>
+        <div class="item-hint" v-if="$route.name === 'orderAdmin'">订单不存在</div>
+        
+        <div v-if="i.notes && order[id] && order[id].notes && order[id].notes.some(e => !!e)" class="display-notes">
+          <div v-for="(n, nid) of i.notes" v-if="order[id].notes[nid]" class="display-note">
+            <strong>{{ n }}</strong> {{ order[id].notes[nid] }}
+          </div>
+        </div>
+      </div>
+
+      <div v-if="!extended[id] && status[id] === 'waiting'" class="item-waiting">
+        <div class="item-hint">订单等待人工确认中</div>
+        <div class="display-slot" v-for="(s, sid) of i.slots" v-if="diff[id][sid]">
+          <div class="display-slot-name">{{ s }}</div>
+          <div v-for="(c, cid) of i.choices" v-if="diff[id][sid][cid]">
+            <div class="display-choice diff-remove" v-if="diff[id][sid][cid].updated === 0">
+              <strong>{{ c.name }}</strong> {{ diff[id][sid][cid].original }}
+            </div>
+            <div class="display-choice diff-modified" v-else>
+              <strong>{{ c.name }}</strong> {{ diff[id][sid][cid].original }} <i class="material-icons">keyboard_arrow_right</i> {{ diff[id][sid][cid].updated }}
+            </div>
+          </div>
+        </div>
+
+        <div v-if="i.notes && order[id] && order[id].notes && order[id].notes.some(e => !!e)" class="display-notes">
+          <div v-for="(n, nid) of i.notes" v-if="order[id].notes[nid]" class="display-note">
+            <strong>{{ n }}</strong> {{ order[id].notes[nid] }}
+          </div>
+        </div>
+      </div>
+
+      <div v-if="!extended[id] && status[id] === 'ready'" class="item-ready">
+        <div class="display-slot" v-for="(s, sid) of i.slots" v-if="digest[id][sid]">
+          <div class="display-slot-name">{{ s }}</div>
+          <div v-for="(c, cid) of i.choices" v-if="digest[id][sid][cid]">
+            <div class="display-choice">
+              <strong>{{ c.name }}</strong> {{ digest[id][sid][cid] }}
+            </div>
+          </div>
+        </div>
+        <div v-if="i.notes && order[id] && order[id].notes && order[id].notes.some(e => !!e)" class="display-notes">
+          <div v-for="(n, nid) of i.notes" v-if="order[id].notes[nid]" class="display-note">
+            <strong>{{ n }}</strong> {{ order[id].notes[nid] }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

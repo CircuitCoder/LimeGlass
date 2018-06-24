@@ -30,6 +30,7 @@
         <router-link tag="div" class="nav" :to="{ name: 'seats' }" v-if="user && user.isAdmin"><i class="material-icons">event_seat</i></router-link>
         <router-link tag="div" class="nav" :to="{ name: 'send' }" v-if="user && user.isAdmin"><i class="material-icons">sms</i></router-link>
         <div class="nav-separator" v-if="user && user.isAdmin"></div>
+        <router-link tag="div" class="nav" :to="{ name: 'order' }"><i class="material-icons">shopping_cart</i></router-link>
         <router-link tag="div" class="nav" :to="{ name: 'info' }"><i class="material-icons">account_circle</i></router-link>
         <div class="nav" @click="logout()"><i class="material-icons">power_settings_new</i></div>
       </div>
