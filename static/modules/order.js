@@ -25,6 +25,7 @@ export default Vue.component('Order', async () => {
       pendingNotes: {},
       extended: {},
       slot: {},
+      adminEditing: false,
     }),
     created() {
       this.updateItems();
@@ -44,7 +45,7 @@ export default Vue.component('Order', async () => {
       },
 
       extend(id) {
-        if(this.$route.name !== 'order') return;
+        if(!this.editingEnabled) return;
         if(this.extended[id]) return;
 
         this.$set(this.extended, id, true);
@@ -84,7 +85,11 @@ export default Vue.component('Order', async () => {
       },
 
       async submit(id) {
-        const resp = await post(`/purchase/order/${id}`, {
+        const url = this.$route.name === 'order' ?
+          `/purchase/order/${id}` :
+          `/admin/purchase/${this.$route.params.id}/${id}`;
+
+        const resp = await post(url, {
           pending: this.pendingOrder[id],
           notes: this.pendingNotes[id],
         });
@@ -122,6 +127,17 @@ export default Vue.component('Order', async () => {
           .map(id => this.confirm(id, false));
         await Promise.all(promises);
         this.updateOrder();
+      },
+
+      enableAdminEditing() {
+        this.adminEditing = true;
+      },
+
+      finishAdminEditing() {
+        for(const i in this.extended)
+          if(this.extended[i]) this.cancel(i);
+
+        this.adminEditing = false;
       },
     },
 
@@ -213,6 +229,10 @@ export default Vue.component('Order', async () => {
         }
 
         return result;
+      },
+
+      editingEnabled() {
+        return this.$route.name === 'order' || this.adminEditing;
       },
     },
   };

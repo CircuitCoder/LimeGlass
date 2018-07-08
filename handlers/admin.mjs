@@ -261,6 +261,17 @@ router.get('/purchase/:uid', async ctx => {
   return ctx.body = account.order;
 });
 
+router.post('/purchase/:uid/:item(\\d+)', async ctx => {
+  // Build update criteria
+  const update = {};
+  update[`order.${ctx.params.item}.pending`] = ctx.request.body.pending;
+  update[`order.${ctx.params.item}.notes`] = ctx.request.body.notes;
+
+  await Account.findByIdAndUpdate(ctx.params.uid, { $set: update });
+
+  ctx.body = { success: true };
+});
+
 router.put('/purchase/:uid/:item(\\d+)/confirm', async ctx => {
   if(ctx.user.partialAdmin) return ctx.status = 403;
 
