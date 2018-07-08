@@ -109,7 +109,7 @@ export default Vue.component('Order', async () => {
           result.slots[i] = 0;
           if(desc)
             for(let j = 0; j < this.items[id].choices.length; ++j)
-              result.slots[i] += desc[i][j] * this.items[id].choices[j].price;
+              result.slots[i] += (!desc[i]) ? 0 : desc[i][j] * this.items[id].choices[j].price;
           result.sum += result.slots[i];
         }
         return result;
@@ -190,7 +190,8 @@ export default Vue.component('Order', async () => {
             for(let k = 0; k < item.choices.length; ++k) {
               let original = 0;
               if(this.order[i].confirmed) original = this.order[i].confirmed[j][k];
-              let updated = this.order[i].pending[j][k];
+              let updated = 0;
+              if(this.order[i].pending[j]) updated = this.order[i].pending[j][k];
               if(original === updated) continue;
               else slotDiff[k] = { original, updated };
             }
