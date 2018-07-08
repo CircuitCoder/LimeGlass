@@ -25,8 +25,8 @@
         </div>
 
         <div class="item-actions" v-if="extended[id]">
-          <div class="item-action" @click.stop="cancel(id)"><i class="material-icons">close</i></div>
-          <div class="item-action" @click.stop="submit(id)"><i class="material-icons">done</i></div>
+          <div class="item-action" @click.stop="cancel(id)"><i class="material-icons">close</i><div class="item-action-hint">取消</div></div>
+          <div class="item-action" @click.stop="submit(id)"><i class="material-icons">done</i><div class="item-action-hint">确认</div></div>
         </div>
 
         <div class="item-sum" v-if="extended[id]">

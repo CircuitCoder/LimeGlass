@@ -48,7 +48,7 @@
 }
 
 .item-action {
-  margin-left: 5px;
+  margin-left: 10px;
   opacity: .38;
   transition: opacity .2s ease;
   display: inline-flex;
