@@ -12,6 +12,7 @@ import Review from './modules/review.js';
 import Answer from './modules/answer.js';
 import Seats from './modules/seats.js';
 import Order from './modules/order.js';
+import OrderReport from './modules/orderReport.js';
 
 moment.locale('en');
 moment.updateLocale('en', {
@@ -53,7 +54,8 @@ const routes = [
   { path: '/answer/:iter(\\d+)', component: Answer, name: 'answer', },
   { path: '/seats', component: Seats, name: 'seats', },
   { path: '/order', component: Order, name: 'order', },
-  { path: '/orderAdmin/:id', component: Order, name: 'orderAdmin', },
+  { path: '/orderAdmin/:id', component: Order, name: 'orderAdmin', }, // Reuse the Order component
+  { path: '/orderReport', component: OrderReport, name: 'orderReport', },
 ];
 
 const router = new VueRouter({

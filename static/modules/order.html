@@ -1,7 +1,7 @@
 <div class="view page">
   <div class="seal"></div>
   <div class="title" v-if="$route.name === 'order'">订单</div>
-  <div class="title" v-if="$route.name === 'orderAdmin'">确认订单 <small>{{ $route.query.name }}</small></div>
+  <div class="title" v-if="$route.name === 'orderAdmin'">管理::确认订单 <small>{{ $route.query.name }}</small></div>
 
   <div class="item-confirm-all item-actions" v-if="$route.name === 'orderAdmin' && !adminEditing">
     <div class="item-action" @click.stop="enableAdminEditing()"><i class="material-icons">edit</i><div class="item-action-hint">启用编辑</div></div>

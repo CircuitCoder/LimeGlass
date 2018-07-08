@@ -234,3 +234,91 @@
 .display-note {
   color: rgba(0,0,0,.54);
 }
+
+/* Report */
+
+.order-report-entry {
+  margin-top: 40px;
+}
+
+.order-report-title {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.order-report-slot {
+  margin-top: 20px;
+  border-left: rgba(0,0,0,.12) 5px solid;
+  background: rgba(0,0,0,.06);
+  padding: 15px 20px;
+}
+
+.order-report-slot-name {
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 10px;
+  color: rgba(0,0,0,.38);
+}
+
+.order-report-choice {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.order-report-choice-stat {
+  font-weight: bold;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.order-report-choice-name {
+  color: rgba(0,0,0,.7);
+  display: inline-block;
+}
+
+.order-report-noted-list {
+  margin-top: 20px;
+}
+
+.order-report-noted-hint {
+  font-size: 14px;
+  color: rgba(0,0,0,.38);
+  margin-bottom: 5px;
+}
+
+.order-report-noted {
+  padding: 5px 10px;
+  display: inline-block;
+  border-radius: 2px;
+  background: rgba(0,0,0,.06);
+  font-size: 14px;
+  color: rgba(0,0,0,.54);
+  margin-right: 5px;
+
+  cursor: pointer;
+
+  transition: color .2s ease;
+}
+
+.order-report-noted:hover {
+  color: rgba(0,0,0,1);
+}
+
+.order-report-noted-ellipsis {
+  display: inline-block;
+}
+
+.order-report-noted-toggle {
+  margin-top: 5px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+
+  color: rgba(0,0,0,.5);
+
+  transition: color .2s ease;
+}
+
+.order-report-noted-toggle:hover {
+  color: rgba(0,0,0,1);
+}

@@ -1,0 +1,40 @@
+<div class="view page">
+  <div class="seal"></div>
+  <div class="title">管理::订单报表</div>
+
+  <div class="order-report-entry" v-for="(e, id) of items" v-if="items && list">
+    <div class="order-report-title">{{ e.title }}</div>
+
+    <div class="order-report-slot" v-if="!e.slots">
+      <div class="order-report-slot-name">{{ s }}</div>
+      <div class="order-report-choice" v-for="(c, cid) of e.choices">
+        <div class="order-report-choice-stat">{{ list[id].stat[0][cid] }}</div>
+        <div class="order-report-choice-name">{{ c.name }}</div>
+      </div>
+    </div>
+
+    <div class="order-report-slot" v-for="(s, sid) of e.slots" v-if="e.slots">
+      <div class="order-report-slot-name">{{ s }}</div>
+      <div class="order-report-choice" v-for="(c, cid) of e.choices">
+        <div class="order-report-choice-stat">{{ list[id].stat[sid][cid] }}</div>
+        <div class="order-report-choice-name">{{ c.name }}</div>
+      </div>
+    </div>
+
+    <div class="order-report-noted-list" v-if="list[id].noted.length > 0">
+      <div class="order-report-noted-hint">以下用户在订单中包含有备注</div>
+      <router-link
+        tag="div"
+        :to="{ name: 'orderAdmin', params: { id: e._id }, query: { name: e.name }}"
+        class="order-report-noted" v-for="e of list[id].noted" v-if="extended[id]">{{ e.name }}</router-link>
+
+      <router-link
+        tag="div"
+        :to="{ name: 'orderAdmin', params: { id: e._id }, query: { name: e.name }}"
+        class="order-report-noted" v-for="e of list[id].noted.slice(0, 3)" v-if="!extended[id]">{{ e.name }}</router-link>
+      <div class="order-report-noted-ellipsis" v-if="list[id].noted.length > 3 && !extended[id]">...</div><br>
+      <div class="order-report-noted-toggle" @click="toggleExtend(id)" v-if="list[id].noted.length > 3 && !extended[id]">展开</div>
+      <div class="order-report-noted-toggle" @click="toggleExtend(id)" v-if="list[id].noted.length > 3 && extended[id]">收回</div>
+    </div>
+  </div>
+</div>

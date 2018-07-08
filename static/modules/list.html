@@ -6,6 +6,10 @@
     class="text-link"
     tag="button"
     :to="{ name: 'register' }">新建用户</router-link>
+  <router-link
+    class="text-link"
+    tag="button"
+    :to="{ name: 'orderReport' }">订单报表</router-link>
 
   <div v-for="(entry, index) of list" class="list-card">
     <div class="list-name">{{ entry.name }} <small>{{ entrySubtitle(entry) }}</small></div>

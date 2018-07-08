@@ -5,7 +5,7 @@
   <div class="title" v-if="edit">完善个人信息</div>
   <div class="hint" v-if="edit">提交之后的信息无法更改</div>
 
-  <div class="title" v-if="admin">查看/修改个人信息 <small>{{ $route.query.name }}</small></div>
+  <div class="title" v-if="admin">管理::查看/修改个人信息 <small>{{ $route.query.name }}</small></div>
 
   <info v-model="info" :ready="!admin && !edit" ref="info"></info>
 

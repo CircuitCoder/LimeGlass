@@ -9,6 +9,8 @@ import moment from 'moment';
 
 import KoaRouter from 'koa-router';
 
+import CONFIG from '../config';
+
 const router = new KoaRouter();
 
 router.use(async (ctx, next) => {
@@ -253,6 +255,48 @@ router.delete('/seat/:id', async ctx => {
   return ctx.body = { success: true };
 });
 
+router.get('/purchase', async ctx => {
+  if(ctx.user.partialAdmin) return ctx.status = 403;
+
+  const accounts = await Account.find({ order: { $exists: true }}).select('order name _id');
+
+  const result = new Array(CONFIG.items.length);
+  CONFIG.items.forEach((e, i) => {
+    result[i] = {
+      stat: new Array(e.slots ? e.slots.length : 1),
+      noted: [],
+    };
+
+    for(let j = 0; j<result[i].stat.length; ++j)
+      result[i].stat[j] = new Array(e.choices.length).fill(0);
+
+  });
+
+  for(const a of accounts) {
+    if(!a.order) continue;
+    for(const i in a.order) {
+      if(a.order[i].notes && a.order[i].notes.some(e => !!e))
+        result[i].noted.push({
+          _id: a._id,
+          name: a.name,
+        });
+
+      if(!a.order[i].confirmed) continue;
+
+      const list = a.order[i].confirmed;
+      const slot = result[i].stat;
+
+      for(let i = 0; i < slot.length; ++i)
+        if(i in list)
+          for(let j = 0; j < slot[i].length; ++j)
+            if(j in list[i])
+              slot[i][j] += parseInt(list[i][j], 10);
+    }
+  }
+
+  return ctx.body = result;
+});
+
 router.get('/purchase/:uid', async ctx => {
   if(ctx.user.partialAdmin) return ctx.status = 403;
 
@@ -262,6 +306,8 @@ router.get('/purchase/:uid', async ctx => {
 });
 
 router.post('/purchase/:uid/:item(\\d+)', async ctx => {
+  if(ctx.user.partialAdmin) return ctx.status = 403;
+
   // Build update criteria
   const update = {};
   update[`order.${ctx.params.item}.pending`] = ctx.request.body.pending;
